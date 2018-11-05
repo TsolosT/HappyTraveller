@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">HappyTraveller</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="sights">Sights</string>
+    <string name="list_view">List View</string>
+    <string name="map">Map</string>
+    <string name="openMenu">Menu</string>
+    <string name="closeMenu">Close</string>
+</resources>

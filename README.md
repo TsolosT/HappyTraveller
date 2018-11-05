@@ -1,5 +1,3 @@
-# ..........Main Branch.......
+# ..........First UI Branch......
 
-
-Can get changes only by lamdom and ggiannas
-
+Basic ui components ,so other can start their task,alania xd
