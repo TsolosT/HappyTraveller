@@ -7,4 +7,7 @@
     <string name="map">Map</string>
     <string name="openMenu">Menu</string>
     <string name="closeMenu">Close</string>
+    <string name="search">Search</string>
+    <string name="type_to_search_a_sight_place">Type to search a sight/place</string>
+    <string name="weather">Weather</string>
 </resources>

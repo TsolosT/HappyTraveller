@@ -19,13 +19,14 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:tabIndicatorColor="@color/colorAccent">
+            app:tabIndicatorColor="@color/colorPrimaryWhite">
 
             <android.support.design.widget.TabItem
                 android:id="@+id/tabMap"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/map" />
+
 
             <android.support.design.widget.TabItem
                 android:id="@+id/tabListView"
@@ -45,14 +46,28 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent">
 
-            <TextView
-                android:id="@+id/textView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+            <EditText
+                android:id="@+id/searchText"
+                android:layout_width="315dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="bottom menu bar soon"
-                android:textAlignment="center"
-                android:textStyle="bold|italic" />
+                android:autofillHints=""
+                android:ems="9"
+                android:hint="@string/type_to_search_a_sight_place"
+                android:inputType="textShortMessage"
+                android:singleLine="false"
+                android:textColor="@color/colorPrimaryWhite"
+                android:textColorLink="@color/colorPrimaryWhite"
+                tools:targetApi="o" />
+
+            <Button
+                android:id="@+id/btnSearch"
+                android:layout_width="24dp"
+                android:layout_height="47dp"
+                android:layout_weight="1"
+                android:background="@drawable/ic_search_white_24dp"
+                android:textColor="@color/colorPrimaryWhite"
+                android:textColorLink="@color/colorPrimaryWhite" />
         </LinearLayout>
 
         <android.support.v4.view.ViewPager
@@ -69,10 +84,12 @@
     </android.support.constraint.ConstraintLayout>
 
     <android.support.design.widget.NavigationView
+        android:id="@+id/navView"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        app:itemTextColor="@color/colorPrimaryDark"
+        app:headerLayout="@layout/nav_header"
+        app:itemTextColor="@color/colorPrimary"
         app:menu="@menu/menu_drawer">
         <!--more design k header argotera-->
     </android.support.design.widget.NavigationView>

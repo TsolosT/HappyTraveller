@@ -54,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
         mToggle.syncState();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+
     }
 
     //Initialize the variables that need to be used
@@ -71,19 +72,21 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item)
+    public boolean onOptionsItemSelected(MenuItem item)//if ham icon clicked will display menu side bar
     {
         if(mToggle.onOptionsItemSelected(item))
         {
             return true;
         }
-        return  super.onOptionsItemSelected(item);
+         return  super.onOptionsItemSelected(item);
     }
 
-
-
-
-
+    //A method that trigged when weather(menuItem) is clicked
+    public void displayWeatherPage(MenuItem item)
+    {
+        Intent intentWeather=new Intent(this,WeatherActivity.class);
+        startActivity(intentWeather);
+    }
 
 }
 
