@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 <!-- test items,kanta delete k vale oti need px gia weather vale item weather k vale otan to patas na anoigei kati k na deixnei to kairo -->
-    <item android:id="@+id/weather" android:title="Weather"/>
-    <item android:id="@+id/gg" android:title="GG12"/>
-    <item android:id="@+id/g1" android:title="GG3232"/>
 
+    <item
+        android:id="@+id/weather"
+        android:title="@string/weather"
+        android:onClick="displayWeatherPage"/>
 </menu>
