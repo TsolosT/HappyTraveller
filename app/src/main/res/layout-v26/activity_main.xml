@@ -37,7 +37,6 @@
         </android.support.design.widget.TabLayout>
 
         <LinearLayout
-
             android:id="@+id/linearBottomLayout"
             android:layout_width="0dp"
             android:layout_height="47dp"
@@ -57,7 +56,10 @@
                 android:hint="@string/type_to_search_a_sight_place"
                 android:inputType="textShortMessage"
                 android:singleLine="false"
+                android:textAppearance="@style/TextAppearance.AppCompat"
                 android:textColor="@color/colorPrimaryWhite"
+                android:textColorHighlight="@android:color/white"
+                android:textColorHint="@color/colorPrimaryWhite"
                 android:textColorLink="@color/colorPrimaryWhite" />
 
             <Button
@@ -66,6 +68,7 @@
                 android:layout_height="47dp"
                 android:layout_weight="1"
                 android:background="@drawable/ic_search_white_24dp"
+                android:backgroundTint="@color/colorBlack"
                 android:textColor="@color/colorPrimaryWhite"
                 android:textColorLink="@color/colorPrimaryWhite" />
         </LinearLayout>

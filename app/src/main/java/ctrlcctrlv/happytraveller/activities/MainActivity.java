@@ -9,7 +9,10 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
+import android.widget.Toast;
 
+
+import java.security.acl.Group;
 
 import ctrlcctrlv.happytraveller.adapters.PageFragAdapter;
 import ctrlcctrlv.happytraveller.R;
@@ -24,6 +27,7 @@ public class MainActivity extends AppCompatActivity
     private PageFragAdapter adapter;
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle mToggle;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -92,6 +96,23 @@ public class MainActivity extends AppCompatActivity
     {
         Intent intentWeather=new Intent(this,WeatherActivity.class);
         startActivity(intentWeather);
+    }
+
+    // TODO: 13/11/2018 fix bug ,otan allazei icon allazei timh,enw otan epilegete exei 8ema kamia fora den allazei ,8elei kati san double click..
+    public void changeCheckValue(MenuItem item){
+        if (item.isChecked()) {
+    
+            item.setChecked(false);
+            item.setIcon(R.drawable.ic_check_box_outline_blank_black_24dp);
+           // System.out.println(String.format(item.getTitle() + " is " + item.isChecked()));
+        }
+        else
+        {
+            item.setChecked(true);
+            item.setIcon(R.drawable.ic_check_box_black_24dp);
+           // System.out.println(String.format(item.getTitle() + " is " + item.isChecked()));
+        }
+
     }
 
 }

@@ -7,10 +7,10 @@ import android.view.View;
 
 import ctrlcctrlv.happytraveller.R;
 /*
-* This is the 'main' class,it's used to
-* launch the app. and display the activity_home.xml
-*
-* */
+ * This is the 'main' class,it's used to
+ * launch the app. and display the activity_home.xml
+ *
+ * */
 public class HomeActivity extends AppCompatActivity
 {
 
@@ -26,5 +26,18 @@ public class HomeActivity extends AppCompatActivity
     public void displayMainPage(View v){
         Intent intent=new Intent(this,MainActivity.class);
         startActivity(intent);
+    }
+    public void displayLogInPage(View v){
+        Intent intent=new Intent(this,LogInActivity.class);
+        startActivity(intent);
+    }
+    public void displaySignUpPage(View v){
+        Intent intent=new Intent(this,SignUpActivity.class);
+        startActivity(intent);
+    }
+    public void displayInfoPage(View v){
+        // TODO: 13/11/2018 otan ginei to info page
+        //Intent intent=new Intent(this,InfoActivity.class);
+        //startActivity(intent);
     }
 }
