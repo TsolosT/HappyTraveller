@@ -7,14 +7,12 @@ import android.view.View;
 
 import ctrlcctrlv.happytraveller.R;
 
-public class WeatherActivity extends AppCompatActivity
-{
+public class WeatherActivity extends AppCompatActivity {
 
     private Intent intent;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_weather);
         init();

@@ -13,11 +13,9 @@ import ctrlcctrlv.happytraveller.Fragments.TabMapFragment;
 *
 * */
 
-public class PageFragAdapter extends FragmentPagerAdapter
-{
+public class PageFragAdapter extends FragmentPagerAdapter {
+
     private  int numberOfTabs;
-
-
 
 
     public PageFragAdapter(FragmentManager fm,int numOfTabs)
