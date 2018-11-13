@@ -9,13 +9,19 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
+import android.widget.Toast;
 
+
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.LatLng;
 
 import ctrlcctrlv.happytraveller.Adapters.PageFragAdapter;
 import ctrlcctrlv.happytraveller.R;
 
 // TODO: 4/11/2018 comments & test 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity
+{
     //declare variables
     private Intent intent;
     private TabLayout tabLayout;
@@ -25,7 +31,8 @@ public class MainActivity extends AppCompatActivity {
     private ActionBarDrawerToggle mToggle;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -33,7 +40,8 @@ public class MainActivity extends AppCompatActivity {
 
       viewPager.addOnPageChangeListener(new TabLayoutOnPageChangeListener(tabLayout));
 
-        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener()
+        {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 viewPager.setCurrentItem(tab.getPosition());
@@ -81,12 +89,13 @@ public class MainActivity extends AppCompatActivity {
          return  super.onOptionsItemSelected(item);
     }
 
-    //A method that trigged when weather(menuItem) is clicked
+    //A method that triggered when weather(menuItem) is clicked
     public void displayWeatherPage(MenuItem item)
     {
         Intent intentWeather=new Intent(this,WeatherActivity.class);
         startActivity(intentWeather);
     }
+
 
 }
 
