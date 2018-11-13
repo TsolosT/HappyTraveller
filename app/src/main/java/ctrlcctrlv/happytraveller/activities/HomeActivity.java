@@ -1,4 +1,4 @@
-package ctrlcctrlv.happytraveller.Activities;
+package ctrlcctrlv.happytraveller.activities;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -11,10 +11,12 @@ import ctrlcctrlv.happytraveller.R;
 * launch the app. and display the activity_home.xml
 *
 * */
-public class HomeActivity extends AppCompatActivity {
+public class HomeActivity extends AppCompatActivity
+{
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
     }
