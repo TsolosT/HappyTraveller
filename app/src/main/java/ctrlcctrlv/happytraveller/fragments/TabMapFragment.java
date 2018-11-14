@@ -2,6 +2,7 @@ package ctrlcctrlv.happytraveller.fragments;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.AsyncTask;
@@ -35,6 +36,7 @@ import java.util.List;
 import java.util.Locale;
 
 import ctrlcctrlv.happytraveller.R;
+import ctrlcctrlv.happytraveller.google.GPSListener;
 import ctrlcctrlv.happytraveller.google.RequestDirections;
 import ctrlcctrlv.happytraveller.jsonParser.DirectionsParser;
 import ctrlcctrlv.happytraveller.url.CreateUrl;
@@ -65,6 +67,7 @@ public class TabMapFragment extends Fragment implements OnMapReadyCallback
         transaction.commit();
 
         fragment.getMapAsync(this);
+        getActivity().startService(new Intent(getActivity(),GPSListener.class));
 
         listPoints = new ArrayList<>();
 
