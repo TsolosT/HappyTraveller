@@ -46,6 +46,10 @@ public class TabMapFragment extends Fragment implements OnMapReadyCallback
     private GoogleMap mMap;
     ArrayList<LatLng> listPoints;
     private static final int LOCATION_REQUEST = 500;
+     transaction.add(R.id.map, fragment);
+        transaction.commit();
+
+        fragment.getMapAsync(this);
 
 
 
