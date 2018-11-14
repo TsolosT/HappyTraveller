@@ -5,7 +5,7 @@
     android:id="@+id/drawerLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activities.MainActivity">
+    tools:context=".activities.MainActivity">
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
@@ -37,6 +37,7 @@
         </android.support.design.widget.TabLayout>
 
         <LinearLayout
+
             android:id="@+id/linearBottomLayout"
             android:layout_width="0dp"
             android:layout_height="47dp"
@@ -48,7 +49,7 @@
 
             <EditText
                 android:id="@+id/searchText"
-                android:layout_width="315dp"
+                android:layout_width="316dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:autofillHints=""
@@ -57,8 +58,7 @@
                 android:inputType="textShortMessage"
                 android:singleLine="false"
                 android:textColor="@color/colorPrimaryWhite"
-                android:textColorLink="@color/colorPrimaryWhite"
-                tools:targetApi="o" />
+                android:textColorLink="@color/colorPrimaryWhite" />
 
             <Button
                 android:id="@+id/btnSearch"
@@ -88,10 +88,9 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
+        android:background="@color/colorBlack"
         app:headerLayout="@layout/nav_header"
         app:itemTextColor="@color/colorPrimary"
-        app:menu="@menu/menu_drawer">
-        <!--more design k header argotera-->
-    </android.support.design.widget.NavigationView>
+        app:menu="@menu/menu_drawer"></android.support.design.widget.NavigationView>
 
 </android.support.v4.widget.DrawerLayout>

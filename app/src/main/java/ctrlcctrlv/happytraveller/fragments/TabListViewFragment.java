@@ -1,4 +1,4 @@
-package ctrlcctrlv.happytraveller.Fragments;
+package ctrlcctrlv.happytraveller.fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -18,7 +18,8 @@ import ctrlcctrlv.happytraveller.R;
  * an uparxh allos tropos kante to opws to vreite
  * Sthn class auth 8a ulopoihsete tis methods pou 8elete na usarete
  * */
-public class TabListViewFragment extends Fragment {
+public class TabListViewFragment extends Fragment
+{
 
 @Override
 public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
