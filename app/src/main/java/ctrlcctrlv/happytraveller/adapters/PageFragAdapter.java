@@ -1,11 +1,11 @@
-package ctrlcctrlv.happytraveller.adapters;
+package ctrlcctrlv.happytraveller.Adapters;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import ctrlcctrlv.happytraveller.fragments.TabListViewFragment;
-import ctrlcctrlv.happytraveller.fragments.TabMapFragment;
+import ctrlcctrlv.happytraveller.Fragments.TabListViewFragment;
+import ctrlcctrlv.happytraveller.Fragments.TabMapFragment;
 /*
 * This class is used define the adapter that will properly determine
 * how many pages exist and which fragment to display
@@ -13,8 +13,7 @@ import ctrlcctrlv.happytraveller.fragments.TabMapFragment;
 *
 * */
 
-public class PageFragAdapter extends FragmentPagerAdapter
-{
+public class PageFragAdapter extends FragmentPagerAdapter {
 
     private  int numberOfTabs;
 
