@@ -29,7 +29,8 @@ import java.util.concurrent.ExecutionException;
 
 import ctrlcctrlv.happytraveller.R;
 
-public class WeatherActivity extends AppCompatActivity {
+public class WeatherActivity extends AppCompatActivity
+{
 
     private Intent intent;
     String j1 = null;
@@ -59,7 +60,8 @@ public class WeatherActivity extends AppCompatActivity {
 
     }
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_weather);
         init();
@@ -68,11 +70,13 @@ public class WeatherActivity extends AppCompatActivity {
 
     }
 
-    public class DownloadTask extends AsyncTask<String, Void, String> {
+    public class DownloadTask extends AsyncTask<String, Void, String>
+    {
 
 
         @Override
-        protected String doInBackground(String... urls) {
+        protected String doInBackground(String... urls)
+        {
 
             String result = "";
             URL url;
@@ -105,7 +109,8 @@ public class WeatherActivity extends AppCompatActivity {
         }
 
         @Override
-        protected void onPostExecute(String j1) {
+        protected void onPostExecute(String j1)
+        {
             super.onPostExecute(j1);
 
             // print key value
@@ -139,9 +144,11 @@ public class WeatherActivity extends AppCompatActivity {
 
                     }
 
-                } catch (InterruptedException e) {
+                } catch (InterruptedException e)
+                {
                     e.printStackTrace();
-                } catch (ExecutionException e) {
+                } catch (ExecutionException e)
+                {
                     e.printStackTrace();
                 }
 
