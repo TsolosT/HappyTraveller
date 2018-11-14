@@ -12,7 +12,8 @@ import ctrlcctrlv.happytraveller.R;
  * display the activity_log_in.xml
  *
  * */
-public class LogInActivity  extends AppCompatActivity {
+public class LogInActivity  extends AppCompatActivity
+{
     //declare variables
     private Intent intent;
 
@@ -31,7 +32,8 @@ public class LogInActivity  extends AppCompatActivity {
 
     }
 
-    public void displaySignUp(View v){
+    public void displaySignUp(View v)
+    {
         Intent intent=new Intent(this,SignUpActivity.class);
         startActivity(intent);
     }
