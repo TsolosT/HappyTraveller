@@ -20,7 +20,6 @@ public class DirectionsParser
      * Returns a list of lists containing latitude and longitude from a JSONObject
      */
     public List<List<HashMap<String, String>>> parse(JSONObject jObject) {
-        System.out.println("skata");
 
         List<List<HashMap<String, String>>> routes = new ArrayList<List<HashMap<String, String>>>();
         JSONArray jRoutes = null;
