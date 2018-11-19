@@ -1,30 +1,128 @@
 package ctrlcctrlv.happytraveller.fragments;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
+
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.util.ByteArrayBuffer;
+
+import java.io.BufferedInputStream;
+import java.io.InputStream;
+import java.util.ArrayList;
 
 import ctrlcctrlv.happytraveller.R;
+import ctrlcctrlv.happytraveller.adapters.ListItemAdapter;
+import ctrlcctrlv.happytraveller.jsonParser.PlaceParser;
+import ctrlcctrlv.happytraveller.model.PlaceData;
+import ctrlcctrlv.happytraveller.url.PlaceUrl;
+
+import static ctrlcctrlv.happytraveller.jsonParser.PlaceParser.parseGoogleParse;
 
 /*
  * This class is the fragment for the tab list view
  * It displays the fragment_tab_list_view.xml
- *
- * Sto fragment_tab_list.xml 8a pros8esete oti ui component 8elete gia na emfanisete ta info pio analutika
- * an usare webview gia na emfaniste img text etc klp prepei na kanete new folder assets meta mesa ekei
- * create html h jsp klp gia pio analutika gia auth thn me8odo miliste me emena(teo)
- * an uparxh allos tropos kante to opws to vreite
- * Sthn class auth 8a ulopoihsete tis methods pou 8elete na usarete
+ *todo more detail about class
  * */
 public class TabListViewFragment extends Fragment
 {
+    View view;
+
+    ListView listView;
+    private static ListItemAdapter adapter;
+    PlaceParser placeParser;
+    ArrayList<PlaceData> placeData;
 
 @Override
 public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
-        //Inflate the layout for this fragment
-        return  inflater.inflate(R.layout.fragment_tab_list_view,container,false);
+
+        view = inflater.inflate(R.layout.fragment_tab_list_view, container, false);
+        listView= (ListView)view.findViewById(R.id.listView);
+        return view;
     }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        new googleplaces().execute();
+    }
+
+    private class googleplaces extends AsyncTask<View,String,String>
+    {
+
+        String jsonCaller; 
+
+       @Override
+        protected String doInBackground(View... urls) {
+            // make Call to the url
+            PlaceUrl url = new PlaceUrl();
+            url.setLatLng("41.0943488,23.5544576");// TODO: 19/11/2018  malaka aimilie dwse mou mia getCurrentLocation
+            url.setPlaceType("cafe");  // TODO: 19/11/2018 find way to make call with all types of sights
+            jsonCaller = makeCall(url.getUrl());
+
+            return "";
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            if (jsonCaller == null) {
+                // we have an error to the call
+            } else {
+                // all things went right
+                // parse Google places search result
+                placeData = parseGoogleParse(jsonCaller);
+
+                // set the results to the list
+                adapter = new ListItemAdapter(placeData,getContext());
+                listView.setAdapter(adapter);
+            }
+        }
+
+
+        public  String makeCall(String url) {
+            // string buffers the url
+            StringBuffer buffer_string = new StringBuffer(url);
+            String replyString = "";
+
+            // instanciate an HttpClient
+            @SuppressWarnings("deprecation") HttpClient httpclient = new DefaultHttpClient();
+            // instanciate an HttpGet
+            HttpGet httpget = new HttpGet(buffer_string.toString());
+
+            try {
+
+                // get the responce of the httpclient execution of the url
+                HttpResponse response = httpclient.execute(httpget);
+                InputStream is = response.getEntity().getContent();
+
+                // buffer input stream the result
+                BufferedInputStream bis = new BufferedInputStream(is);
+                ByteArrayBuffer baf = new ByteArrayBuffer(20);
+                int current = 0;
+                while ((current = bis.read()) != -1) {
+                    baf.append((byte) current);
+                }
+                // the result as a string is ready for parsing
+                replyString = new String(baf.toByteArray());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            System.out.println(replyString);
+
+            // trim the whitespaces
+            return replyString.trim();
+        }
+
+    }
+
+
+
 }

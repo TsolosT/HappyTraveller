@@ -40,7 +40,8 @@ import ctrlcctrlv.happytraveller.google.GPSListener;
 import ctrlcctrlv.happytraveller.google.RequestDirections;
 import ctrlcctrlv.happytraveller.jsonParser.DirectionsParser;
 import ctrlcctrlv.happytraveller.url.CreateUrl;
-
+// TODO: 15/11/2018 fix bug #1 need restart the app after permission request about location use
+// TODO: 15/11/2018  fix bug #2 2 pin route crash
 
 /*
  * This class is the fragment for the tab map
