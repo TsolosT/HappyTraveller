@@ -13,12 +13,17 @@ public class PlaceData {
     // TODO: 15/11/2018  add more variable like phone number,web url,img ,etc
 
 
-    public PlaceData(String name, String address, String info) {
+    public PlaceData(String name, String address) {
         this.name = name;
         this.address = address;
-        this.info = info;
     }
 
+    public PlaceData()
+    {
+        this.name = "";
+        this.address = "";
+        this.info = "";
+    }
 
     public String getName() {
         return name;
@@ -43,5 +48,10 @@ public class PlaceData {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public void setNull() {
+        this.name="";
+        this.address="";
     }
 }
