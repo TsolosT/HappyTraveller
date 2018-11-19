@@ -20,21 +20,21 @@ public class CreateUrl
     public CreateUrl()
     {
         url = "https://maps.googleapis.com/maps/api/directions/json?origin=";
+      //  url = "https://www.google.com/maps/dir/?api=1&origin=";
     }
 
     public CreateUrl(String travelMode)
     {
-        url = "https://maps.googleapis.com/maps/api/directions/json?"+"&mode="+travelMode+"&origin=";
+        url = "https://maps.googleapis.com/maps/api/directions/json?"+"&travelmode="+travelMode+"&origin=";
     }
 
     public String getUrl(LatLng start, LatLng end ,android.content.Context context, java.util.Locale locale)
     {
-        System.out.println("getUrl");
         origin = getLocationsName(start,context,locale);
         destination = getLocationsName(end,context,locale);
 
-        url += origin+",IL&destination="+destination+"OK&key=AIzaSyDI0zKd22JBJEGco2k9Thg2CZWLLsWfq7k";
-
+       // url += origin+",IL&destination="+destination+"OK&key=AIzaSyDI0zKd22JBJEGco2k9Thg2CZWLLsWfq7k";
+        url += origin+",&destination="+destination+"OK&key=AIzaSyDI0zKd22JBJEGco2k9Thg2CZWLLsWfq7k";
         return url;
     }
 
@@ -42,7 +42,6 @@ public class CreateUrl
 
     private String getLocationsName(LatLng area , android.content.Context context ,java.util.Locale locale)
     {
-        System.out.println("getLocationName");
         Geocoder originLocation ;
         List<Address> list;
         Address address;
