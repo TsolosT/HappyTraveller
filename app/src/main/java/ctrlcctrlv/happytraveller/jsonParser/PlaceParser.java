@@ -18,21 +18,34 @@ public class PlaceParser {
             // make an jsonObject in order to parse the response
             JSONObject jsonObject = new JSONObject(response);
 
+
             // make an jsonObject in order to parse the response
             if (jsonObject.has("results")) {
 
                 JSONArray jsonArray = jsonObject.getJSONArray("results");
 
+
                 for (int i = 0; i < jsonArray.length(); i++)
                 {
+                    PlaceData place = new PlaceData();
                         //ka8e new name = new json obj
-                    if (jsonArray.getJSONObject(i).has("name"))
-                    {
-
+                    if (jsonArray.getJSONObject(i).has("name")) {
                         //todo add more detail  & photo
-                        temp.add(new PlaceData(jsonArray.getJSONObject(i).optString("name"),jsonArray.getJSONObject(i).optString("vicinity")));
+                        //    temp.add(new PlaceData(jsonArray.getJSONObject(i).optString("name"), jsonArray.getJSONObject(i).optString("vicinity")));
+                        place.setName(jsonArray.getJSONObject(i).optString("name"));
+                        place.setAddress(jsonArray.getJSONObject(i).optString("vicinity"));
 
+
+                        if (jsonArray.getJSONObject(i).has("types")) {
+                            JSONArray typesArray = jsonArray.getJSONObject(i).getJSONArray("types");
+
+                            for (int j = 0; j < typesArray.length(); j++) {
+                                place.setCategory(typesArray.getString(j) + ", " + place.getCategory());
+                            }
+                        }
                     }
+                    temp.add(place);
+
                 }
             }
         } catch (Exception e) {
