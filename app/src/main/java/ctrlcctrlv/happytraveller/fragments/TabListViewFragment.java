@@ -40,12 +40,13 @@ public class TabListViewFragment extends Fragment
     PlaceParser placeParser;
     ArrayList<PlaceData> placeData;
 
-@Override
+
+    @Override
 public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
 
         view = inflater.inflate(R.layout.fragment_tab_list_view, container, false);
-        listView= (ListView)view.findViewById(R.id.listView);
+       init();
         return view;
     }
 
@@ -53,6 +54,11 @@ public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle sa
     public void onStart() {
         super.onStart();
         new googleplaces().execute();
+    }
+    public void init()
+    {
+        listView= (ListView)view.findViewById(R.id.listView);
+
     }
 
     private class googleplaces extends AsyncTask<View,String,String>
@@ -64,8 +70,9 @@ public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle sa
         protected String doInBackground(View... urls) {
             // make Call to the url
             PlaceUrl url = new PlaceUrl();
-            url.setLatLng("41.0943488,23.5544576");// TODO: 19/11/2018  malaka aimilie dwse mou mia getCurrentLocation
-            url.setPlaceType("cafe");  // TODO: 19/11/2018 find way to make call with all types of sights
+        //  url.setLatLng("37.9718217,23.726515");
+           url.setLatLng("41.0943488,23.5544576");// TODO: 19/11/2018  malaka aimilie dwse mou mia getCurrentLocation
+           url.setPlaceType("museum");  // TODO: 19/11/2018 find way to make call with all types of sights
             jsonCaller = makeCall(url.getUrl());
 
             return "";
@@ -79,10 +86,11 @@ public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle sa
                 // all things went right
                 // parse Google places search result
                 placeData = parseGoogleParse(jsonCaller);
-
+                ArrayList<PlaceData> sights = getSights(placeData);
                 // set the results to the list
-                adapter = new ListItemAdapter(placeData,getContext());
+                adapter = new ListItemAdapter(sights,getContext());
                 listView.setAdapter(adapter);
+
             }
         }
 
@@ -119,6 +127,20 @@ public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle sa
 
             // trim the whitespaces
             return replyString.trim();
+        }
+        public ArrayList<PlaceData> getSights(ArrayList<PlaceData> places)
+        {
+            ArrayList<PlaceData> sights= new ArrayList<>();
+
+            for(PlaceData temp:places)
+            {
+                if(temp.getCategory().contains("museum")||temp.getCategory().contains("park")||temp.getCategory().contains("church"))
+                {
+                    sights.add(temp);
+                }
+            }
+
+            return sights;
         }
 
     }

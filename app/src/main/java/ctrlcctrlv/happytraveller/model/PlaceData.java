@@ -9,6 +9,7 @@ public class PlaceData {
     String name;
     String address;
     String info;
+    String category;
   //  ImageView[] images;
     // TODO: 15/11/2018  add more variable like phone number,web url,img ,etc
 
@@ -23,8 +24,12 @@ public class PlaceData {
         this.name = "";
         this.address = "";
         this.info = "";
+        this.category="";
+    }
+    public String getCategory() { return category;
     }
 
+    public void setCategory(String category) { this.category = category;  }
     public String getName() {
         return name;
     }
