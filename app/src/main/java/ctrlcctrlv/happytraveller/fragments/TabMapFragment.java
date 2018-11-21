@@ -40,6 +40,7 @@ import java.util.List;
 import java.util.Locale;
 
 import ctrlcctrlv.happytraveller.R;
+import ctrlcctrlv.happytraveller.activities.MainActivity;
 import ctrlcctrlv.happytraveller.animations.AnimatedButton;
 import ctrlcctrlv.happytraveller.google.GPSListener;
 import ctrlcctrlv.happytraveller.google.RequestDirections;
@@ -56,7 +57,7 @@ public class TabMapFragment extends Fragment implements OnMapReadyCallback
     private static final int LOCATION_REQUEST = 500;
     private LocationListener locationListener;
     private LocationManager locationManager;
-    private LatLng myLocation = null;
+    private static LatLng myLocation = null;
     private static Polyline line = null ;
     //Sets location listener on/off
     private static boolean locationListenerIs = true ;
@@ -69,7 +70,7 @@ public class TabMapFragment extends Fragment implements OnMapReadyCallback
 
 
 
-    public LatLng getMyLocation() { return myLocation; }
+    public static LatLng getMyLocation() { return myLocation; }
 
 
 
