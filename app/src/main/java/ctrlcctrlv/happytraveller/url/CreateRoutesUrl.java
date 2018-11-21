@@ -9,7 +9,7 @@ import java.util.List;
 
 
 //Url class has two constructor one just to truck the route and one if the user prefers a travel mode
-public class CreateUrl
+public class CreateRoutesUrl
 {
 
     private  String url = null;
@@ -17,13 +17,13 @@ public class CreateUrl
     private  String destination = null;
 
 
-    public CreateUrl()
+    public CreateRoutesUrl()
     {
         url = "https://maps.googleapis.com/maps/api/directions/json?origin=";
       //  url = "https://www.google.com/maps/dir/?api=1&origin=";
     }
 
-    public CreateUrl(String travelMode)
+    public CreateRoutesUrl(String travelMode)
     {
         url = "https://maps.googleapis.com/maps/api/directions/json?"+"&travelmode="+travelMode+"&origin=";
     }
