@@ -3,18 +3,23 @@ package ctrlcctrlv.happytraveller.model;
 
 import android.widget.ImageView;
 
-public class PlaceData {
+import com.google.android.gms.maps.model.LatLng;
+
+public class PlaceData
+{
 
 
     String name;
     String address;
     String info;
     String category;
+    LatLng coordinates;
   //  ImageView[] images;
     // TODO: 15/11/2018  add more variable like phone number,web url,img ,etc
 
 
-    public PlaceData(String name, String address) {
+    public PlaceData(String name, String address)
+    {
         this.name = name;
         this.address = address;
     }
@@ -25,18 +30,21 @@ public class PlaceData {
         this.address = "";
         this.info = "";
         this.category="";
-    }
-    public String getCategory() { return category;
+        this.coordinates = null;
     }
 
-    public void setCategory(String category) { this.category = category;  }
+    public void setCoordinates(LatLng coordinates) {this.coordinates = coordinates;}
+
+    public LatLng getCoordinates() {return coordinates;}
+
+    public String getCategory() { return category;}
+
+    public void setCategory(String category) { this.category = category;}
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+    public void setName(String name) {this.name = name;}
 
     public String getInfo() {
         return info;
@@ -55,7 +63,8 @@ public class PlaceData {
         this.address = address;
     }
 
-    public void setNull() {
+    public void setNull()
+    {
         this.name="";
         this.address="";
     }

@@ -8,8 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
-import com.google.android.gms.maps.model.LatLng;
-
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
@@ -53,7 +51,8 @@ public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle sa
     }
 
     @Override
-    public void onStart() {
+    public void onStart()
+    {
         super.onStart();
         new googleplaces().execute();
     }
@@ -69,11 +68,15 @@ public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle sa
         String jsonCaller; 
 
        @Override
-        protected String doInBackground(View... urls) {
+        protected String doInBackground(View... urls)
+       {
             // make Call to the url
             PlaceUrl url = new PlaceUrl();
-           LatLng latLng= TabMapFragment.getMyLocation();//todo epistrefei null fix
           // url.setLatLng(String.format(latLng.latitude+","+latLng.longitude));// TODO: 19/11/2018  malaka aimilie dwse mou mia getCurrentLocation
+
+          // HomeActivity homeActivity = new HomeActivity();
+          // LatLng latLng = homeActivity.getUsersLocation(); // TODO: 11/22/2018  kane initialize to homeActivity opou nomizeis kai tha douleuei popa :)
+
            url.setLatLng("41.0943488,23.5544576");
            url.setPlaceType("museum");  // TODO: 19/11/2018 find way to make call with all types of sights
             jsonCaller = makeCall(url.getUrl());
@@ -82,7 +85,8 @@ public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle sa
         }
 
         @Override
-        protected void onPostExecute(String result) {
+        protected void onPostExecute(String result)
+        {
             if (jsonCaller == null) {
                 // we have an error to the call
             } else {
@@ -97,7 +101,8 @@ public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle sa
         }
 
 
-        public  String makeCall(String url) {
+        public  String makeCall(String url)
+        {
             // string buffers the url
             StringBuffer buffer_string = new StringBuffer(url);
             String replyString = "";
