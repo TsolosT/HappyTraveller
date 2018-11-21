@@ -8,6 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
+import com.google.android.gms.maps.model.LatLng;
+
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
@@ -70,8 +72,9 @@ public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle sa
         protected String doInBackground(View... urls) {
             // make Call to the url
             PlaceUrl url = new PlaceUrl();
-        //  url.setLatLng("37.9718217,23.726515");
-           url.setLatLng("41.0943488,23.5544576");// TODO: 19/11/2018  malaka aimilie dwse mou mia getCurrentLocation
+           LatLng latLng= TabMapFragment.getMyLocation();//todo epistrefei null fix
+          // url.setLatLng(String.format(latLng.latitude+","+latLng.longitude));// TODO: 19/11/2018  malaka aimilie dwse mou mia getCurrentLocation
+           url.setLatLng("41.0943488,23.5544576");
            url.setPlaceType("museum");  // TODO: 19/11/2018 find way to make call with all types of sights
             jsonCaller = makeCall(url.getUrl());
 
@@ -86,9 +89,8 @@ public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle sa
                 // all things went right
                 // parse Google places search result
                 placeData = parseGoogleParse(jsonCaller);
-                ArrayList<PlaceData> sights = getSights(placeData);
                 // set the results to the list
-                adapter = new ListItemAdapter(sights,getContext());
+                adapter = new ListItemAdapter(placeData,getContext());
                 listView.setAdapter(adapter);
 
             }
@@ -127,20 +129,6 @@ public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle sa
 
             // trim the whitespaces
             return replyString.trim();
-        }
-        public ArrayList<PlaceData> getSights(ArrayList<PlaceData> places)
-        {
-            ArrayList<PlaceData> sights= new ArrayList<>();
-
-            for(PlaceData temp:places)
-            {
-                if(temp.getCategory().contains("museum")||temp.getCategory().contains("park")||temp.getCategory().contains("church"))
-                {
-                    sights.add(temp);
-                }
-            }
-
-            return sights;
         }
 
     }

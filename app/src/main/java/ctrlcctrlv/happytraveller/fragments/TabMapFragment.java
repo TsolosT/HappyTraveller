@@ -56,7 +56,7 @@ public class TabMapFragment extends Fragment implements OnMapReadyCallback
     private static final int LOCATION_REQUEST = 500;
     private LocationListener locationListener;
     private LocationManager locationManager;
-    private LatLng myLocation = null;
+    private static LatLng myLocation = null;
     private static Polyline line = null ;
     //Sets location listener on/off
     private static boolean locationListenerIs = true ;
@@ -69,7 +69,7 @@ public class TabMapFragment extends Fragment implements OnMapReadyCallback
 
 
 
-    public LatLng getMyLocation() { return myLocation; }
+    public static LatLng getMyLocation() { return myLocation; }
 
 
 
