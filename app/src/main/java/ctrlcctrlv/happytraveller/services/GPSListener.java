@@ -1,4 +1,4 @@
-package ctrlcctrlv.happytraveller.google;
+package ctrlcctrlv.happytraveller.services;
 
 import android.app.Service;
 import android.content.Context;
@@ -8,20 +8,18 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.util.Log;
+import android.widget.Toast;
 
-// TODO: 11/14/2018 den nomizw pws auth h klash tha prepei na briskete sto package google
+import java.util.ArrayList;
 
-// TODO: 11/14/2018 {TSEKARE AUTO ->}  Activities, services and content providers should be registered in the AndroidManifest.xml file using <activity>, <service> and <provider> tags.  If your activity is simply a parent class intended to be subclassed by other "real" activities, make it an abstract class.Issue id: Registered  More info: http://developer.android.com/guide/topics/manifest/manifest-intro.html
-//               |
-//               |
-//              \ /
-//               v
+
 public class GPSListener extends Service
 {
     private static final String TAG = "BOOMBOOMTESTGPS";
     private LocationManager mLocationManager = null;
-    private static final int LOCATION_INTERVAL = 5000;
+    private static final int LOCATION_INTERVAL = 10000; // 10 sec
     private static final float LOCATION_DISTANCE = 10f;
+
 
     private class LocationListener implements android.location.LocationListener
     {
@@ -38,6 +36,17 @@ public class GPSListener extends Service
         {
             Log.e(TAG, "onLocationChanged: " + location);
             mLastLocation.set(location);
+            mLastLocation(mLastLocation.getLongitude(), mLastLocation.getLatitude());
+            Toast.makeText(getApplicationContext(), "Long: " + mLastLocation.getLongitude() + ", Lat: " + mLastLocation.getLatitude(), Toast.LENGTH_SHORT).show();
+            Intent intent= new Intent("ctrlcctrlv.happytraveller.fragments.TabMapFragment.java");
+            intent.putExtra("lat",mLastLocation.getLatitude());
+            intent.putExtra("lon",mLastLocation.getLongitude());
+            sendBroadcast(intent);
+
+
+
+
+
         }
 
         @Override
@@ -127,4 +136,11 @@ public class GPSListener extends Service
             mLocationManager = (LocationManager) getApplicationContext().getSystemService(Context.LOCATION_SERVICE);
         }
     }
+    String lon; //variable Lon to pass to another activity
+    String lat; //variable Lat to pass to another activity
+    public void mLastLocation(double lon, double lat){
+        this.lon = String.valueOf(lon);
+        this.lat = String.valueOf(lat);
+    }
+
 }

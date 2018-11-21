@@ -1,25 +1,29 @@
 package ctrlcctrlv.happytraveller.fragments;
 
 import android.Manifest;
-import android.annotation.SuppressLint;
+
+
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
+import android.content.Intent;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
+import ctrlcctrlv.happytraveller.services.GPSListener;
 
+import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.UiSettings;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -54,7 +58,10 @@ public class TabMapFragment extends Fragment implements OnMapReadyCallback
     private static final int LOCATION_REQUEST = 500;
 
 
-    @Override
+
+
+
+        @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
 
@@ -65,6 +72,9 @@ public class TabMapFragment extends Fragment implements OnMapReadyCallback
         transaction.commit();
 
         fragment.getMapAsync(this);
+        getActivity().startService(new Intent(getActivity(),GPSListener.class)); //service of gps refresh
+
+
 
         listPoints = new ArrayList<>();
 
