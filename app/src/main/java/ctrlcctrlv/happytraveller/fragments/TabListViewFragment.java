@@ -19,6 +19,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 
 import ctrlcctrlv.happytraveller.R;
+import ctrlcctrlv.happytraveller.activities.HomeActivity;
 import ctrlcctrlv.happytraveller.adapters.ListItemAdapter;
 import ctrlcctrlv.happytraveller.jsonParser.PlaceParser;
 import ctrlcctrlv.happytraveller.model.PlaceData;
@@ -39,6 +40,7 @@ public class TabListViewFragment extends Fragment
     private static ListItemAdapter adapter;
     PlaceParser placeParser;
     ArrayList<PlaceData> placeData;
+    HomeActivity homeActivity;
 
 
     @Override
@@ -46,7 +48,8 @@ public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle sa
     {
 
         view = inflater.inflate(R.layout.fragment_tab_list_view, container, false);
-       init();
+        init();
+        homeActivity = new HomeActivity();
         return view;
     }
 
@@ -74,12 +77,10 @@ public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle sa
             PlaceUrl url = new PlaceUrl();
           // url.setLatLng(String.format(latLng.latitude+","+latLng.longitude));// TODO: 19/11/2018  malaka aimilie dwse mou mia getCurrentLocation
 
-          // HomeActivity homeActivity = new HomeActivity();
-          // LatLng latLng = homeActivity.getUsersLocation(); // TODO: 11/22/2018  kane initialize to homeActivity opou nomizeis kai tha douleuei popa :)
 
-           url.setLatLng("41.0943488,23.5544576");
+           url.setLatLng(homeActivity.getUsersLocation().latitude+","+homeActivity.getUsersLocation().longitude);
            url.setPlaceType("museum");  // TODO: 19/11/2018 find way to make call with all types of sights
-            jsonCaller = makeCall(url.getUrl());
+           jsonCaller = makeCall(url.getUrl());
 
             return "";
         }

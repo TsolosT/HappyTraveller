@@ -32,8 +32,6 @@ public class PlaceParser {
                         //todo add more detail  & photo
                             temp.add(new PlaceData(jsonArray.getJSONObject(i).optString("name"), jsonArray.getJSONObject(i).optString("vicinity")));
                     }
-
-
                 }
             }
         } catch (Exception e) {
