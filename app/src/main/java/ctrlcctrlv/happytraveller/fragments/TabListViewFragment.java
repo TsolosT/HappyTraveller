@@ -7,6 +7,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.Toast;
+
+import com.google.android.gms.maps.model.LatLng;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -43,6 +46,10 @@ public class TabListViewFragment extends Fragment
     HomeActivity homeActivity;
 
 
+
+    LatLng myLocation = null ;
+
+
     @Override
 public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
@@ -50,6 +57,7 @@ public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle sa
         view = inflater.inflate(R.layout.fragment_tab_list_view, container, false);
         init();
         homeActivity = new HomeActivity();
+
         return view;
     }
 
@@ -73,10 +81,9 @@ public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle sa
        @Override
         protected String doInBackground(View... urls)
        {
-            // make Call to the url
+           // make Call to the url
             PlaceUrl url = new PlaceUrl();
           // url.setLatLng(String.format(latLng.latitude+","+latLng.longitude));// TODO: 19/11/2018  malaka aimilie dwse mou mia getCurrentLocation
-
 
            url.setLatLng(homeActivity.getUsersLocation().latitude+","+homeActivity.getUsersLocation().longitude);
            url.setPlaceType("museum");  // TODO: 19/11/2018 find way to make call with all types of sights
@@ -97,7 +104,6 @@ public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle sa
                 // set the results to the list
                 adapter = new ListItemAdapter(placeData,getContext());
                 listView.setAdapter(adapter);
-
             }
         }
 
@@ -136,9 +142,5 @@ public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle sa
             // trim the whitespaces
             return replyString.trim();
         }
-
     }
-
-
-
 }

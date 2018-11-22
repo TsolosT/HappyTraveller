@@ -3,6 +3,7 @@ package ctrlcctrlv.happytraveller.fragments;
 import android.Manifest;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
@@ -55,6 +56,13 @@ public class TabMapFragment extends Fragment implements OnMapReadyCallback
     private static HomeActivity homeActivity = null;
 
 
+
+
+
+    public LatLng getTheFuckingLocation()
+    {
+        return homeActivity.getUsersLocation();
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -125,7 +133,6 @@ public class TabMapFragment extends Fragment implements OnMapReadyCallback
                     }else
                     {
                         Toast.makeText(getActivity().getApplicationContext(), "You have to add a pin !",Toast.LENGTH_SHORT).show();
-
                     }
                 }else
                 {
@@ -190,7 +197,8 @@ public class TabMapFragment extends Fragment implements OnMapReadyCallback
                 //Code
             }
         });
-    }
+
+        }
 
 
 

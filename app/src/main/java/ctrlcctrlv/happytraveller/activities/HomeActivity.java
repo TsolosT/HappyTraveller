@@ -12,6 +12,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.model.LatLng;
 
@@ -42,6 +43,8 @@ public class HomeActivity extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+
 
 
 
@@ -92,9 +95,16 @@ public class HomeActivity extends AppCompatActivity
 
 
 
-    public void displayMainPage(View v){
-        Intent intent=new Intent(this,MainActivity.class);
-        startActivity(intent);
+    public void displayMainPage(View v)
+    {
+        if (usersLocation != null)
+        {
+            Intent intent=new Intent(this,MainActivity.class);
+            startActivity(intent);
+        }else
+        {
+            Toast.makeText(getApplicationContext(), "You have to make few steps :)",Toast.LENGTH_SHORT).show();
+        }
     }
     public void displayLogInPage(View v){
         Intent intent=new Intent(this,LogInActivity.class);
