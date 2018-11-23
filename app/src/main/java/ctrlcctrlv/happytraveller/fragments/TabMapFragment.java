@@ -47,7 +47,6 @@ public class TabMapFragment extends Fragment implements OnMapReadyCallback
 {
     private GoogleMap mMap;
     LatLng pinsLatLng;
-    private static final int LOCATION_REQUEST = 500;
     private static Polyline line = null;
     //If polylines exists is true
     private static boolean polylineFlag = false;
@@ -55,14 +54,6 @@ public class TabMapFragment extends Fragment implements OnMapReadyCallback
     private static boolean longClickIs = false;
     private static HomeActivity homeActivity = null;
 
-
-
-
-
-    public LatLng getTheFuckingLocation()
-    {
-        return homeActivity.getUsersLocation();
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -84,23 +75,25 @@ public class TabMapFragment extends Fragment implements OnMapReadyCallback
     }
 
 
-
-
     @Override
-    public void onMapReady(GoogleMap googleMap)
-    {
+    public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
         mMap.getUiSettings().setZoomControlsEnabled(true);
 
+
         if (ActivityCompat.checkSelfPermission(getActivity().getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getActivity().getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED)
         {
-            // TODO: 11/15/2018  copy and paste it down below in consider calling
-            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, LOCATION_REQUEST);
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
             return;
         }
         mMap.setMyLocationEnabled(true);
-
 
 //========================================================================================Button=================================================================================================
         final Button refreshButton = (Button) getView().findViewById(R.id.refreshButton);
@@ -197,7 +190,6 @@ public class TabMapFragment extends Fragment implements OnMapReadyCallback
                 //Code
             }
         });
-
         }
 
 

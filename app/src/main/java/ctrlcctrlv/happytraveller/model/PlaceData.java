@@ -1,19 +1,16 @@
 package ctrlcctrlv.happytraveller.model;
 
 
-import android.widget.ImageView;
-
 import com.google.android.gms.maps.model.LatLng;
 
 public class PlaceData
 {
-
-
     String name;
     String address;
     String info;
     String category;
     LatLng coordinates;
+    String pinsIcon;
   //  ImageView[] images;
     // TODO: 15/11/2018  add more variable like phone number,web url,img ,etc
 
@@ -31,6 +28,7 @@ public class PlaceData
         this.info = "";
         this.category="";
         this.coordinates = null;
+        this.pinsIcon = null ;
     }
 
     public void setCoordinates(LatLng coordinates) {this.coordinates = coordinates;}
@@ -63,9 +61,4 @@ public class PlaceData
         this.address = address;
     }
 
-    public void setNull()
-    {
-        this.name="";
-        this.address="";
-    }
 }

@@ -28,7 +28,8 @@ public class PlaceParser {
                 for (int i = 0; i < jsonArray.length(); i++)
                 {
                         //ka8e new name = new json obj
-                    if (jsonArray.getJSONObject(i).has("name")) {
+                    if (jsonArray.getJSONObject(i).has("name"))
+                    {
                         //todo add more detail  & photo
                             temp.add(new PlaceData(jsonArray.getJSONObject(i).optString("name"), jsonArray.getJSONObject(i).optString("vicinity")));
                     }
