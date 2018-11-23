@@ -1,0 +1,27 @@
+<resources>
+    <string name="app_name">HappyTraveller</string>
+    <string name="sights">Sights</string>
+    <string name="list_view">List View</string>
+    <string name="map">Map</string>
+    <string name="openMenu">Menu</string>
+    <string name="closeMenu">Close</string>
+    <string name="search">Search</string>
+    <string name="type_to_search_a_sight_place">Type to search a sight/place</string>
+    <string name="weather">Weather</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="share">Share</string>
+    <string name="hotels">Hotels</string>
+    <string name="shops">Shops</string>
+    <string name="view_pins">View Pins</string>
+    <string name="transport_type">Transport Type</string>
+    <string name="on_foot">On Foot</string>
+    <string name="car">Car</string>
+    <string name="info">i</string>
+    <string name="sign_in">Sign In</string>
+    <string name="devTeam"><![CDATA[Develop by ctrl C & ctrl V]]></string>
+    <string name="sign_up">Sign Up</string>
+    <string name="transport">Transport</string>
+    <string name="email">Email</string>
+    <string name="example_mail_com">example@mail.com</string>
+    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyDI0zKd22JBJEGco2k9Thg2CZWLLsWfq7k</string>
+</resources>
