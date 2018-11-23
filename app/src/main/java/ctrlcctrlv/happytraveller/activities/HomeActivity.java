@@ -7,16 +7,18 @@ import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.os.Bundle;
 import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.model.LatLng;
 
 import ctrlcctrlv.happytraveller.R;
+
 /*
  * This is the 'main' class,it's used to
  * launch the app. and display the activity_home.xml
@@ -28,8 +30,13 @@ public class HomeActivity extends AppCompatActivity
     private LocationManager locationManager;
     private LocationListener locationListener;
     private static int gpsRefreshTime = 5000; // 5 sec
-
-
+    private Boolean mLocationPermissionsGranted = false;
+    //Boolean variable that allows to send a message to user to know when is ready to press sights button
+    private Boolean onReadyMessageFlag = true ;
+    //Permissions
+    private static final String FINE_LOCATION = Manifest.permission.ACCESS_FINE_LOCATION;
+    private static final String COURSE_LOCATION = Manifest.permission.ACCESS_COARSE_LOCATION;
+    private static final int LOCATION_PERMISSION_REQUEST_CODE = 1234;
     //Every 5sec you can get the user`s location
     // TODO: 11/22/2018  !---USERS LOCATION---!
     public LatLng getUsersLocation()
@@ -44,9 +51,7 @@ public class HomeActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-
-
-
+        getLocationPermission();
 
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
@@ -56,6 +61,12 @@ public class HomeActivity extends AppCompatActivity
             public void onLocationChanged(Location location)
             {
                 usersLocation = new LatLng(location.getLatitude(),location.getLongitude());
+                if (onReadyMessageFlag)
+                {
+                    Toast.makeText(getApplicationContext(), "You are ready to go !!!",Toast.LENGTH_SHORT).show();
+                    onReadyMessageFlag = false ;
+                }
+                System.out.println("Current Location: "+usersLocation);
             }
 
             @Override
@@ -90,21 +101,24 @@ public class HomeActivity extends AppCompatActivity
             return ;
         }
         locationManager.requestLocationUpdates("gps", gpsRefreshTime, 0, locationListener);
-
     }
 
 
 
     public void displayMainPage(View v)
     {
-        if (usersLocation != null)
+        if (mLocationPermissionsGranted)
         {
-            Intent intent=new Intent(this,MainActivity.class);
-            startActivity(intent);
-        }else
-        {
-            Toast.makeText(getApplicationContext(), "You have to make few steps :)",Toast.LENGTH_SHORT).show();
+            if (usersLocation != null)
+            {
+                Intent intent=new Intent(this,MainActivity.class);
+                startActivity(intent);
+            }else
+            {
+                Toast.makeText(getApplicationContext(), "Wait a little bit :)",Toast.LENGTH_SHORT).show();
+            }
         }
+
     }
     public void displayLogInPage(View v){
         Intent intent=new Intent(this,LogInActivity.class);
@@ -118,5 +132,37 @@ public class HomeActivity extends AppCompatActivity
         // TODO: 13/11/2018 otan ginei to info page
         //Intent intent=new Intent(this,InfoActivity.class);
         //startActivity(intent);
+    }
+
+
+
+
+
+
+
+
+
+
+
+    private void getLocationPermission()
+    {
+        String[] permissions = {Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.ACCESS_COARSE_LOCATION};
+
+        if(ContextCompat.checkSelfPermission(this.getApplicationContext(),
+                FINE_LOCATION) == PackageManager.PERMISSION_GRANTED){
+            if(ContextCompat.checkSelfPermission(this.getApplicationContext(),
+                    COURSE_LOCATION) == PackageManager.PERMISSION_GRANTED){
+                mLocationPermissionsGranted = true;
+            }else{
+                ActivityCompat.requestPermissions(this,
+                        permissions,
+                        LOCATION_PERMISSION_REQUEST_CODE);
+            }
+        }else{
+            ActivityCompat.requestPermissions(this,
+                    permissions,
+                    LOCATION_PERMISSION_REQUEST_CODE);
+        }
     }
 }
