@@ -3,14 +3,12 @@ package ctrlcctrlv.happytraveller.fragments;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import com.google.android.gms.maps.model.LatLng;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -21,11 +19,9 @@ import org.apache.http.util.ByteArrayBuffer;
 import java.io.BufferedInputStream;
 import java.io.InputStream;
 import java.util.ArrayList;
-
 import ctrlcctrlv.happytraveller.R;
 import ctrlcctrlv.happytraveller.activities.HomeActivity;
 import ctrlcctrlv.happytraveller.adapters.ListItemAdapter;
-import ctrlcctrlv.happytraveller.jsonParser.PlaceParser;
 import ctrlcctrlv.happytraveller.model.PlaceData;
 import ctrlcctrlv.happytraveller.url.PlaceUrl;
 
@@ -47,8 +43,6 @@ public class TabListViewFragment extends Fragment
     protected  TextView textViewHidden;
 
 
-    LatLng myLocation = null ;
-
 
     @Override
 public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -66,6 +60,7 @@ public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle sa
     {
         super.onStart();
         new googleplaces().execute();
+
     }
     public void init()
     {
@@ -74,50 +69,41 @@ public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle sa
 
     }
 
-    private class googleplaces extends AsyncTask<View,String,String>
-    {
+    private class googleplaces extends AsyncTask<View,String,String> {
 
-        String jsonCaller; 
+        String jsonCaller;
 
-       @Override
-        protected String doInBackground(View... urls)
-       {
-           // make Call to the url
+        @Override
+        protected String doInBackground(View... urls) {
+            // make Call to the url
             PlaceUrl url = new PlaceUrl();
+            url.setLatLng(homeActivity.getUsersLocation().latitude + "," + homeActivity.getUsersLocation().longitude);
+            url.setPlaceType("museum");  // TODO: 19/11/2018 find way to make call with all types of sights
+            jsonCaller = makeCall(url.getUrl());
 
-           url.setLatLng(homeActivity.getUsersLocation().latitude+","+homeActivity.getUsersLocation().longitude);
-           url.setPlaceType("museum");  // TODO: 19/11/2018 find way to make call with all types of sights
-           jsonCaller = makeCall(url.getUrl());
 
             return "";
         }
 
         @Override
-        protected void onPostExecute(String result)
-        {
+        protected void onPostExecute(String result) {
             if (jsonCaller == null) {
                 // we have an error to the call
             } else {
                 // all things went right
                 // parse Google places search result
+                //todo make  photo call ...
                 placeData = parseGoogleParse(jsonCaller);
-                // set the results to the list
-                if(placeData.size()==0)
-                {
-                        textViewHidden.setVisibility(View.VISIBLE);
-                }
-                else
-                 {
-                    adapter = new ListItemAdapter(placeData,getContext());
+                if (placeData.size() == 0) {
+                    textViewHidden.setVisibility(View.VISIBLE);
+                } else {
+                    adapter = new ListItemAdapter(placeData, getContext());
                     listView.setAdapter(adapter);
                 }
-
             }
         }
 
-
-        public  String makeCall(String url)
-        {
+        public String makeCall(String url) {
             // string buffers the url
             StringBuffer buffer_string = new StringBuffer(url);
             String replyString = "";
@@ -145,10 +131,11 @@ public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle sa
             } catch (Exception e) {
                 e.printStackTrace();
             }
-           // System.out.println(replyString);
+            // System.out.println(replyString);
 
             // trim the whitespaces
             return replyString.trim();
         }
+
     }
 }
