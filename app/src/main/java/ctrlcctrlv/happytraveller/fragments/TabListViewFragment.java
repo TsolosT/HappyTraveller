@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.model.LatLng;
@@ -37,14 +38,13 @@ import static ctrlcctrlv.happytraveller.jsonParser.PlaceParser.parseGoogleParse;
  * */
 public class TabListViewFragment extends Fragment
 {
-    View view;
+    protected View view;
 
-    ListView listView;
+    protected  ListView listView;
     private static ListItemAdapter adapter;
-    PlaceParser placeParser;
-    ArrayList<PlaceData> placeData;
-    HomeActivity homeActivity;
-
+    protected ArrayList<PlaceData> placeData;
+    protected HomeActivity homeActivity;
+    protected  TextView textViewHidden;
 
 
     LatLng myLocation = null ;
@@ -70,6 +70,7 @@ public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle sa
     public void init()
     {
         listView= (ListView)view.findViewById(R.id.listView);
+        textViewHidden=(TextView)view.findViewById(R.id.textViewHidden);
 
     }
 
@@ -83,7 +84,6 @@ public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle sa
        {
            // make Call to the url
             PlaceUrl url = new PlaceUrl();
-          // url.setLatLng(String.format(latLng.latitude+","+latLng.longitude));// TODO: 19/11/2018  malaka aimilie dwse mou mia getCurrentLocation
 
            url.setLatLng(homeActivity.getUsersLocation().latitude+","+homeActivity.getUsersLocation().longitude);
            url.setPlaceType("museum");  // TODO: 19/11/2018 find way to make call with all types of sights
@@ -102,8 +102,16 @@ public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle sa
                 // parse Google places search result
                 placeData = parseGoogleParse(jsonCaller);
                 // set the results to the list
-                adapter = new ListItemAdapter(placeData,getContext());
-                listView.setAdapter(adapter);
+                if(placeData.size()==0)
+                {
+                        textViewHidden.setVisibility(View.VISIBLE);
+                }
+                else
+                 {
+                    adapter = new ListItemAdapter(placeData,getContext());
+                    listView.setAdapter(adapter);
+                }
+
             }
         }
 
