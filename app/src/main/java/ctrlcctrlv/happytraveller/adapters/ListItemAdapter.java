@@ -5,13 +5,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
-
+import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
-
 import ctrlcctrlv.happytraveller.R;
 import ctrlcctrlv.happytraveller.model.PlaceData;
+
 
 public class ListItemAdapter extends ArrayAdapter<PlaceData> implements View.OnClickListener
 {
@@ -22,6 +23,7 @@ public class ListItemAdapter extends ArrayAdapter<PlaceData> implements View.OnC
     private static class ViewHolder {
         TextView txtName;
         TextView txtAddress;
+        ImageView imgView;
         //add more data var-components px : img info etc..
     }
 
@@ -57,6 +59,7 @@ public class ListItemAdapter extends ArrayAdapter<PlaceData> implements View.OnC
             //init ta components apo to list_view.xml ,add more pio meta
             viewHolder.txtName = (TextView) convertView.findViewById(R.id.name);
             viewHolder.txtAddress=(TextView) convertView.findViewById(R.id.address);
+            viewHolder.imgView=(ImageView)convertView.findViewById(R.id.imageView);
 
             result=convertView;
 
@@ -68,6 +71,19 @@ public class ListItemAdapter extends ArrayAdapter<PlaceData> implements View.OnC
 
         viewHolder.txtName.setText(placeData.getName());
         viewHolder.txtAddress.setText(placeData.getAddress());
+        //when need show all img not complete yet
+        //Picasso.with(getContext()).load(placeData.getPlacePhotos().get(0).getImgUrl()).into(viewHolder.imgView);
+
+        //check if no default img show error img
+        if(placeData.getDefaultImg().getPhotoReference()==null)
+        {
+            Picasso.with(getContext()).load(R.drawable.no_photo_available).into(viewHolder.imgView);
+        }
+        else
+         { //else load default place img
+             Picasso.with(getContext()).load(placeData.getDefaultImg().getImgUrl()).into(viewHolder.imgView);
+        }
+
         //  viewHolder.info.setOnClickListener(this);
         // viewHolder.info.setTag(position);
         // Return the completed view to render on screen
