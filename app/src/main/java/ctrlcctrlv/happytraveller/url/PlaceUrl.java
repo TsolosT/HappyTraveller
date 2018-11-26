@@ -19,7 +19,7 @@ public class PlaceUrl {
     {
         url+="location="+this.latLng;
         url+="&type="+this.placeType;
-        url+="&radius=1000"; // TODO: 19/11/2018 fix standard radius value
+        url+="&radius=5000"; // TODO: 19/11/2018 fix standard radius value
         url+="&sensor=true";
         url+="&key=AIzaSyDI0zKd22JBJEGco2k9Thg2CZWLLsWfq7k";
         return url;
