@@ -38,7 +38,7 @@ public class TabListViewFragment extends Fragment
 
     protected  ListView listView;
     private static ListItemAdapter adapter;
-    protected ArrayList<PlaceData> placeData;
+    static ArrayList<PlaceData> placeData;
     protected HomeActivity homeActivity;
     protected  TextView textViewHidden;
 
@@ -155,4 +155,6 @@ public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle sa
         }
 
     }
+
+    public static ArrayList<PlaceData> getPlaceData() { return placeData;}
 }
