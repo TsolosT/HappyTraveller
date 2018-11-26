@@ -14,6 +14,11 @@ public class PlaceParser {
     public static ArrayList parseGoogleParse(final String response) {
 
         ArrayList temp = new ArrayList();
+        JSONObject geometryObject;
+        JSONObject locationObject;
+        JSONObject JsonObj;
+        double latitude=0.0;
+        double longitude=0.0;
         try {
             // make an jsonObject in order to parse the response
             JSONObject jsonObject = new JSONObject(response);
@@ -22,27 +27,33 @@ public class PlaceParser {
             // make an jsonObject in order to parse the response
             if (jsonObject.has("results")) {
 
-                JSONArray jsonArray = jsonObject.getJSONArray("results");
+                JSONArray resultArray = jsonObject.getJSONArray("results");
                 ArrayList<PlacePhoto> placePhotos=new ArrayList<>();
 
-                for (int i = 0; i < jsonArray.length(); i++)
+                for (int i = 0; i < resultArray.length(); i++)
                 {
+
+                    JsonObj = resultArray.getJSONObject(i);
+                    geometryObject = JsonObj.getJSONObject("geometry");
+                    locationObject = geometryObject.getJSONObject("location");
+                    latitude = locationObject.getDouble("lat");
+                    longitude = locationObject.getDouble("lng");
                         //ka8e new name = new json obj
-                    if (jsonArray.getJSONObject(i).has("name"))
+                    if (resultArray.getJSONObject(i).has("name"))
                     {   //at the moment get only one img for each place
-                        if(jsonArray.getJSONObject(i).has("photos"))
+                        if(resultArray.getJSONObject(i).has("photos"))
                         {
-                            JSONArray photos=jsonArray.getJSONObject(i).getJSONArray("photos");
+                            JSONArray photos=resultArray.getJSONObject(i).getJSONArray("photos");
                             //todo get all img
 //                            for(int j=0;j<jsonArray.getJSONObject(i).getJSONArray("photos").length();j++)
 //                            {
 //                                placePhotos.add(new PlacePhoto(((JSONObject) photos.get(j)).getString("photo_reference")));
 //                            }
-                            temp.add(new PlaceData(jsonArray.getJSONObject(i).optString("name"), jsonArray.getJSONObject(i).optString("vicinity"),new PlacePhoto(((JSONObject) photos.get(0)).getString("photo_reference"))));
+                            temp.add(new PlaceData(resultArray.getJSONObject(i).optString("name"), resultArray.getJSONObject(i).optString("vicinity"),new PlacePhoto(((JSONObject) photos.get(0)).getString("photo_reference")),latitude,longitude));
                         }
                         else
                         {
-                            temp.add(new PlaceData(jsonArray.getJSONObject(i).optString("name"), jsonArray.getJSONObject(i).optString("vicinity"),new PlacePhoto(null)));
+                            temp.add(new PlaceData(resultArray.getJSONObject(i).optString("name"), resultArray.getJSONObject(i).optString("vicinity"),new PlacePhoto(null),latitude,longitude));
                         }
 
                     }
