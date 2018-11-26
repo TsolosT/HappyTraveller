@@ -84,16 +84,14 @@ public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle sa
 
 
 
-            urlMuseum.setLatLng("41.081622,23.550124");
-            // urlMuseum.setLatLng(homeActivity.getUsersLocation().latitude+","+homeActivity.getUsersLocation().longitude);
+
+            urlMuseum.setLatLng(homeActivity.getUsersLocation().latitude+","+homeActivity.getUsersLocation().longitude);
             urlMuseum.setPlaceType("museum");
 
-            // urlParks.setLatLng(homeActivity.getUsersLocation().latitude+","+homeActivity.getUsersLocation().longitude);
-            urlParks.setLatLng("41.081622,23.550124");
+             urlParks.setLatLng(homeActivity.getUsersLocation().latitude+","+homeActivity.getUsersLocation().longitude);
             urlParks.setPlaceType("park");
 
-            // urlChurch.setLatLng(homeActivity.getUsersLocation().latitude+","+homeActivity.getUsersLocation().longitude);
-            urlChurch.setLatLng("41.081622,23.550124");
+            urlChurch.setLatLng(homeActivity.getUsersLocation().latitude+","+homeActivity.getUsersLocation().longitude);
             urlChurch.setPlaceType("church");
 
             jsonCallerMuseum = makeCall(urlMuseum.getUrl());
