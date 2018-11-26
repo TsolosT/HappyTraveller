@@ -100,6 +100,11 @@ public class MainActivity extends AppCompatActivity
         Intent intentWeather=new Intent(this,WeatherActivity.class);
         startActivity(intentWeather);
     }
+    public void displaySharePage(MenuItem item)
+    {
+        Intent intentShare=new Intent(this,ShareActivity.class);
+        startActivity(intentShare);
+    }
 
     //Change checkbox on transport menu items
     public void changeTransportCheckValue(MenuItem item)
