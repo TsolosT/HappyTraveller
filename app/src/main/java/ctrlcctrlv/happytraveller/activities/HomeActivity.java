@@ -7,8 +7,8 @@ import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -17,7 +17,10 @@ import android.widget.Toast;
 
 import com.google.android.gms.maps.model.LatLng;
 
+import java.lang.reflect.Method;
+
 import ctrlcctrlv.happytraveller.R;
+import ctrlcctrlv.happytraveller.alterDialogs.HomeActivityAlterDialog;
 
 /*
  * This is the 'main' class,it's used to
@@ -26,6 +29,7 @@ import ctrlcctrlv.happytraveller.R;
  * */
 public class HomeActivity extends AppCompatActivity
 {
+    private Context context = null;
     private static LatLng usersLocation = null;
     private LocationManager locationManager;
     private LocationListener locationListener;
@@ -37,6 +41,9 @@ public class HomeActivity extends AppCompatActivity
     private static final String FINE_LOCATION = Manifest.permission.ACCESS_FINE_LOCATION;
     private static final String COURSE_LOCATION = Manifest.permission.ACCESS_COARSE_LOCATION;
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1234;
+    //After 1st boot and location permission granted the application will need to restart
+    private boolean needToRestart = false ;
+
     //Every 5sec you can get the user`s location
     // TODO: 11/22/2018  !---USERS LOCATION---!
     public LatLng getUsersLocation()
@@ -45,13 +52,33 @@ public class HomeActivity extends AppCompatActivity
     }
 
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
+        context = this;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
+
         getLocationPermission();
+
+        //After 1st boot and location permission granted the application will need to restart
+        if (needToRestart)
+        {
+            HomeActivityAlterDialog homeActivityAlterDialog = new HomeActivityAlterDialog();
+            homeActivityAlterDialog.restartAlterDialog(context);
+        }
+
+        //Force user to open his data
+        if(mobileDataIs() == false && needToRestart == false)
+        {
+            //Mobile data is disabled here
+            HomeActivityAlterDialog homeActivityAlterDialog = new HomeActivityAlterDialog();
+            homeActivityAlterDialog.openDataAlterDialog(context);
+        }
+
 
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
@@ -84,8 +111,9 @@ public class HomeActivity extends AppCompatActivity
             @Override
             public void onProviderDisabled(String provider)
             {
-                Intent i = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                startActivity(i);
+                //Force user to open his GPS
+                HomeActivityAlterDialog homeActivityAlterDialog = new HomeActivityAlterDialog();
+                homeActivityAlterDialog.openGPSAlterDialog(context);
             }
         };
 
@@ -103,6 +131,21 @@ public class HomeActivity extends AppCompatActivity
         locationManager.requestLocationUpdates("gps", gpsRefreshTime, 0, locationListener);
     }
 
+    private boolean mobileDataIs()
+    {
+        boolean mobileDataEnabled = false;
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        try {
+            Class cmClass = Class.forName(cm.getClass().getName());
+            Method method = cmClass.getDeclaredMethod("getMobileDataEnabled");
+            method.setAccessible(true);
+
+            mobileDataEnabled = (Boolean)method.invoke(cm);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return mobileDataEnabled;
+    }
 
 
     public void displayMainPage(View v)
@@ -135,34 +178,32 @@ public class HomeActivity extends AppCompatActivity
     }
 
 
-
-
-
-
-
-
-
-
-
     private void getLocationPermission()
     {
         String[] permissions = {Manifest.permission.ACCESS_FINE_LOCATION,
                 Manifest.permission.ACCESS_COARSE_LOCATION};
 
         if(ContextCompat.checkSelfPermission(this.getApplicationContext(),
-                FINE_LOCATION) == PackageManager.PERMISSION_GRANTED){
+                FINE_LOCATION) == PackageManager.PERMISSION_GRANTED)
+        {
             if(ContextCompat.checkSelfPermission(this.getApplicationContext(),
-                    COURSE_LOCATION) == PackageManager.PERMISSION_GRANTED){
+                    COURSE_LOCATION) == PackageManager.PERMISSION_GRANTED)
+            {
                 mLocationPermissionsGranted = true;
-            }else{
+            }
+            else
+                {
                 ActivityCompat.requestPermissions(this,
                         permissions,
                         LOCATION_PERMISSION_REQUEST_CODE);
             }
-        }else{
+        }
+        else{
             ActivityCompat.requestPermissions(this,
                     permissions,
                     LOCATION_PERMISSION_REQUEST_CODE);
+            needToRestart = true;
+
         }
     }
 }
