@@ -8,6 +8,7 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -21,6 +22,7 @@ import java.lang.reflect.Method;
 
 import ctrlcctrlv.happytraveller.R;
 import ctrlcctrlv.happytraveller.alterDialogs.HomeActivityAlterDialog;
+import ctrlcctrlv.happytraveller.connectivity.CheckConnection;
 
 /*
  * This is the 'main' class,it's used to
@@ -71,14 +73,8 @@ public class HomeActivity extends AppCompatActivity
             homeActivityAlterDialog.restartAlterDialog(context);
         }
 
-        //Force user to open his data
-        if(mobileDataIs() == false && needToRestart == false)
-        {
-            //Mobile data is disabled here
-            HomeActivityAlterDialog homeActivityAlterDialog = new HomeActivityAlterDialog();
-            homeActivityAlterDialog.openDataAlterDialog(context);
-        }
-
+        //If data or wifi isn`t enable ask user to enable one of them
+        checkUsersDataConnectivity();
 
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
@@ -131,22 +127,6 @@ public class HomeActivity extends AppCompatActivity
         locationManager.requestLocationUpdates("gps", gpsRefreshTime, 0, locationListener);
     }
 
-    private boolean mobileDataIs()
-    {
-        boolean mobileDataEnabled = false;
-        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        try {
-            Class cmClass = Class.forName(cm.getClass().getName());
-            Method method = cmClass.getDeclaredMethod("getMobileDataEnabled");
-            method.setAccessible(true);
-
-            mobileDataEnabled = (Boolean)method.invoke(cm);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return mobileDataEnabled;
-    }
-
 
     public void displayMainPage(View v)
     {
@@ -158,6 +138,7 @@ public class HomeActivity extends AppCompatActivity
                 startActivity(intent);
             }else
             {
+                checkUsersDataConnectivity();
                 Toast.makeText(getApplicationContext(), "Wait a little bit :)",Toast.LENGTH_SHORT).show();
             }
         }
@@ -177,6 +158,19 @@ public class HomeActivity extends AppCompatActivity
         //startActivity(intent);
     }
 
+
+    private void checkUsersDataConnectivity()
+    {
+        CheckConnection checkConnection = new CheckConnection(this);
+
+        //If data or wifi isn`t enable ask user to enable one of them
+        if(checkConnection.mobileDataIs() == false && checkConnection.wifiIs()== false && needToRestart == false)
+        {
+            //Mobile data is disabled here
+            HomeActivityAlterDialog homeActivityAlterDialog = new HomeActivityAlterDialog();
+            homeActivityAlterDialog.openDataAlterDialog(context);
+        }
+    }
 
     private void getLocationPermission()
     {

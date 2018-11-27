@@ -44,12 +44,22 @@ public class HomeActivityAlterDialog
         builder.setMessage("No mobile data connection detected.");
         builder.setCancelable(false);
 
-        builder.setPositiveButton("Open", new DialogInterface.OnClickListener()
+        builder.setNegativeButton("Data \uD83D\uDE22 ", new DialogInterface.OnClickListener()
         {
             @Override
             public void onClick(DialogInterface dialog, int which)
             {
                 Intent i = new Intent(Settings.ACTION_DATA_ROAMING_SETTINGS);
+                context.startActivity(i);
+            }
+
+        });
+        builder.setPositiveButton("Wi-Fi \uD83D\uDE0A", new DialogInterface.OnClickListener()
+        {
+            @Override
+            public void onClick(DialogInterface dialog, int which)
+            {
+                Intent i = new Intent(Settings.ACTION_WIFI_SETTINGS);
                 context.startActivity(i);
             }
         });
