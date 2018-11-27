@@ -39,6 +39,7 @@ import ctrlcctrlv.happytraveller.activities.HomeActivity;
 import ctrlcctrlv.happytraveller.animations.AnimatedButton;
 import ctrlcctrlv.happytraveller.google.RequestDirections;
 import ctrlcctrlv.happytraveller.jsonParser.DirectionsParser;
+import ctrlcctrlv.happytraveller.model.PlaceData;
 import ctrlcctrlv.happytraveller.url.CreateRoutesUrl;
 // TODO: 15/11/2018 fix bug #1 need restart the app after permission request about location use
 
@@ -53,6 +54,7 @@ public class TabMapFragment extends Fragment implements OnMapReadyCallback
     //If refresh button is long clicked returns true
     private static boolean longClickIs = false;
     private static HomeActivity homeActivity = null;
+    public ArrayList<PlaceData> dataPassedFromListView;
 
 
     @Override
@@ -78,6 +80,20 @@ public class TabMapFragment extends Fragment implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+        //fetch the placeData to this variable in order to extract the coordinates
+        dataPassedFromListView = TabListViewFragment.getPlaceData();
+
+        // System.out.println(dataPassedFromListView.size());
+        for(int i=0; i<dataPassedFromListView.size(); i++ )
+        {
+            Object obj = dataPassedFromListView.get(i);
+            Double lat = ((PlaceData) obj).getLatitude();
+            Double lng = ((PlaceData) obj).getLongitude();
+            LatLng final_location = new LatLng(lat,lng);
+            googleMap.addMarker(new MarkerOptions().position(final_location).title(((PlaceData) obj).getName()));
+        }
+
+
 
         mMap.getUiSettings().setZoomControlsEnabled(true);
 
