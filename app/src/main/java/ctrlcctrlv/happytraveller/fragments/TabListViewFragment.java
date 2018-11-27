@@ -34,11 +34,11 @@ import static ctrlcctrlv.happytraveller.jsonParser.PlaceParser.parseGoogleParse;
  * */
 public class TabListViewFragment extends Fragment
 {
+    private static ArrayList<PlaceData> placeData;
     protected View view;
 
     protected  ListView listView;
     private static ListItemAdapter adapter;
-    protected ArrayList<PlaceData> placeData;
     protected HomeActivity homeActivity;
     protected  TextView textViewHidden;
 
@@ -77,16 +77,17 @@ public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle sa
         protected String doInBackground(View... urls) {
             // make Call to the url
             PlaceUrl url = new PlaceUrl();
-            url.setLatLng(homeActivity.getUsersLocation().latitude + "," + homeActivity.getUsersLocation().longitude);
+             url.setLatLng(homeActivity.getUsersLocation().latitude + "," + homeActivity.getUsersLocation().longitude);
+           // url.setLatLng("41.0943488,23.5544576"); for testing purposes
             url.setPlaceType("museum");  // TODO: 19/11/2018 find way to make call with all types of sights
             jsonCaller = makeCall(url.getUrl());
-
 
             return "";
         }
 
         @Override
-        protected void onPostExecute(String result) {
+        protected void onPostExecute(String result)
+        {
             if (jsonCaller == null) {
                 // we have an error to the call
             } else {
@@ -137,5 +138,9 @@ public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle sa
             return replyString.trim();
         }
 
+    }
+
+    public static ArrayList<PlaceData> getPlaceData() {
+        return placeData;
     }
 }
