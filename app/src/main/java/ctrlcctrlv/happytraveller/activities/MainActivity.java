@@ -132,8 +132,9 @@ public class MainActivity extends AppCompatActivity
         }
 
     }
-    //Retrieves a string  'onfoot' is transport is selected onFoot and 'car' if is selected car
-    public static String getCheckedTransportItem(){
+
+    //Retrieves a string  'on foot' is transport is selected onFoot and 'car' if is selected car
+    public String getCheckedTransportItem(){
         return checkedTransportItem;
     }
 

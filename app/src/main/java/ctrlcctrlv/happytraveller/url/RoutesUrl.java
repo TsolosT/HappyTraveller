@@ -9,7 +9,7 @@ import java.util.List;
 
 
 //Url class has two constructor one just to truck the route and one if the user prefers a travel mode
-public class CreateRoutesUrl
+public class RoutesUrl
 {
 
     private  String url = null;
@@ -17,15 +17,10 @@ public class CreateRoutesUrl
     private  String destination = null;
 
 
-    public CreateRoutesUrl()
-    {
-        url = "https://maps.googleapis.com/maps/api/directions/json?origin=";
-      //  url = "https://www.google.com/maps/dir/?api=1&origin=";
-    }
 
-    public CreateRoutesUrl(String travelMode)
+    public RoutesUrl(String travelMode)
     {
-        url = "https://maps.googleapis.com/maps/api/directions/json?"+"&travelmode="+travelMode+"&origin=";
+        url = "https://maps.googleapis.com/maps/api/directions/json?"+"&mode="+travelMode+"&origin=";
     }
 
     public String getUrl(LatLng start, LatLng end ,android.content.Context context, java.util.Locale locale)
@@ -33,7 +28,6 @@ public class CreateRoutesUrl
         origin = getLocationsName(start,context,locale);
         destination = getLocationsName(end,context,locale);
 
-       // url += origin+",IL&destination="+destination+"OK&key=AIzaSyDI0zKd22JBJEGco2k9Thg2CZWLLsWfq7k";
         url += origin+",&destination="+destination+"OK&key=AIzaSyDI0zKd22JBJEGco2k9Thg2CZWLLsWfq7k";
         return url;
     }
