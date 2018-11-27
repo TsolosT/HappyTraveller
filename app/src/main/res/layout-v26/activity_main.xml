@@ -17,6 +17,7 @@
             android:layout_width="0dp"
             android:layout_height="46dp"
             android:background="@color/colorPrimary"
+            app:layout_constraintBottom_toTopOf="@+id/viewPager"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -37,21 +38,20 @@
 
         </android.support.design.widget.TabLayout>
 
-        <LinearLayout
+        <android.support.constraint.ConstraintLayout
             android:id="@+id/linearBottomLayout"
             android:layout_width="0dp"
             android:layout_height="44dp"
             android:background="@color/colorPrimary"
-            android:orientation="horizontal"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/viewPager">
 
             <EditText
                 android:id="@+id/textSearch"
-                android:layout_width="332dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
                 android:autoLink="none"
                 android:autoText="false"
                 android:focusable="auto"
@@ -61,23 +61,30 @@
                 android:textColor="@android:color/white"
                 android:textColorHighlight="@android:color/white"
                 android:textColorHint="@color/colorPrimaryWhite"
-                android:textColorLink="@color/colorPrimaryWhite" />
+                android:textColorLink="@color/colorPrimaryWhite"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/btnSearch"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <Button
                 android:id="@+id/btnSearch"
-                android:layout_width="24dp"
+                android:layout_width="60dp"
                 android:layout_height="47dp"
-                android:layout_weight="1"
                 android:background="@drawable/ic_search_white_24dp"
                 android:backgroundTint="@color/colorBlack"
                 android:textColor="@color/colorPrimaryWhite"
-                android:textColorLink="@color/colorPrimaryWhite" />
-        </LinearLayout>
+                android:textColorLink="@color/colorPrimaryWhite"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/textSearch"
+                app:layout_constraintTop_toTopOf="@+id/textSearch" />
+        </android.support.constraint.ConstraintLayout>
 
         <android.support.v4.view.ViewPager
             android:id="@+id/viewPager"
             android:layout_width="0dp"
-            android:layout_height="419dp"
+            android:layout_height="0dp"
             app:layout_constraintBottom_toTopOf="@+id/linearBottomLayout"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
