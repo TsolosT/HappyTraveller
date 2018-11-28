@@ -1,6 +1,7 @@
 package ctrlcctrlv.happytraveller.fragments;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.AsyncTask;
@@ -39,13 +40,15 @@ import ctrlcctrlv.happytraveller.activities.MainActivity;
 import ctrlcctrlv.happytraveller.animations.AnimatedButton;
 import ctrlcctrlv.happytraveller.google.RequestDirections;
 import ctrlcctrlv.happytraveller.jsonParser.DirectionsParser;
+import ctrlcctrlv.happytraveller.model.PlaceData;
 import ctrlcctrlv.happytraveller.url.RoutesUrl;
 // TODO: 15/11/2018 fix bug #1 need restart the app after permission request about location use
 
 
 public class TabMapFragment extends Fragment implements OnMapReadyCallback
 {
-    private GoogleMap mMap;
+    public static GoogleMap mMap;
+    private static Context context;
     LatLng pinsLatLng;
     private static Polyline line = null;
     //If polylines exists is true
@@ -53,6 +56,7 @@ public class TabMapFragment extends Fragment implements OnMapReadyCallback
     //If refresh button is long clicked returns true
     private static boolean longClickIs = false;
     private static HomeActivity homeActivity = null;
+    public static ArrayList<PlaceData> dataPassedFromListView;
 
 
     @Override
@@ -68,6 +72,8 @@ public class TabMapFragment extends Fragment implements OnMapReadyCallback
 
         pinsLatLng = null;
         homeActivity = new HomeActivity();
+        context = getActivity().getApplicationContext();
+
 
 
         //Inflate the layout for this fragment
@@ -76,10 +82,13 @@ public class TabMapFragment extends Fragment implements OnMapReadyCallback
 
 
     @Override
-    public void onMapReady(GoogleMap googleMap) {
+    public void onMapReady(GoogleMap googleMap)
+    {
         mMap = googleMap;
 
         mMap.getUiSettings().setZoomControlsEnabled(true);
+
+
 
 
         if (ActivityCompat.checkSelfPermission(getActivity().getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getActivity().getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED)
@@ -175,7 +184,7 @@ public class TabMapFragment extends Fragment implements OnMapReadyCallback
                 //Clears the map and add a red pin
                 if (pinsLatLng != null)
                 {
-                    mMap.clear();
+                    clearMap();
                     markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
                 }
                 mMap.addMarker(markerOptions);
@@ -300,4 +309,35 @@ public class TabMapFragment extends Fragment implements OnMapReadyCallback
         return returnValue;
     }
 
+
+    public void clearMap()
+    {
+        mMap.clear();
+    }
+
+
+ public static void showSightsWithPins()
+ {
+
+     dataPassedFromListView = TabListViewFragment.getPlaceData();
+
+     if (dataPassedFromListView == null)
+     {
+         Toast.makeText(context, "Pins cannot be showned at the moment ",Toast.LENGTH_SHORT).show();
+     }
+     else {
+         for(int i=0;i< dataPassedFromListView.size();i++ )
+         {
+             Object obj = dataPassedFromListView.get(i);
+             // Double lat = ((PlaceData) obj).getLatitude();
+             //  Double lng = ((PlaceData) obj).getLongitude();
+             Double lat = dataPassedFromListView.get(i).getLatitude();
+             Double lng = dataPassedFromListView.get(i).getLongitude();
+             LatLng final_location = new LatLng(lat,lng);
+             System.out.println(Double.toString(lat)+""+Double.toString(lng));
+
+             mMap.addMarker(new MarkerOptions().position(final_location).title(((PlaceData) obj).getName()));
+         }
+     }
+ }
 }
