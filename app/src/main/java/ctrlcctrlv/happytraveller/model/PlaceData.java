@@ -15,6 +15,7 @@ public class PlaceData
     Double latitude;
     Double longitude;
 
+
     ArrayList<PlacePhoto> placePhotos;
     PlacePhoto defaultImg;
     // TODO: 15/11/2018  add more variable like phone number,web url,img ,etc
@@ -31,7 +32,8 @@ public class PlaceData
         this.name = name;
         this.address = address;
     }
-    public PlaceData(String name, String address,PlacePhoto photo,Double latitude,Double longitude) {
+    public PlaceData(String name, String address,PlacePhoto photo,Double latitude,Double longitude)
+    {
         this.name = name;
         this.address = address;
         this.defaultImg = photo;
@@ -43,12 +45,15 @@ public class PlaceData
         this.name = "";
         this.address = "";
         this.info = "";
+        this.coordinates = null;
         this.pinsIcon = null ;
         this.placePhotos=new ArrayList<PlacePhoto>();
         this.defaultImg=new PlacePhoto();
 
 
     }
+
+    public void setCoordinates(LatLng coordinates) {this.coordinates = coordinates;}
 
     public LatLng getCoordinates() {return coordinates;}
 
