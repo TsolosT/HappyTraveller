@@ -10,6 +10,7 @@
         android:title="@string/weather" />
     <item
         android:id="@+id/shareMenuItem"
+        android:onClick="displaySharePage"
         android:title="@string/share" />
     <item
         android:id="@+id/viewPinItemLabel"
@@ -24,21 +25,7 @@
                     android:checked="true"
 
                     android:icon="@drawable/ic_check_box_black_24dp"
-                    android:onClick="changeCheckValue"
                     android:title="@string/sights" />
-                <item
-                    android:id="@+id/checkBoxHotels"
-                    android:checkable="true"
-
-                    android:icon="@drawable/ic_check_box_outline_blank_black_24dp"
-                    android:onClick="changeCheckValue"
-                    android:title="@string/hotels" />
-                <item
-                    android:id="@+id/checkBoxShops"
-
-                    android:icon="@drawable/ic_check_box_outline_blank_black_24dp"
-                    android:onClick="changeCheckValue"
-                    android:title="@string/shops" />
             </group>
         </menu>
     </item>
@@ -55,14 +42,14 @@
                     android:checked="true"
 
                     android:icon="@drawable/ic_check_box_black_24dp"
-                    android:onClick="changeCheckValue"
+                    android:onClick="changeTransportCheckValue"
                     android:title="@string/on_foot" />
                 <item
                     android:id="@+id/checkBoxCar"
                     android:checkable="true"
 
                     android:icon="@drawable/ic_check_box_outline_blank_black_24dp"
-                    android:onClick="changeCheckValue"
+                    android:onClick="changeTransportCheckValue"
                     android:title="@string/car" />
             </group>
         </menu>

@@ -7,6 +7,17 @@
     tools:context=".fragments.TabListViewFragment">
 
 
+        <TextView
+            android:id="@+id/textViewHidden"
+            android:layout_width="match_parent"
+            android:layout_height="129dp"
+            android:gravity="center_vertical|center_horizontal"
+            android:text="Not a single sight near you ;/"
+            android:textColor="@android:color/black"
+            android:textSize="18sp"
+            android:typeface="serif"
+            android:visibility="invisible" />
+
         <ListView
             android:id="@+id/listView"
             android:layout_width="match_parent"

@@ -7,132 +7,140 @@
     android:fillViewport="true">
 
 
-    <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:background="@color/colorPrimary"
-        android:orientation="vertical"
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <TextView
-            android:id="@+id/logInLabel"
-            android:layout_width="match_parent"
-            android:layout_height="106dp"
-            android:fontFamily="serif"
-            android:gravity="center_vertical"
-            android:lineSpacingExtra="12sp"
-            android:text="@string/sign_in"
-            android:textAlignment="center"
-            android:textColor="@color/colorBlack"
-            android:textSize="30sp"
-            android:textStyle="italic" />
-
-        <TextView
-            android:id="@+id/emailLabel"
-            android:layout_width="match_parent"
-            android:layout_height="42dp"
-            android:fontFamily="serif"
-            android:gravity="center_vertical"
-            android:labelFor="@+id/emailTextInput"
-            android:text="@string/email"
-            android:textColor="@android:color/white"
-            android:textSize="18sp" />
-
-        <EditText
-            android:id="@+id/emailTextInput"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:autofillHints=""
-            android:ems="10"
-            android:hint="@string/example_mail_com"
-            android:inputType="textEmailAddress"
-            android:textColorHint="@android:color/white"
-            android:textColorLink="@color/colorPrimaryWhite" />
-
-        <TextView
-            android:id="@+id/PasswordLabel"
-            android:layout_width="match_parent"
-            android:layout_height="66dp"
-            android:gravity="center_vertical"
-            android:text="Password"
-            android:textColor="@android:color/white"
-            android:textSize="18sp"
-            android:typeface="serif" />
-
-        <EditText
-            android:id="@+id/passwordInput"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="Enter your password..."
-            android:inputType="textPassword"
-            android:textColorHint="@android:color/white"
-            android:textColorLink="@android:color/white" />
-
-        <Button
-            android:id="@+id/btn_logIn"
-            style="@style/Widget.AppCompat.Button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="44dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="44dp"
-            android:layout_marginBottom="10dp"
-            android:background="@drawable/btn"
-            android:text="Sing in"
-            android:textAllCaps="false"
-            android:textSize="18sp"
-            android:textStyle="italic" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="54dp"
-            android:orientation="horizontal">
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            android:orientation="vertical"
+            android:focusableInTouchMode="true">
+
+            <TextView
+                android:id="@+id/logInLabel"
+                android:layout_width="match_parent"
+                android:layout_height="106dp"
+                android:fontFamily="serif"
+                android:gravity="center_vertical"
+                android:lineSpacingExtra="12sp"
+                android:text="@string/sign_in"
+                android:textAlignment="center"
+                android:textColor="@color/colorBlack"
+                android:textSize="30sp"
+                android:textStyle="italic" />
+
+            <TextView
+                android:id="@+id/emailLabel"
+                android:layout_width="match_parent"
+                android:layout_height="42dp"
+                android:fontFamily="serif"
+                android:gravity="center_vertical"
+                android:labelFor="@+id/emailTextInput"
+                android:text="@string/email"
+                android:textColor="@android:color/white"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/emailTextInput"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:autofillHints=""
+                android:ems="10"
+                android:hint="@string/example_mail_com"
+                android:inputType="textEmailAddress"
+                android:textColorHint="@android:color/white"
+                android:textColorLink="@color/colorPrimaryWhite" />
+
+            <TextView
+                android:id="@+id/PasswordLabel"
+                android:layout_width="match_parent"
+                android:layout_height="66dp"
+                android:gravity="center_vertical"
+                android:text="Password"
+                android:textColor="@android:color/white"
+                android:textSize="18sp"
+                android:typeface="serif" />
+
+            <EditText
+                android:id="@+id/passwordInput"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Enter your password..."
+                android:inputType="textPassword"
+                android:textColorHint="@android:color/white"
+                android:textColorLink="@android:color/white" />
 
             <Button
-                android:id="@+id/btnSignGoogle"
-                android:layout_width="12dp"
+                android:id="@+id/btn_logIn"
+                style="@style/Widget.AppCompat.Button"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:layout_weight="1"
-                android:background="@drawable/btn_red"
-                android:text="Sign with Google"
+                android:layout_marginLeft="44dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="44dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/btn"
+                android:text="Sing in"
                 android:textAllCaps="false"
+                android:textSize="18sp"
+                android:textStyle="italic" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="54dp"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btnSignGoogle"
+                    android:layout_width="12dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/btn_red"
+                    android:text="Sign with Google"
+                    android:textAllCaps="false"
+                    android:textSize="14sp"
+                    android:textStyle="italic"
+                    android:typeface="sans" />
+
+                <Button
+                    android:id="@+id/btnSignFb"
+                    android:layout_width="30dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/btn_blue"
+                    android:paddingLeft="0dp"
+                    android:text="Sign with Facebook"
+                    android:textAllCaps="false"
+                    android:textStyle="italic" />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btn_goSignUp"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="displaySignUp"
+                android:text="No account yet?Create one"
+                android:textAllCaps="false"
+                android:textColor="@color/colorBlack"
                 android:textSize="14sp"
                 android:textStyle="italic"
-                android:typeface="sans" />
+                android:typeface="serif" />
 
-            <Button
-                android:id="@+id/btnSignFb"
-                android:layout_width="30dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="30dp"
-                android:layout_marginRight="20dp"
-                android:layout_weight="1"
-                android:background="@drawable/btn_blue"
-                android:paddingLeft="0dp"
-                android:text="Sign with Facebook"
-                android:textAllCaps="false"
-                android:textStyle="italic" />
         </LinearLayout>
-
-        <Button
-            android:id="@+id/btn_goSignUp"
-            style="@style/Widget.AppCompat.Button.Borderless"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="displaySignUp"
-            android:text="No account yet?Create one"
-            android:textAllCaps="false"
-            android:textColor="@color/colorBlack"
-            android:textSize="14sp"
-            android:textStyle="italic"
-            android:typeface="serif" />
-
-    </LinearLayout>
+    </ScrollView>
 </android.support.constraint.ConstraintLayout>

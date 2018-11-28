@@ -1,42 +1,61 @@
 package ctrlcctrlv.happytraveller.model;
 
 
-import android.widget.ImageView;
+import com.google.android.gms.maps.model.LatLng;
 
-public class PlaceData {
+import java.util.ArrayList;
 
-
+public class PlaceData
+{
     String name;
     String address;
     String info;
-    String category;
-  //  ImageView[] images;
+    LatLng coordinates;
+    String pinsIcon;
+
+    ArrayList<PlacePhoto> placePhotos;
+    PlacePhoto defaultImg;
     // TODO: 15/11/2018  add more variable like phone number,web url,img ,etc
 
 
-    public PlaceData(String name, String address) {
+    public PlaceData(String name, String address,ArrayList<PlacePhoto> placePhotos)
+    {
+        this.name = name;
+        this.address = address;
+        this.placePhotos=placePhotos;
+    }
+    public PlaceData(String name, String address)
+    {
         this.name = name;
         this.address = address;
     }
-
+    public PlaceData(String name, String address,PlacePhoto photo) {
+        this.name = name;
+        this.address = address;
+        this.defaultImg = photo;
+    }
     public PlaceData()
     {
         this.name = "";
         this.address = "";
         this.info = "";
-        this.category="";
-    }
-    public String getCategory() { return category;
+        this.coordinates = null;
+        this.pinsIcon = null ;
+        this.placePhotos=new ArrayList<PlacePhoto>();
+        this.defaultImg=new PlacePhoto();
+
+
     }
 
-    public void setCategory(String category) { this.category = category;  }
+    public void setCoordinates(LatLng coordinates) {this.coordinates = coordinates;}
+
+    public LatLng getCoordinates() {return coordinates;}
+
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+    public void setName(String name) {this.name = name;}
 
     public String getInfo() {
         return info;
@@ -55,8 +74,20 @@ public class PlaceData {
         this.address = address;
     }
 
-    public void setNull() {
-        this.name="";
-        this.address="";
+
+    public ArrayList<PlacePhoto> getPlacePhotos() {
+        return placePhotos;
     }
+
+    public void setPlacePhotos(ArrayList<PlacePhoto> placePhotos) {
+        this.placePhotos = placePhotos;
+    }
+    public PlacePhoto getDefaultImg() {
+        return defaultImg;
+    }
+
+    public void setDefaultImg(PlacePhoto defaultImg) {
+        this.defaultImg = defaultImg;
+    }
+
 }
