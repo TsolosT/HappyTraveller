@@ -14,7 +14,10 @@ public class PlaceData
     String pinsIcon;
     Double latitude;
     Double longitude;
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
 
     ArrayList<PlacePhoto> placePhotos;
     PlacePhoto defaultImg;
@@ -32,8 +35,12 @@ public class PlaceData
         this.name = name;
         this.address = address;
     }
+<<<<<<< Updated upstream
     public PlaceData(String name, String address,PlacePhoto photo,Double latitude,Double longitude)
     {
+=======
+    public PlaceData(String name, String address,PlacePhoto photo,Double latitude,Double longitude) {
+>>>>>>> Stashed changes
         this.name = name;
         this.address = address;
         this.defaultImg = photo;
@@ -85,7 +92,8 @@ public class PlaceData
         return placePhotos;
     }
 
-    public void setPlacePhotos(ArrayList<PlacePhoto> placePhotos) {
+    public void setPlacePhotos(ArrayList<PlacePhoto> placePhotos)
+    {
         this.placePhotos = placePhotos;
     }
     public PlacePhoto getDefaultImg() {
@@ -95,6 +103,14 @@ public class PlaceData
     public void setDefaultImg(PlacePhoto defaultImg) {
         this.defaultImg = defaultImg;
     }
+    public void setLatitude() { this.latitude=latitude;}
+
+    public Double getLatitude() { return latitude;}
+
+    public void setLongitude() { this.longitude=longitude;}
+
+    public Double getLongitude() { return longitude;}
+
     public void setLatitude() { this.latitude=latitude;}
 
     public Double getLatitude() { return latitude;}

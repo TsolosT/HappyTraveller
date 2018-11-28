@@ -38,6 +38,10 @@ public class TabListViewFragment extends Fragment
     private static ArrayList<PlaceData> placeData;
     protected  ListView listView;
     private static ListItemAdapter adapter;
+<<<<<<< Updated upstream
+=======
+    private static ArrayList<PlaceData> placeData;
+>>>>>>> Stashed changes
     protected HomeActivity homeActivity;
     protected  TextView textViewHidden;
 

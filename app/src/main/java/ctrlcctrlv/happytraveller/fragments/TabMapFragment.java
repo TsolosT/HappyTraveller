@@ -92,8 +92,11 @@ public class TabMapFragment extends Fragment implements OnMapReadyCallback
             LatLng final_location = new LatLng(lat,lng);
             googleMap.addMarker(new MarkerOptions().position(final_location).title(((PlaceData) obj).getName()));
         }
+<<<<<<< Updated upstream
 
 
+=======
+>>>>>>> Stashed changes
 
         mMap.getUiSettings().setZoomControlsEnabled(true);
 
