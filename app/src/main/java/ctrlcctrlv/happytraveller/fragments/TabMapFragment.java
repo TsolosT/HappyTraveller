@@ -3,7 +3,6 @@ package ctrlcctrlv.happytraveller.fragments;
 import android.Manifest;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
-import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
@@ -36,11 +35,12 @@ import java.util.Locale;
 
 import ctrlcctrlv.happytraveller.R;
 import ctrlcctrlv.happytraveller.activities.HomeActivity;
+import ctrlcctrlv.happytraveller.activities.MainActivity;
 import ctrlcctrlv.happytraveller.animations.AnimatedButton;
 import ctrlcctrlv.happytraveller.google.RequestDirections;
 import ctrlcctrlv.happytraveller.jsonParser.DirectionsParser;
 import ctrlcctrlv.happytraveller.model.PlaceData;
-import ctrlcctrlv.happytraveller.url.CreateRoutesUrl;
+import ctrlcctrlv.happytraveller.url.RoutesUrl;
 // TODO: 15/11/2018 fix bug #1 need restart the app after permission request about location use
 
 
@@ -54,7 +54,7 @@ public class TabMapFragment extends Fragment implements OnMapReadyCallback
     //If refresh button is long clicked returns true
     private static boolean longClickIs = false;
     private static HomeActivity homeActivity = null;
-    public ArrayList<PlaceData> dataPassedFromListView;
+    public static ArrayList<PlaceData> dataPassedFromListView;
 
 
     @Override
@@ -78,15 +78,15 @@ public class TabMapFragment extends Fragment implements OnMapReadyCallback
 
 
     @Override
-    public void onMapReady(GoogleMap googleMap) {
+    public void onMapReady(GoogleMap googleMap)
+    {
         mMap = googleMap;
-        //fetch the placeData to this variable in order to extract the coordinates
         dataPassedFromListView = TabListViewFragment.getPlaceData();
-
+        Object obj ;
         // System.out.println(dataPassedFromListView.size());
         for(int i=0; i<dataPassedFromListView.size(); i++ )
         {
-            Object obj = dataPassedFromListView.get(i);
+            obj=dataPassedFromListView.get(i);
             Double lat = ((PlaceData) obj).getLatitude();
             Double lng = ((PlaceData) obj).getLongitude();
             LatLng final_location = new LatLng(lat,lng);
@@ -130,10 +130,12 @@ public class TabMapFragment extends Fragment implements OnMapReadyCallback
                                 line.remove();
 
 
-                            CreateRoutesUrl createRoutesUrl = new CreateRoutesUrl();
+
+                            RoutesUrl routesUrl = new RoutesUrl(getTravelMode());
                             TaskRequestDirections taskRequestDirections = new TaskRequestDirections();
 
-                            taskRequestDirections.execute(createRoutesUrl.getUrl(homeActivity.getUsersLocation(),pinsLatLng, getActivity().getApplicationContext(), Locale.getDefault()));
+                            taskRequestDirections.execute(routesUrl.getUrl(homeActivity.getUsersLocation(),pinsLatLng, getActivity().getApplicationContext(), Locale.getDefault()));
+
                         }else
                         {
                                 Toast.makeText(getActivity().getApplicationContext(), "My location not found !",Toast.LENGTH_SHORT).show();
@@ -293,4 +295,25 @@ public class TabMapFragment extends Fragment implements OnMapReadyCallback
             }
         }
     }
+
+
+
+
+    private String getTravelMode()
+    {
+        MainActivity mainActivity = new MainActivity();
+        String returnValue = null;
+
+        switch (mainActivity.getCheckedTransportItem())
+        {
+            case "onfoot":
+                returnValue = "walking";
+                break;
+            case "car":
+                returnValue = "driving";
+                break;
+        }
+        return returnValue;
+    }
+
 }
