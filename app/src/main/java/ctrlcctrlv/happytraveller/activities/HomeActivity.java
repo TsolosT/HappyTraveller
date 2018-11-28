@@ -52,6 +52,8 @@ public class HomeActivity extends AppCompatActivity
     {
         return usersLocation;
     }
+    public static LatLng getUsersLocation2(){return usersLocation;}//static for Shareactivity call
+
 
 
 
