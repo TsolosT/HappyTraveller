@@ -12,6 +12,9 @@ public class PlaceData
     String info;
     LatLng coordinates;
     String pinsIcon;
+    Double latitude;
+    Double longitude;
+
 
     ArrayList<PlacePhoto> placePhotos;
     PlacePhoto defaultImg;
@@ -29,10 +32,13 @@ public class PlaceData
         this.name = name;
         this.address = address;
     }
-    public PlaceData(String name, String address,PlacePhoto photo) {
+    public PlaceData(String name, String address,PlacePhoto photo,Double latitude,Double longitude)
+    {
         this.name = name;
         this.address = address;
         this.defaultImg = photo;
+        this.latitude=latitude;
+        this.longitude=longitude;
     }
     public PlaceData()
     {
@@ -89,5 +95,12 @@ public class PlaceData
     public void setDefaultImg(PlacePhoto defaultImg) {
         this.defaultImg = defaultImg;
     }
+    public void setLatitude() { this.latitude=latitude;}
+
+    public Double getLatitude() { return latitude;}
+
+    public void setLongitude() { this.longitude=longitude;}
+
+    public Double getLongitude() { return longitude;}
 
 }
