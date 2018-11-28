@@ -1,6 +1,7 @@
 package ctrlcctrlv.happytraveller.fragments;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.AsyncTask;
@@ -46,7 +47,8 @@ import ctrlcctrlv.happytraveller.url.RoutesUrl;
 
 public class TabMapFragment extends Fragment implements OnMapReadyCallback
 {
-    private GoogleMap mMap;
+    public static GoogleMap mMap;
+    private static Context context;
     LatLng pinsLatLng;
     private static Polyline line = null;
     //If polylines exists is true
@@ -70,6 +72,8 @@ public class TabMapFragment extends Fragment implements OnMapReadyCallback
 
         pinsLatLng = null;
         homeActivity = new HomeActivity();
+        context = getActivity().getApplicationContext();
+
 
 
         //Inflate the layout for this fragment
@@ -81,20 +85,10 @@ public class TabMapFragment extends Fragment implements OnMapReadyCallback
     public void onMapReady(GoogleMap googleMap)
     {
         mMap = googleMap;
-        dataPassedFromListView = TabListViewFragment.getPlaceData();
-        // System.out.println(dataPassedFromListView.size());
-        for(int i=0; i<dataPassedFromListView.size(); i++ )
-        {
-            Object obj=dataPassedFromListView.get(i);
-            Double lat = ((PlaceData) obj).getLatitude();
-            Double lng = ((PlaceData) obj).getLongitude();
-            LatLng final_location = new LatLng(lat,lng);
-            googleMap.addMarker(new MarkerOptions().position(final_location).title(((PlaceData) obj).getName()));
-        }
-
-
 
         mMap.getUiSettings().setZoomControlsEnabled(true);
+
+
 
 
         if (ActivityCompat.checkSelfPermission(getActivity().getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getActivity().getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED)
@@ -190,7 +184,7 @@ public class TabMapFragment extends Fragment implements OnMapReadyCallback
                 //Clears the map and add a red pin
                 if (pinsLatLng != null)
                 {
-                    mMap.clear();
+                    clearMap();
                     markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
                 }
                 mMap.addMarker(markerOptions);
@@ -315,4 +309,35 @@ public class TabMapFragment extends Fragment implements OnMapReadyCallback
         return returnValue;
     }
 
+
+    public void clearMap()
+    {
+        mMap.clear();
+    }
+
+
+ public static void showSightsWithPins()
+ {
+
+     dataPassedFromListView = TabListViewFragment.getPlaceData();
+
+     if (dataPassedFromListView == null)
+     {
+         Toast.makeText(context, "Pins cannot be showned at the moment ",Toast.LENGTH_SHORT).show();
+     }
+     else {
+         for(int i=0;i< dataPassedFromListView.size();i++ )
+         {
+             Object obj = dataPassedFromListView.get(i);
+             // Double lat = ((PlaceData) obj).getLatitude();
+             //  Double lng = ((PlaceData) obj).getLongitude();
+             Double lat = dataPassedFromListView.get(i).getLatitude();
+             Double lng = dataPassedFromListView.get(i).getLongitude();
+             LatLng final_location = new LatLng(lat,lng);
+             System.out.println(Double.toString(lat)+""+Double.toString(lng));
+
+             mMap.addMarker(new MarkerOptions().position(final_location).title(((PlaceData) obj).getName()));
+         }
+     }
+ }
 }

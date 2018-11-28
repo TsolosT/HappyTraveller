@@ -22,9 +22,10 @@
                 <item
                     android:id="@+id/checkBoxSights"
                     android:checkable="true"
-                    android:checked="true"
+                    android:checked="false"
 
-                    android:icon="@drawable/ic_check_box_black_24dp"
+                    android:icon="@drawable/ic_check_box_outline_blank_black_24dp"
+                    android:onClick="changeSightPinStatus"
                     android:title="@string/sights" />
             </group>
         </menu>

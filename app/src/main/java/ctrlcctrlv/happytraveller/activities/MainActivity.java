@@ -13,10 +13,17 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
+
 import java.security.acl.Group;
+import java.util.ArrayList;
 
 import ctrlcctrlv.happytraveller.adapters.PageFragAdapter;
 import ctrlcctrlv.happytraveller.R;
+import ctrlcctrlv.happytraveller.fragments.TabListViewFragment;
+import ctrlcctrlv.happytraveller.fragments.TabMapFragment;
+import ctrlcctrlv.happytraveller.model.PlaceData;
 
 
 public class MainActivity extends AppCompatActivity
@@ -29,7 +36,8 @@ public class MainActivity extends AppCompatActivity
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle mToggle;
     private static String checkedTransportItem;
-
+    private static String checkedSightsItem;
+    public static ArrayList<PlaceData> dataPassedFromListView = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -136,6 +144,38 @@ public class MainActivity extends AppCompatActivity
     //Retrieves a string  'on foot' is transport is selected onFoot and 'car' if is selected car
     public String getCheckedTransportItem(){
         return checkedTransportItem;
+    }
+
+
+    //Change status of sight checkbox and display pins on map with sights
+    public void changeSightPinStatus(MenuItem item)
+    {   //get menu
+        NavigationView navView=(NavigationView)findViewById(R.id.navView);
+        // menu item sights
+        MenuItem   sight=navView.getMenu().getItem(2);
+        //get checkbox sights
+        MenuItem   sightPins=sight.getSubMenu().getItem(0);
+
+        if(sightPins.isChecked()) {
+            //clean pins
+            sightPins.setChecked(false);
+            sightPins.setIcon(R.drawable.ic_check_box_outline_blank_black_24dp);
+            TabMapFragment.mMap.clear();
+        }
+        else if(!sightPins.isChecked())
+        {
+            //set pins on map
+
+            sightPins.setChecked(true);
+            sightPins.setIcon(R.drawable.ic_check_box_black_24dp);
+
+            TabMapFragment.showSightsWithPins();
+
+        }
+
+    }
+    public static String getCheckedSightsItem(){
+        return checkedSightsItem;
     }
 
 }

@@ -70,15 +70,32 @@ public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle sa
 
     private class googleplaces extends AsyncTask<View,String,String> {
 
-        String jsonCaller;
+        String jsonCallerMuseum;
+        String jsonCallerParks;
+        String jsonCallerChurch;
 
         @Override
         protected String doInBackground(View... urls) {
             // make Call to the url
-            PlaceUrl url = new PlaceUrl();
-            url.setLatLng(homeActivity.getUsersLocation().latitude + "," + homeActivity.getUsersLocation().longitude);
-            url.setPlaceType("museum");  // TODO: 19/11/2018 find way to make call with all types of sights
-            jsonCaller = makeCall(url.getUrl());
+
+            PlaceUrl urlMuseum = new PlaceUrl();
+            PlaceUrl urlParks = new PlaceUrl();
+            PlaceUrl urlChurch = new PlaceUrl();
+            // urlMuseum.setLatLng("41.081622,23.550124");
+            urlMuseum.setLatLng(homeActivity.getUsersLocation().latitude+","+homeActivity.getUsersLocation().longitude);
+            urlMuseum.setPlaceType("museum");
+
+            urlParks.setLatLng(homeActivity.getUsersLocation().latitude+","+homeActivity.getUsersLocation().longitude);
+            // urlParks.setLatLng("41.081622,23.550124");
+            urlParks.setPlaceType("park");
+
+            urlChurch.setLatLng(homeActivity.getUsersLocation().latitude+","+homeActivity.getUsersLocation().longitude);
+            //     urlChurch.setLatLng("41.081622,23.550124");
+            urlChurch.setPlaceType("church");
+
+            jsonCallerMuseum = makeCall(urlMuseum.getUrl());
+            jsonCallerParks = makeCall(urlParks.getUrl());
+            jsonCallerChurch=makeCall(urlChurch.getUrl());
 
 
             return "";
@@ -86,13 +103,15 @@ public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle sa
 
         @Override
         protected void onPostExecute(String result) {
-            if (jsonCaller == null) {
+            if (jsonCallerMuseum == null && jsonCallerParks == null && jsonCallerChurch== null) {
                 // we have an error to the call
             } else {
                 // all things went right
                 // parse Google places search result
                 //todo make  photo call ...
-                placeData = parseGoogleParse(jsonCaller);
+                placeData = (parseGoogleParse(jsonCallerMuseum));
+                placeData.addAll(parseGoogleParse(jsonCallerChurch));
+                placeData.addAll(parseGoogleParse(jsonCallerParks));
                 if (placeData.size() == 0) {
                     textViewHidden.setVisibility(View.VISIBLE);
                 } else {
