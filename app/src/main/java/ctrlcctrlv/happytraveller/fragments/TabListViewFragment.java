@@ -35,10 +35,9 @@ import static ctrlcctrlv.happytraveller.jsonParser.PlaceParser.parseGoogleParse;
 public class TabListViewFragment extends Fragment
 {
     protected View view;
-
+    private static ArrayList<PlaceData> placeData;
     protected  ListView listView;
     private static ListItemAdapter adapter;
-    protected ArrayList<PlaceData> placeData;
     protected HomeActivity homeActivity;
     protected  TextView textViewHidden;
 
@@ -138,4 +137,6 @@ public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle sa
         }
 
     }
+    //function to fetch the placeData into tabMapFragment
+    public static ArrayList<PlaceData> getPlaceData() { return placeData;}
 }
