@@ -17,15 +17,16 @@ public class PlaceParser {
         JSONObject geometryObject;
         JSONObject locationObject;
         JSONObject JsonObj;
-        double latitude=0.0;
-        double longitude=0.0;
+        Double latitude=null;
+        Double longitude=null;
         try {
             // make an jsonObject in order to parse the response
             JSONObject jsonObject = new JSONObject(response);
 
 
             // make an jsonObject in order to parse the response
-            if (jsonObject.has("results")) {
+            if (jsonObject.has("results"))
+            {
 
                 JSONArray jsonArray = jsonObject.getJSONArray("results");
                 ArrayList<PlacePhoto> placePhotos=new ArrayList<>();
