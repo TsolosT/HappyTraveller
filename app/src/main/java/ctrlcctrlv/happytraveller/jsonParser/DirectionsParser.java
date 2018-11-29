@@ -71,7 +71,7 @@ public class DirectionsParser
      */
     private List decodePolyline(String encoded)
     {
-        System.out.println("decodePolyline");
+        //System.out.println("decodePolyline");
 
         List poly = new ArrayList();
         int index = 0, len = encoded.length();

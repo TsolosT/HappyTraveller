@@ -42,6 +42,8 @@ import ctrlcctrlv.happytraveller.google.RequestDirections;
 import ctrlcctrlv.happytraveller.jsonParser.DirectionsParser;
 import ctrlcctrlv.happytraveller.model.PlaceData;
 import ctrlcctrlv.happytraveller.url.RoutesUrl;
+
+import static ctrlcctrlv.happytraveller.activities.MainActivity.getCheckedSightsItem;
 // TODO: 15/11/2018 fix bug #1 need restart the app after permission request about location use
 
 
@@ -160,6 +162,10 @@ public class TabMapFragment extends Fragment implements OnMapReadyCallback
 
                 //clears map from everything (pins , polylines)
                 mMap.clear();
+
+                //when long click is pressed it refreshes the Sights button from navBar too.
+                MainActivity.refreshSightButton(getCheckedSightsItem());
+
 
                 pinsLatLng = null;
 
@@ -299,7 +305,7 @@ public class TabMapFragment extends Fragment implements OnMapReadyCallback
 
         switch (mainActivity.getCheckedTransportItem())
         {
-            case "onfoot":
+            case "onFoot":
                 returnValue = "walking";
                 break;
             case "car":
@@ -323,7 +329,7 @@ public class TabMapFragment extends Fragment implements OnMapReadyCallback
 
      if (dataPassedFromListView == null)
      {
-         Toast.makeText(context, "Pins cannot be showned at the moment ",Toast.LENGTH_SHORT).show();
+         Toast.makeText(context, "Cannot display pins on map(List of sights empty)",Toast.LENGTH_SHORT).show();
      }
      else {
          for(int i=0;i< dataPassedFromListView.size();i++ )
@@ -334,8 +340,7 @@ public class TabMapFragment extends Fragment implements OnMapReadyCallback
              Double lat = dataPassedFromListView.get(i).getLatitude();
              Double lng = dataPassedFromListView.get(i).getLongitude();
              LatLng final_location = new LatLng(lat,lng);
-             System.out.println(Double.toString(lat)+""+Double.toString(lng));
-
+             //System.out.println(Double.toString(lat)+""+Double.toString(lng));
              mMap.addMarker(new MarkerOptions().position(final_location).title(((PlaceData) obj).getName()));
          }
      }
