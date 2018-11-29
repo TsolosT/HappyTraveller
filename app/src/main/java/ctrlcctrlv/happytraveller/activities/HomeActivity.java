@@ -52,7 +52,8 @@ public class HomeActivity extends AppCompatActivity
     {
         return usersLocation;
     }
-    public static LatLng getUsersLocation2(){return usersLocation;}//static for Shareactivity call
+    //static for ShareActivity call
+    public static LatLng getUsersLocation2(){return usersLocation;}
 
 
 
@@ -91,7 +92,7 @@ public class HomeActivity extends AppCompatActivity
                     Toast.makeText(getApplicationContext(), "You are ready to go !!!",Toast.LENGTH_SHORT).show();
                     onReadyMessageFlag = false ;
                 }
-                System.out.println("Current Location: "+usersLocation);
+                //System.out.println("Current Location: "+usersLocation);
             }
 
             @Override
@@ -141,7 +142,7 @@ public class HomeActivity extends AppCompatActivity
             }else
             {
                 checkUsersDataConnectivity();
-                Toast.makeText(getApplicationContext(), "Wait a little bit :)",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Wait till GPS is stable",Toast.LENGTH_SHORT).show();
             }
         }
 
@@ -154,7 +155,8 @@ public class HomeActivity extends AppCompatActivity
         Intent intent=new Intent(this,SignUpActivity.class);
         startActivity(intent);
     }
-    public void displayInfoPage(View v){
+    public void displayInfoPage(View v)
+    {
         // TODO: 13/11/2018 otan ginei to info page
         //Intent intent=new Intent(this,InfoActivity.class);
         //startActivity(intent);

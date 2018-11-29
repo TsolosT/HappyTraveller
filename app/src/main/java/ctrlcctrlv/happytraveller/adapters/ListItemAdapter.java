@@ -20,7 +20,8 @@ public class ListItemAdapter extends ArrayAdapter<PlaceData> implements View.OnC
     Context mContext;
 
     // View lookup cache
-    private static class ViewHolder {
+    private static class ViewHolder
+    {
         TextView txtName;
         TextView txtAddress;
         ImageView imgView;
@@ -29,7 +30,8 @@ public class ListItemAdapter extends ArrayAdapter<PlaceData> implements View.OnC
 
 
 
-    public ListItemAdapter(ArrayList<PlaceData> data, Context context) {
+    public ListItemAdapter(ArrayList<PlaceData> data, Context context)
+    {
         super(context, R.layout.list_view, data);
         this.dataSet = data;
         this.mContext=context;
@@ -37,7 +39,8 @@ public class ListItemAdapter extends ArrayAdapter<PlaceData> implements View.OnC
     }
 
     @Override //edw 8a mpei to listener gia to detail btn
-    public void onClick(View view)  {
+    public void onClick(View view)
+    {
 
     }
 
