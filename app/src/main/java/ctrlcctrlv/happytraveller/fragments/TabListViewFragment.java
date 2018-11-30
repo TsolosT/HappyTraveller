@@ -1,5 +1,6 @@
 package ctrlcctrlv.happytraveller.fragments;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -21,6 +22,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import ctrlcctrlv.happytraveller.R;
 import ctrlcctrlv.happytraveller.activities.HomeActivity;
+import ctrlcctrlv.happytraveller.activities.SignUpActivity;
 import ctrlcctrlv.happytraveller.adapters.ListItemAdapter;
 import ctrlcctrlv.happytraveller.model.PlaceData;
 import ctrlcctrlv.happytraveller.url.PlaceUrl;
@@ -30,7 +32,7 @@ import static ctrlcctrlv.happytraveller.jsonParser.PlaceParser.parseGoogleParse;
 /*
  * This class is the fragment for the tab list view
  * It displays the fragment_tab_list_view.xml
- *todo more detail about class
+ *
  * */
 public class TabListViewFragment extends Fragment
 {

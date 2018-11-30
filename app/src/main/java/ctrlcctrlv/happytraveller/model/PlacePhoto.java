@@ -14,7 +14,7 @@ public class PlacePhoto {
         this.imgUrl="https://maps.googleapis.com/maps/api/place/photo?" +
                 "maxwidth=146" +//this.width
                 "&photoreference=" +this.photoReference+
-                "key=AIzaSyDI0zKd22JBJEGco2k9Thg2CZWLLsWfq7k";
+                "&key=AIzaSyDI0zKd22JBJEGco2k9Thg2CZWLLsWfq7k";
     }
     public PlacePhoto(String imgReference){
         this.width="";

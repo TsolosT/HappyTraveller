@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">HappyTraveller</string>
-    <string name="sights">Sights</string>
     <string name="list_view">List View</string>
     <string name="map">Map</string>
     <string name="openMenu">Menu</string>
@@ -24,4 +23,5 @@
     <string name="email">Email</string>
     <string name="example_mail_com">example@mail.com</string>
     <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyDI0zKd22JBJEGco2k9Thg2CZWLLsWfq7k</string>
+    <string name="sights">Sights</string>
 </resources>
