@@ -125,11 +125,7 @@ public class TabMapFragment extends Fragment implements OnMapReadyCallback
                                 line.remove();
 
 
-
-                            RoutesUrl routesUrl = new RoutesUrl(getTravelMode());
-                            TaskRequestDirections taskRequestDirections = new TaskRequestDirections();
-
-                            taskRequestDirections.execute(routesUrl.getUrl(homeActivity.getUsersLocation(),pinsLatLng, getActivity().getApplicationContext(), Locale.getDefault()));
+                            drawRouteOnMap(homeActivity.getUsersLocation(),pinsLatLng);
 
                         }else
                         {
@@ -314,6 +310,17 @@ public class TabMapFragment extends Fragment implements OnMapReadyCallback
         }
         return returnValue;
     }
+
+
+
+    private void drawRouteOnMap(LatLng origin, LatLng destination)
+    {
+        RoutesUrl routesUrl = new RoutesUrl(getTravelMode());
+        TaskRequestDirections taskRequestDirections = new TaskRequestDirections();
+
+        taskRequestDirections.execute(routesUrl.getUrl(origin,destination, getActivity().getApplicationContext(), Locale.getDefault()));
+    }
+
 
 
     public void clearMap()
