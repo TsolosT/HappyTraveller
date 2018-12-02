@@ -31,6 +31,7 @@ public class PlaceParser {
                 JSONArray jsonArray = jsonObject.getJSONArray("results");
                 ArrayList<PlacePhoto> placePhotos=new ArrayList<>();
 
+
                 for (int i = 0; i < jsonArray.length(); i++)
                 {
                     JsonObj = jsonArray.getJSONObject(i);
@@ -40,20 +41,25 @@ public class PlaceParser {
                     longitude = locationObject.getDouble("lng");
                         //ka8e new name = new json obj
                     if (jsonArray.getJSONObject(i).has("name"))
-                    {   //at the moment get only one img for each place
+                    {
+                        //get location with string not lat lng
+                        String cityAndCountry= getCompountCode(jsonArray.getJSONObject(i).optString("plus_code"));
+                        //at the moment get only one img for each place
                         if(jsonArray.getJSONObject(i).has("photos"))
                         {
                             JSONArray photos=jsonArray.getJSONObject(i).getJSONArray("photos");
+
                             //todo get all img
 //                            for(int j=0;j<jsonArray.getJSONObject(i).getJSONArray("photos").length();j++)
 //                            {
 //                                placePhotos.add(new PlacePhoto(((JSONObject) photos.get(j)).getString("photo_reference")));
 //                            }
-                            temp.add(new PlaceData(jsonArray.getJSONObject(i).optString("name"), jsonArray.getJSONObject(i).optString("vicinity"),new PlacePhoto(((JSONObject) photos.get(0)).getString("photo_reference")),latitude,longitude));
+
+                            temp.add(new PlaceData(jsonArray.getJSONObject(i).optString("name"), jsonArray.getJSONObject(i).optString("vicinity"),new PlacePhoto(((JSONObject) photos.get(0)).getString("photo_reference")),latitude,longitude,cityAndCountry));
                         }
                         else
                         {
-                            temp.add(new PlaceData(jsonArray.getJSONObject(i).optString("name"), jsonArray.getJSONObject(i).optString("vicinity"),new PlacePhoto(null),latitude,longitude));
+                            temp.add(new PlaceData(jsonArray.getJSONObject(i).optString("name"), jsonArray.getJSONObject(i).optString("vicinity"),new PlacePhoto(null),latitude,longitude,cityAndCountry));
                         }
 
                     }
@@ -66,5 +72,16 @@ public class PlaceParser {
         return temp;
 
     }
+    //getting this a string example {"compound_code":"3HV3+JX Serres, Greece","global_code":"8GH53HV3+JX"}
+    //then split it and return city and country
+   public static String getCompountCode(String x)
+   {    String cityAndCountry="not available";
+        String[] parts= x.split(" ");
+       String[] subpart= parts[2].split("\"");
+
+        cityAndCountry=parts[1]+subpart[0];
+
+       return cityAndCountry;
+   }
 
 }

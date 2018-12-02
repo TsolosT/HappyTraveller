@@ -13,7 +13,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="8dp"
-        android:text="your location "
+        android:text="not available"
         android:textAlignment="center"
         android:textColor="@color/colorPrimaryWhite"
         android:textSize="14sp"
