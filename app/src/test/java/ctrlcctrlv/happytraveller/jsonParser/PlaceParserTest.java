@@ -18,6 +18,7 @@ public class PlaceParserTest {
     private ArrayList<PlaceData> mockArray;
     private  PlaceParser parser;
     private PlaceData mockPlace;
+    private String plusCode;
 
     @Before
     public void setUp()
@@ -65,16 +66,23 @@ public class PlaceParserTest {
            when(mockArray.get(0).getName()).thenReturn("Αρχαιολογικό Μουσείο Μπεζεστένι");
            when(mockArray.get(0).getAddress()).thenReturn("Λεωφόρος Μεραρχίας 858, Σέρρες");
             parser=new PlaceParser();
+            plusCode="{\"compound_code\":\"3HV3+JX Serres, Greece\",\"global_code\":\"8GH53HV3+JX\"}";
     }
     @Test
-    public void doPlaceParse()
+    public void doPlaceParseTest()
     {
         ArrayList<PlaceData> testPlaceDataArray=new ArrayList<>();
         testPlaceDataArray= parser.parseGoogleParse(jsonReply.trim());
         assertEquals(mockArray.get(0).getName(),testPlaceDataArray.get(0).getName());
 
     }
-
+    @Test
+    public void checkSpliterTest()
+    {
+        String cityAndCountry=parser.getCompountCode(plusCode);
+        String expected="Serres,Greece";
+        assertEquals(expected,cityAndCountry);
+    }
     @After
     public void tearDown()
     {

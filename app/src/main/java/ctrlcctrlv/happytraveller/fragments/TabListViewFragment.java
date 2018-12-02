@@ -117,6 +117,7 @@ public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle sa
                 if (placeData.size() == 0) {
                     textViewHidden.setVisibility(View.VISIBLE);
                 } else {
+
                     adapter = new ListItemAdapter(placeData, getContext());
                     listView.setAdapter(adapter);
                 }
@@ -151,7 +152,7 @@ public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle sa
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            // System.out.println(replyString);
+            //System.out.println(replyString);
 
             // trim the whitespaces
             return replyString.trim();

@@ -11,6 +11,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -79,7 +80,24 @@ public class MainActivity extends AppCompatActivity
 
 
     }
-
+//
+//    @Override
+//    protected void onStart() {
+//        super.onStart();
+//        renewTxtViewLocation();
+//    }
+//    @Override
+//    protected void onResume() {
+//
+//        super.onResume();
+//        renewTxtViewLocation();
+//    }
+//   @Override
+//   protected void onRestart() {
+//
+//       super.onRestart();
+//       renewTxtViewLocation();
+//   }
 
     //Initialize the variables that need to be used
     public void init()
@@ -93,6 +111,7 @@ public class MainActivity extends AppCompatActivity
         drawerLayout=(DrawerLayout)findViewById(R.id.drawerLayout);
         mToggle=new ActionBarDrawerToggle(this,drawerLayout,R.string.openMenu,R.string.closeMenu);
         checkedTransportItem="onFoot";
+
     }
 
     @Override
@@ -101,6 +120,7 @@ public class MainActivity extends AppCompatActivity
         //if ham icon clicked will display menu side bar
         if(mToggle.onOptionsItemSelected(item))
         {
+            renewTxtViewLocation();
             return true;
         }
          return  super.onOptionsItemSelected(item);
@@ -202,5 +222,18 @@ public class MainActivity extends AppCompatActivity
         return checkedSightsItem;
     }
 
+    //set and  reset  nav_header txtView location with users current location
+    public void renewTxtViewLocation()
+    {    //get nav view then  header and then  textview
+        NavigationView navView=(NavigationView)findViewById(R.id.navView);
+        View header= navView.getHeaderView(0);
+        TextView txtViewLocation=(TextView)header.findViewById(R.id.locationTextView);
+        //get place data array
+        ArrayList<PlaceData> places=TabListViewFragment.getPlaceData();
+        //get location from  array
+        String location=places.get(0).getCityCountry();
+        //display location
+            txtViewLocation.setText(location);
+    }
 }
 
