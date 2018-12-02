@@ -80,24 +80,6 @@ public class MainActivity extends AppCompatActivity
 
 
     }
-//
-//    @Override
-//    protected void onStart() {
-//        super.onStart();
-//        renewTxtViewLocation();
-//    }
-//    @Override
-//    protected void onResume() {
-//
-//        super.onResume();
-//        renewTxtViewLocation();
-//    }
-//   @Override
-//   protected void onRestart() {
-//
-//       super.onRestart();
-//       renewTxtViewLocation();
-//   }
 
     //Initialize the variables that need to be used
     public void init()
