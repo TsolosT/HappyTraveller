@@ -68,6 +68,7 @@
         android:layout_marginTop="176dp"
         android:layout_marginEnd="24dp"
         android:background="@color/colorBlack"
+        android:onClick="getLili"
         android:text="Details"
         android:textColor="@color/common_google_signin_btn_text_dark_focused"
         app:layout_constraintEnd_toEndOf="parent"

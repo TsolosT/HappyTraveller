@@ -16,6 +16,10 @@ public class PlaceData
     Double longitude;
 
 
+
+    int id;
+
+
     String cityCountry;
 
 
@@ -35,7 +39,7 @@ public class PlaceData
         this.name = name;
         this.address = address;
     }
-    public PlaceData(String name, String address,PlacePhoto photo,Double latitude,Double longitude,String cityCountry)
+    public PlaceData(String name, String address,PlacePhoto photo,Double latitude,Double longitude,String cityCountry,int id)
     {
         this.name = name;
         this.address = address;
@@ -43,6 +47,7 @@ public class PlaceData
         this.latitude=latitude;
         this.longitude=longitude;
         this.cityCountry=cityCountry;
+        this.id=id;
     }
     public PlaceData()
     {
@@ -114,6 +119,12 @@ public class PlaceData
 
     public void setCityCountry(String cityCountry) {
         this.cityCountry = cityCountry;
+    }
+
+    public int getId() {return id; }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
 }

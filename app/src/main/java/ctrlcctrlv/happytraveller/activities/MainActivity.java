@@ -217,5 +217,15 @@ public class MainActivity extends AppCompatActivity
         //display location
             txtViewLocation.setText(location);
     }
+
+    public void getLili(View view)
+    {
+        System.out.println("GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG");
+        System.out.println(view.getId());
+        // get se placedata (list) ,
+        // for gia prospelash ta antikeimena toy pinaka
+        // if view,getid == placedate.getId
+        // na anoigei to activity kai na pernaw ton titlo apo to antikeimeno kai ayto tha to pairnei to activity tha to bazei sto url
+    }
 }
 

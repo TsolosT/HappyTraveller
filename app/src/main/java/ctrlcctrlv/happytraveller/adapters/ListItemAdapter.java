@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -17,6 +18,7 @@ import ctrlcctrlv.happytraveller.model.PlaceData;
 public class ListItemAdapter extends ArrayAdapter<PlaceData> implements View.OnClickListener
 {
     private ArrayList<PlaceData> dataSet;
+
     Context mContext;
 
     // View lookup cache
@@ -25,6 +27,7 @@ public class ListItemAdapter extends ArrayAdapter<PlaceData> implements View.OnC
         TextView txtName;
         TextView txtAddress;
         ImageView imgView;
+        Button btn;
         //add more data var-components px : img info etc..
     }
 
@@ -63,6 +66,7 @@ public class ListItemAdapter extends ArrayAdapter<PlaceData> implements View.OnC
             viewHolder.txtName = (TextView) convertView.findViewById(R.id.name);
             viewHolder.txtAddress=(TextView) convertView.findViewById(R.id.address);
             viewHolder.imgView=(ImageView)convertView.findViewById(R.id.imageView);
+            viewHolder.btn=(Button)convertView.findViewById(R.id.btnDetails);
 
             result=convertView;
 
@@ -74,6 +78,8 @@ public class ListItemAdapter extends ArrayAdapter<PlaceData> implements View.OnC
 
         viewHolder.txtName.setText(placeData.getName());
         viewHolder.txtAddress.setText(placeData.getAddress());
+        viewHolder.btn.setId(placeData.getId());
+
         //when need show all img not complete yet
         //Picasso.with(getContext()).load(placeData.getPlacePhotos().get(0).getImgUrl()).into(viewHolder.imgView);
 
