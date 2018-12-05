@@ -6,30 +6,36 @@ import android.os.Bundle;
 import android.view.View;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.ArrayAdapter;
 
-import com.google.android.gms.location.places.Place;
 import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
-import java.util.ArrayList;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.stream.Collectors;
 
-import ctrlcctrlv.happytraveller.adapters.ListItemAdapter;
-import ctrlcctrlv.happytraveller.jsonParser.PlaceParser;
+import java.net.URLEncoder;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import java.util.ArrayList;
 import ctrlcctrlv.happytraveller.model.PlaceData;
 import ctrlcctrlv.happytraveller.R;
+
+import static java.net.URLEncoder.encode;
 
 
 public class DetailsActivity extends AppCompatActivity {
     //ui
     public WebView wiki;
     //variables
-    public String encoding = "UTF-8";
-    public String searchName;
+    private static final String encoding = "UTF-8";
+    private static String searchName=null;
     public String encoded=null;
     private static ArrayList<PlaceData> placeDataArrayList;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Intent i = getIntent();//call from mainactivity
+
+        ///call from mainactivity//
+        Intent i = getIntent();
         searchName=i.getExtras().getString("searchtittle");
 
         //ui
@@ -44,29 +50,41 @@ public class DetailsActivity extends AppCompatActivity {
 
         // Configure the client to use when opening URLs
         wiki.setWebViewClient(new WebViewClient());
-
-
-        //get list from fragment
-
-
-        //id = list
-
-
-        //
-        //set title from listitemadapter with intent
-       // searchName=ListItemAdapter.getWikiTittle();
-
-        //wikipediaURl
-        String wikipediaURL = "https://en.wikipedia.org/wiki/"+searchName;
       //  wiki.loadUrl(wikipediaURL); //search = tittle
 
        // encode URL
+        String encoded= null;
+        System.out.format("'%s'\n", encoded);
 
-        try {
-            encoded= URLEncoder.encode(wikipediaURL,encoding);
-           wiki.loadUrl(encoded); //search = tittle
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-      }
+        //set URL
+        String wikipediaURL =null;
+
+        //Search the google for Wikipedia Links
+        Document google = null;
+        wiki.getSettings().setUserAgentString("Mozilla/5.0");
+     //   google = (Document) Jsoup.connect("https://www.google.com/search?q="+searchName).userAgent("Mozilla");
+
+      //Get the first link about Wikipedia
+      // google.getElementsByTag("cite").get(0).text();
+
+        //Use Wikipedia API to get JSON File
+        String wikipediaApiJSON ="https://www.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro=&explaintext=&titles=";
+
+        //set wikiURL
+       wikipediaURL="https://en.wikipedia.org/wiki/"+searchName;
+      //Let's see what it found
+        System.out.println(wikipediaURL);
+       System.out.println(wikipediaApiJSON);
+
+
+
+       //load url
+        wiki.loadUrl(wikipediaURL);
+
+        //fetch the api
+
+
+
+
     }
 }
