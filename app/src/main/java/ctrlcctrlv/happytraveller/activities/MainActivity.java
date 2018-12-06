@@ -1,5 +1,6 @@
 package ctrlcctrlv.happytraveller.activities;
 
+import android.app.SearchManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -137,10 +138,13 @@ public class MainActivity extends AppCompatActivity
         //get the correct search tittle
         String searchtittle=placeData.get(k).getName();
         System.out.println(searchtittle);
-        //intent for DetailsActivity
+        //intent for DetailsActivity display
         Intent intentInfos=new Intent(this,DetailsActivity.class);
         intentInfos.putExtra("searchtittle",searchtittle);
         startActivity(intentInfos);
+
+
+
 
 
         // na anoigei to activity kai na pernaw ton titlo apo to antikeimeno kai ayto tha to pairnei to activity tha to bazei sto url
