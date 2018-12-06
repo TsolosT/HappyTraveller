@@ -39,6 +39,7 @@
         android:layout_marginStart="6dp"
         android:layout_marginBottom="10dp"
         android:text="TextView"
+        android:textStyle="italic"
         android:visibility="invisible" />
 
     <Button
@@ -49,7 +50,9 @@
         android:layout_alignParentBottom="true"
         android:layout_marginEnd="-1dp"
         android:layout_marginBottom="140dp"
-        android:text="Submit rating" />
+        android:text="Submit rating"
+        android:textStyle="italic"
+        />
 
     <RatingBar
         android:id="@+id/ratingBar"
@@ -58,7 +61,10 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentBottom="true"
         android:layout_marginStart="59dp"
-        android:layout_marginBottom="234dp" />
+        android:layout_marginBottom="234dp"
+        android:progressBackgroundTint="@color/colorPrimary"
+        android:progressTint="@color/common_google_signin_btn_text_dark_default"
+        android:secondaryProgressTint="@color/common_google_signin_btn_text_dark_pressed" />
 
     <TextView
         android:id="@+id/textRating"
@@ -67,6 +73,7 @@
         android:layout_alignStart="@+id/ratingBar"
         android:layout_alignTop="@+id/textViewHide"
         android:text="TextView"
+        android:textStyle="italic"
         android:visibility="invisible" />
 
 </RelativeLayout>

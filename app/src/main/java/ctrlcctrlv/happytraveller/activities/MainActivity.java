@@ -1,5 +1,6 @@
 package ctrlcctrlv.happytraveller.activities;
 
+import android.app.SearchManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -11,14 +12,17 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
+
 
 
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.security.acl.Group;
+import java.time.ZoneOffset;
 import java.util.ArrayList;
 
 import ctrlcctrlv.happytraveller.adapters.PageFragAdapter;
@@ -40,7 +44,8 @@ public class MainActivity extends AppCompatActivity
     private static String checkedTransportItem;
     private static String checkedSightsItem;
     private static NavigationView navView;
-    public static ArrayList<PlaceData> dataPassedFromListView = null;
+    private static ArrayList<PlaceData> placeData=null;//for onclickinfos
+    protected TabListViewFragment tabListViewFragment;
 
 
     @Override
@@ -49,8 +54,9 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        init();
 
+        init();
+        tabListViewFragment=new TabListViewFragment();
       viewPager.addOnPageChangeListener(new TabLayoutOnPageChangeListener(tabLayout));
 
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener()
@@ -118,6 +124,33 @@ public class MainActivity extends AppCompatActivity
     {
         Intent intentShare=new Intent(this,ShareActivity.class);
         startActivity(intentShare);
+    }
+
+    public void  onClickInfos(View view)
+    {
+       //get id button
+        System.out.println(view.getId());
+        //fetch placeDataArraylist
+        placeData=tabListViewFragment.getPlaceData();
+        //k= id button
+        int k=view.getId();
+        System.out.println(k);
+        //get the correct search tittle
+        String searchtittle=placeData.get(k).getName();
+        System.out.println(searchtittle);
+        //intent for DetailsActivity display
+        Intent intentInfos=new Intent(this,DetailsActivity.class);
+        intentInfos.putExtra("searchtittle",searchtittle);
+        startActivity(intentInfos);
+
+
+
+
+
+        // na anoigei to activity kai na pernaw ton titlo apo to antikeimeno kai ayto tha to pairnei to activity tha to bazei sto url
+//
+//
+
     }
 
     //Change checkbox on transport menu items

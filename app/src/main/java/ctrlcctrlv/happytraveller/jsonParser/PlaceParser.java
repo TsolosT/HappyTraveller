@@ -19,6 +19,7 @@ public class PlaceParser {
         JSONObject JsonObj;
         Double latitude=null;
         Double longitude=null;
+        int id;
         try {
             // make an jsonObject in order to parse the response
             JSONObject jsonObject = new JSONObject(response);
@@ -34,11 +35,13 @@ public class PlaceParser {
 
                 for (int i = 0; i < jsonArray.length(); i++)
                 {
+
                     JsonObj = jsonArray.getJSONObject(i);
                     geometryObject = JsonObj.getJSONObject("geometry");
                     locationObject = geometryObject.getJSONObject("location");
                     latitude = locationObject.getDouble("lat");
                     longitude = locationObject.getDouble("lng");
+                    id=i;
                         //ka8e new name = new json obj
                     if (jsonArray.getJSONObject(i).has("name"))
                     {
@@ -55,11 +58,11 @@ public class PlaceParser {
 //                                placePhotos.add(new PlacePhoto(((JSONObject) photos.get(j)).getString("photo_reference")));
 //                            }
 
-                            temp.add(new PlaceData(jsonArray.getJSONObject(i).optString("name"), jsonArray.getJSONObject(i).optString("vicinity"),new PlacePhoto(((JSONObject) photos.get(0)).getString("photo_reference")),latitude,longitude,cityAndCountry));
+                            temp.add(new PlaceData(jsonArray.getJSONObject(i).optString("name"), jsonArray.getJSONObject(i).optString("vicinity"),new PlacePhoto(((JSONObject) photos.get(0)).getString("photo_reference")),latitude,longitude,cityAndCountry,id));
                         }
                         else
                         {
-                            temp.add(new PlaceData(jsonArray.getJSONObject(i).optString("name"), jsonArray.getJSONObject(i).optString("vicinity"),new PlacePhoto(null),latitude,longitude,cityAndCountry));
+                            temp.add(new PlaceData(jsonArray.getJSONObject(i).optString("name"), jsonArray.getJSONObject(i).optString("vicinity"),new PlacePhoto(null),latitude,longitude,cityAndCountry,id));
                         }
 
                     }

@@ -68,6 +68,7 @@
         android:layout_marginTop="176dp"
         android:layout_marginEnd="24dp"
         android:background="@color/colorBlack"
+        android:onClick="onClickInfos"
         android:text="Details"
         android:textColor="@color/common_google_signin_btn_text_dark_focused"
         app:layout_constraintEnd_toEndOf="parent"
@@ -80,7 +81,6 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginTop="15dp"
-
         android:background="@color/colorPrimary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
