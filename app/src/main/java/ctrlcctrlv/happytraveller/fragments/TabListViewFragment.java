@@ -60,7 +60,7 @@ public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle sa
     public void onStart()
     {
         super.onStart();
-        new googleplaces().execute();
+        new googlePlaces().execute();
 
     }
     public void init()
@@ -70,7 +70,7 @@ public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle sa
 
     }
 
-    private class googleplaces extends AsyncTask<View,String,String> {
+    private class googlePlaces extends AsyncTask<View,String,String> {
 
         String jsonCallerMuseum;
         String jsonCallerParks;
