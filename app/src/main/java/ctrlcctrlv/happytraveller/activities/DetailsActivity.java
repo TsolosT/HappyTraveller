@@ -20,9 +20,7 @@ import java.util.stream.Collectors;
 import java.net.URLEncoder;
 
 import org.apache.http.protocol.HTTP;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.select.Elements;
+
 
 import java.util.ArrayList;
 import ctrlcctrlv.happytraveller.model.PlaceData;
@@ -39,7 +37,7 @@ public class DetailsActivity extends AppCompatActivity {
     private static String searchName=null;
     public String encoded=null;
     private static ArrayList<PlaceData> placeDataArrayList;
-    Document google = null;
+
     EditText mEdit;
 
     @Override
