@@ -48,12 +48,11 @@ public class HomeActivity extends AppCompatActivity
 
     //Every 5sec you can get the user`s location
     // TODO: 11/22/2018  !---USERS LOCATION---!
-    public LatLng getUsersLocation()
-    {
-        return usersLocation;
-    }
+
+    public LatLng getUsersLocation() { return usersLocation; }
+
     //static for ShareActivity call
-    public static LatLng getUsersLocation2(){return usersLocation;}
+   public static LatLng getUsersLocation2(){return usersLocation;}
 
 
 
@@ -203,4 +202,5 @@ public class HomeActivity extends AppCompatActivity
 
         }
     }
+
 }

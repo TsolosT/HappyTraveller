@@ -71,7 +71,8 @@ public class ShareActivity  extends AppCompatActivity
         {
             private LatLng latLng;
             @Override
-            public void onClick(View v) {
+            public void onClick(View v)
+            {
                 latLng= HomeActivity.getUsersLocation2();
                 double longitude=latLng.longitude;
                 double latitude=latLng.latitude;

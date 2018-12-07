@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.Polyline;
 import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -19,6 +20,7 @@ import ctrlcctrlv.happytraveller.R;
 import ctrlcctrlv.happytraveller.activities.HomeActivity;
 import ctrlcctrlv.happytraveller.model.PlaceData;
 
+import static ctrlcctrlv.happytraveller.fragments.TabMapFragment.getPolylineState;
 import static ctrlcctrlv.happytraveller.fragments.TabMapFragment.mMap;
 
 
@@ -54,6 +56,10 @@ public class ListItemAdapter extends ArrayAdapter<PlaceData> implements View.OnC
     @Override
     public void onClick(View view)
     {
+
+        Polyline polyline = getPolylineState();
+        if(polyline!=null)
+            polyline.remove();
 
         TabMapFragment.passCoordinatesFromPlaces();
         int position = (Integer) view.getTag();
