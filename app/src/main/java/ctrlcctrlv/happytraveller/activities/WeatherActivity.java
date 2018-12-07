@@ -35,21 +35,22 @@ public class WeatherActivity extends AppCompatActivity {
     String j1 = null;
     String j2 = null;
     String temp=null;
-    EditText cityName;
     String key;
+    String lat="41.2";
+    String lon="23.2";
     TextView weatherReport;
+
 
 
     public void checkWeather (View view) {
 
         DownloadTask task = new DownloadTask();
 
-        //hide keyboard on button press
-        InputMethodManager mgr = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-        mgr.hideSoftInputFromWindow(cityName.getWindowToken(), 0);
+
 
         try {
-            j1 = task.execute("http://dataservice.accuweather.com/locations/v1/cities/search?apikey=5LGnlvGAhG9hCLTxO33ASOrDkv7JZtOc&q="+cityName.getText().toString()).get();
+            j1 = task.execute("http://dataservice.accuweather.com/locations/v1/cities/geoposition/search?apikey=jq2F4GlI2Q5e4JuDkghiWDOcrVBApCJH&q="+lat+","+lon).get();
+
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
@@ -63,7 +64,7 @@ public class WeatherActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_weather);
         init();
-        cityName = (EditText) findViewById(R.id.cityName);
+
         weatherReport = (TextView) findViewById(R.id.weatherReport);
 
     }
@@ -111,14 +112,14 @@ public class WeatherActivity extends AppCompatActivity {
             // print key value
 
             try {
-                JSONArray arr = new JSONArray(j1);
-                for (int i = 0; i<arr.length(); i++){
-
-                    JSONObject jsonPart = arr.getJSONObject(i);
-                    key = jsonPart.getString("Key");
+                JSONObject thekey  = new JSONObject(j1);
 
 
-                }
+
+                key = thekey.getString("Key");
+
+
+
 
 
                 try {
@@ -127,7 +128,7 @@ public class WeatherActivity extends AppCompatActivity {
 
 
                     JSONArray weatherArray = new JSONArray(j2);
-                    for (int i = 0; i<arr.length(); i++){
+                    for (int i = 0; i<weatherArray.length(); i++){
 
                         JSONObject weatherPart = weatherArray.getJSONObject(i);
                         JSONObject temp = weatherPart.getJSONObject("Temperature");
