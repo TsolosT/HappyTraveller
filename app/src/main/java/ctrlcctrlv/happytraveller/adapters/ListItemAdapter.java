@@ -9,27 +9,17 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
 import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
-import java.util.HashMap;
-
 import ctrlcctrlv.happytraveller.R;
-import ctrlcctrlv.happytraveller.activities.HomeActivity;
-import ctrlcctrlv.happytraveller.fragments.TabMapFragment;
 import ctrlcctrlv.happytraveller.model.PlaceData;
-
-import static ctrlcctrlv.happytraveller.fragments.TabMapFragment.mMap;
 
 
 public class ListItemAdapter extends ArrayAdapter<PlaceData> implements View.OnClickListener
 {
-    private static final ctrlcctrlv.happytraveller.fragments.TabMapFragment TabMapFragment = ctrlcctrlv.happytraveller.fragments.TabMapFragment.getTabMap_instance();
     private ArrayList<PlaceData> dataSet;
 
     Context mContext;
-    protected HomeActivity homeActivity;
 
     // View lookup cache
     private static class ViewHolder
@@ -38,7 +28,6 @@ public class ListItemAdapter extends ArrayAdapter<PlaceData> implements View.OnC
         TextView txtAddress;
         ImageView imgView;
         Button btn;
-        Button btnShowRoute;
         //add more data var-components px : img info etc..
     }
 
@@ -52,21 +41,9 @@ public class ListItemAdapter extends ArrayAdapter<PlaceData> implements View.OnC
 
     }
 
-    @Override
+    @Override //edw 8a mpei to listener gia to detail btn
     public void onClick(View view)
     {
-
-        TabMapFragment.passCoordinatesFromPlaces();
-        int position = (Integer) view.getTag();
-        System.out.println(position);
-        HashMap dataPassedFromHash = TabMapFragment.getMapCoordinates();
-        double users_current_latitude = (homeActivity.getUsersLocation2().latitude);
-        double users_current_longitude = (homeActivity.getUsersLocation2().longitude);
-        LatLng user_coordinates = new LatLng(users_current_latitude,users_current_longitude);
-        LatLng selected_place_coordinates = (LatLng) dataPassedFromHash.get(position);
-        mMap.addMarker(new MarkerOptions().position(selected_place_coordinates));
-        TabMapFragment.getTabMap_instance().drawRouteOnMap(user_coordinates,selected_place_coordinates);
-
 
     }
 
@@ -90,7 +67,6 @@ public class ListItemAdapter extends ArrayAdapter<PlaceData> implements View.OnC
             viewHolder.txtAddress=(TextView) convertView.findViewById(R.id.address);
             viewHolder.imgView=(ImageView)convertView.findViewById(R.id.imageView);
             viewHolder.btn=(Button)convertView.findViewById(R.id.btnDetails);
-            viewHolder.btnShowRoute=(Button)convertView.findViewById(R.id.btnShowRoute);
 
             result=convertView;
 
@@ -117,8 +93,8 @@ public class ListItemAdapter extends ArrayAdapter<PlaceData> implements View.OnC
              Picasso.with(getContext()).load(placeData.getDefaultImg().getImgUrl()).into(viewHolder.imgView);
         }
 
-        viewHolder.btnShowRoute.setOnClickListener(this);
-        viewHolder.btnShowRoute.setTag(position);
+        //  viewHolder.info.setOnClickListener(this);
+        // viewHolder.info.setTag(position);
         // Return the completed view to render on screen
         return convertView;
     }
