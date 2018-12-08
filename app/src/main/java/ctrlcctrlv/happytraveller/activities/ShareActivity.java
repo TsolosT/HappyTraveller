@@ -69,11 +69,13 @@ public class ShareActivity  extends AppCompatActivity
         });//end share app click listener
         shareLoc.setOnClickListener(new View.OnClickListener()
         {
-            private LatLng latLng;
-            @Override
-            public void onClick(View v)
-            {
+                private LatLng latLng;
+                @Override
+                public void onClick(View v){
                 latLng= HomeActivity.getUsersLocation2();
+                public void onClick(View v) {
+                homeActivity=new HomeActivity();
+                latLng= homeActivity.getUsersLocation();
                 double longitude=latLng.longitude;
                 double latitude=latLng.latitude;
                 String s;

@@ -65,8 +65,8 @@ public class ListItemAdapter extends ArrayAdapter<PlaceData> implements View.OnC
         int position = (Integer) view.getTag();
         System.out.println(position);
         HashMap dataPassedFromHash = TabMapFragment.getMapCoordinates();
-        double users_current_latitude = (homeActivity.getUsersLocation2().latitude);
-        double users_current_longitude = (homeActivity.getUsersLocation2().longitude);
+        double users_current_latitude = (homeActivity.getUsersLocation().latitude);
+        double users_current_longitude = (homeActivity.getUsersLocation().longitude);
         LatLng user_coordinates = new LatLng(users_current_latitude,users_current_longitude);
         LatLng selected_place_coordinates = (LatLng) dataPassedFromHash.get(position);
         mMap.addMarker(new MarkerOptions().position(selected_place_coordinates));
