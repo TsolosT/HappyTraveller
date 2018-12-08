@@ -21,6 +21,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
@@ -65,6 +66,7 @@ public class TabMapFragment extends Fragment implements OnMapReadyCallback
     public static TabMapFragment tabMap_instance = null;
     public static Iterator it = null;
     static HashMap<Integer,LatLng> mapCoordinates = new HashMap<>();
+    public static String marker_name = null;
 
 
     @Override
@@ -211,8 +213,27 @@ public class TabMapFragment extends Fragment implements OnMapReadyCallback
                 //Code
             }
         });
-    }
 
+
+        mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+            @Override
+            public boolean onMarkerClick(Marker marker)
+            {
+                //check if a route already exists
+                if(line != null)
+                    line.remove();
+
+                marker_name= marker.getTitle();
+                double users_current_latitude = (homeActivity.getUsersLocation().latitude);
+                double users_current_longitude = (homeActivity.getUsersLocation().longitude);
+                LatLng user_coordinates = new LatLng(users_current_latitude,users_current_longitude);
+                LatLng markerPosition;
+                markerPosition=marker.getPosition();
+                drawRouteOnMap(user_coordinates, markerPosition);
+                return false;
+            }
+        });
+    }
 
 
     public static class TaskRequestDirections extends AsyncTask<String,Void,String>
@@ -388,4 +409,6 @@ public class TabMapFragment extends Fragment implements OnMapReadyCallback
     public static TabMapFragment getTabMap_instance() { return tabMap_instance;}
 
     public static HashMap<Integer,LatLng> getMapCoordinates() { return mapCoordinates;}
+
+    public static Polyline getPolylineState() { return line;}
 }
