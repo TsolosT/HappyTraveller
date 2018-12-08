@@ -20,7 +20,6 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
@@ -32,6 +31,7 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 
@@ -60,7 +60,11 @@ public class TabMapFragment extends Fragment implements OnMapReadyCallback
     private static boolean longClickIs = false;
     private static HomeActivity homeActivity = null;
     public static ArrayList<PlaceData> dataPassedFromListView;
-
+    public static ArrayList<LatLng> marker_coordinates = new ArrayList<>();
+    // static HashMap<String,LatLng> mapCoordinates = new HashMap<>();
+    public static TabMapFragment tabMap_instance = null;
+    public static Iterator it = null;
+    static HashMap<Integer,LatLng> mapCoordinates = new HashMap<>();
 
 
     @Override
@@ -77,6 +81,7 @@ public class TabMapFragment extends Fragment implements OnMapReadyCallback
         pinsLatLng = null;
         homeActivity = new HomeActivity();
         context = getActivity().getApplicationContext();
+        tabMap_instance = this;
 
 
 
@@ -91,7 +96,9 @@ public class TabMapFragment extends Fragment implements OnMapReadyCallback
         mMap = googleMap;
 
         mMap.getUiSettings().setZoomControlsEnabled(true);
+
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(homeActivity.getUsersLocation(),15));
+
 
         if (ActivityCompat.checkSelfPermission(getActivity().getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getActivity().getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED)
         {
@@ -129,7 +136,7 @@ public class TabMapFragment extends Fragment implements OnMapReadyCallback
 
                         }else
                         {
-                                Toast.makeText(getActivity().getApplicationContext(), "My location not found !",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity().getApplicationContext(), "My location not found !",Toast.LENGTH_SHORT).show();
                         }
 
                     }else
@@ -143,7 +150,7 @@ public class TabMapFragment extends Fragment implements OnMapReadyCallback
             }
         });
 
-        //When Refresh refreshButton long clicked clears the map from pins and polylines with a cool animation
+        //When Refresh refreshButton long clicked clears the map from pins and polyLines with a cool animation
         refreshButton.setOnLongClickListener(new View.OnLongClickListener()
         {
             @Override
@@ -156,7 +163,7 @@ public class TabMapFragment extends Fragment implements OnMapReadyCallback
                 AnimatedButton animatedButton = new AnimatedButton(refreshButton);
                 animatedButton.makeButtonTextTo("Clearing.",500,"Clearing..",500,"Clearing...",500,"Refresh",500);
 
-                //clears map from everything (pins , polylines)
+                //clears map from everything (pins , polyLines)
                 mMap.clear();
 
                 //when long click is pressed it refreshes the Sights button from navBar too.
@@ -174,22 +181,23 @@ public class TabMapFragment extends Fragment implements OnMapReadyCallback
         mMap.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener()
         {
             @Override
-            public void onMapLongClick(LatLng latLng)
+            public void onMapLongClick(LatLng current_latLng)
             {
                 //set location listener on
 
-                pinsLatLng = latLng;
+                pinsLatLng = current_latLng;
 
-                MarkerOptions markerOptions = new MarkerOptions();
-                markerOptions.position(latLng);
 
-                //Clears the map and add a red pin
-                if (pinsLatLng != null)
-                {
-                    clearMap();
-                    markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
-                }
-                mMap.addMarker(markerOptions);
+                //MarkerOptions markerOptions = new MarkerOptions();
+                //markerOptions.position(current_latLng);
+
+//                //Clears the map and add a red pin
+//                if (pinsLatLng != null)
+//                {
+//                    clearMap();
+//                    markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
+//                }
+//                mMap.addMarker(markerOptions);
             }
         });
 
@@ -203,11 +211,11 @@ public class TabMapFragment extends Fragment implements OnMapReadyCallback
                 //Code
             }
         });
-        }
+    }
 
 
 
-    public class TaskRequestDirections extends AsyncTask<String,Void,String>
+    public static class TaskRequestDirections extends AsyncTask<String,Void,String>
     {
         @Override
         protected String doInBackground(String... strings)
@@ -233,7 +241,7 @@ public class TabMapFragment extends Fragment implements OnMapReadyCallback
     }
 
 
-    public class  TaskParser extends AsyncTask<String , Void , List<List<HashMap<String, String>>>>
+    public static class  TaskParser extends AsyncTask<String , Void , List<List<HashMap<String, String>>>>
     {
 
         @Override
@@ -282,11 +290,13 @@ public class TabMapFragment extends Fragment implements OnMapReadyCallback
 
             if (polylineOptions != null)
             {
-              line = mMap.addPolyline(polylineOptions);
-              polylineFlag = true;
+                line = mMap.addPolyline(polylineOptions);
+                polylineFlag = true;
             }else
             {
-                Toast.makeText(getActivity().getApplicationContext(), "Direction not found!",Toast.LENGTH_SHORT).show();
+                //  Toast.makeText(getActivity().getApplicationContext(), "Direction not found!",Toast.LENGTH_SHORT).show();
+                System.out.println("Problem here");
+
             }
         }
     }
@@ -294,7 +304,7 @@ public class TabMapFragment extends Fragment implements OnMapReadyCallback
 
 
 
-    private String getTravelMode()
+    private static String getTravelMode()
     {
         MainActivity mainActivity = new MainActivity();
         String returnValue = null;
@@ -313,8 +323,9 @@ public class TabMapFragment extends Fragment implements OnMapReadyCallback
 
 
 
-    private void drawRouteOnMap(LatLng origin, LatLng destination)
+    public void drawRouteOnMap(LatLng origin, LatLng destination)
     {
+
         RoutesUrl routesUrl = new RoutesUrl(getTravelMode());
         TaskRequestDirections taskRequestDirections = new TaskRequestDirections();
 
@@ -329,27 +340,52 @@ public class TabMapFragment extends Fragment implements OnMapReadyCallback
     }
 
 
- public static void showSightsWithPins()
- {
+    public static void showSightsWithPins()
+    {
 
-     dataPassedFromListView = TabListViewFragment.getPlaceData();
+        dataPassedFromListView = TabListViewFragment.getPlaceData();
 
-     if (dataPassedFromListView == null)
-     {
-         Toast.makeText(context, "Cannot display pins on map(List of sights empty)",Toast.LENGTH_SHORT).show();
-     }
-     else {
-         for(int i=0;i< dataPassedFromListView.size();i++ )
-         {
-             Object obj = dataPassedFromListView.get(i);
-             // Double lat = ((PlaceData) obj).getLatitude();
-             //  Double lng = ((PlaceData) obj).getLongitude();
-             Double lat = dataPassedFromListView.get(i).getLatitude();
-             Double lng = dataPassedFromListView.get(i).getLongitude();
-             LatLng final_location = new LatLng(lat,lng);
-             //System.out.println(Double.toString(lat)+""+Double.toString(lng));
-             mMap.addMarker(new MarkerOptions().position(final_location).title(((PlaceData) obj).getName()));
-         }
-     }
- }
+        if (dataPassedFromListView == null)
+        {
+            Toast.makeText(context, "Cannot display pins on map(List of sights empty)",Toast.LENGTH_SHORT).show();
+        }
+        else {
+            for(int i=0;i< dataPassedFromListView.size();i++ )
+            {
+
+                Object obj = dataPassedFromListView.get(i);
+
+                Double lat = dataPassedFromListView.get(i).getLatitude();
+                Double lng = dataPassedFromListView.get(i).getLongitude();
+                LatLng final_location = new LatLng(lat,lng);
+
+
+                mMap.addMarker(new MarkerOptions().position(final_location).title(((PlaceData) obj).getName()));
+                System.out.println("Markers added in map");
+            }
+        }
+    }
+
+    public static void passCoordinatesFromPlaces()
+    {
+        dataPassedFromListView = TabListViewFragment.getPlaceData();
+
+        for(int i=0;i< dataPassedFromListView.size();i++)
+        {
+
+            Double lat = dataPassedFromListView.get(i).getLatitude();
+            Double lng = dataPassedFromListView.get(i).getLongitude();
+            LatLng final_location = new LatLng(lat, lng);
+
+            //list for all marker coordinates
+            marker_coordinates.add(final_location);
+
+            //pass coordinates to hashMap
+            mapCoordinates.put(i, final_location);
+        }
+    }
+
+    public static TabMapFragment getTabMap_instance() { return tabMap_instance;}
+
+    public static HashMap<Integer,LatLng> getMapCoordinates() { return mapCoordinates;}
 }
