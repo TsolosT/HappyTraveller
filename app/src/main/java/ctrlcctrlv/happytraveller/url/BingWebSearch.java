@@ -23,7 +23,7 @@ import ctrlcctrlv.happytraveller.activities.DetailsActivity;
 public class BingWebSearch {
     static String host = "https://api.cognitive.microsoft.com";
     static String path = "/bingcustomsearch/v7.0/search";
-    static String subscriptionKey = "bb216e7295249f182d030a51a4e1d07";
+    static String subscriptionKey = "71740daa-d800-43b6-9c44-d0ab4f9f68d6";
     static String searchTerm = null;  // Replace with search term specific to your search scenario.
 
     public BingWebSearch(){

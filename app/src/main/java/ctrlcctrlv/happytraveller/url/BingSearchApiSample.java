@@ -14,7 +14,7 @@ public class BingSearchApiSample {
 
 
     public static void main(final String[] args) throws Exception {
-        final String accountKey = "bb216e7295249f182d030a51a4e1d07";
+        final String accountKey = "71740daa-d800-43b6-9c44-d0ab4f9f68d6";
         final String bingUrlPattern = "https://api.cognitive.microsoft.com/Bing/Search/Web?Query=%%27%s%%27&$format=JSON";
 
         final String query = URLEncoder.encode("'what      is omonoia'", Charset.defaultCharset().name());
