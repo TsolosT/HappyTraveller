@@ -32,7 +32,7 @@ import ctrlcctrlv.happytraveller.connectivity.CheckConnection;
 public class HomeActivity extends AppCompatActivity
 {
     private Context context = null;
-    private static LatLng usersLocation = null;
+    private  static LatLng usersLocation = null;
     private LocationManager locationManager;
     private LocationListener locationListener;
     private static int gpsRefreshTime = 5000; // 5 sec
@@ -52,8 +52,7 @@ public class HomeActivity extends AppCompatActivity
     {
         return usersLocation;
     }
-    //static for ShareActivity call
-    public static LatLng getUsersLocation2(){return usersLocation;}
+
 
 
 
