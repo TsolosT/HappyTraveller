@@ -156,9 +156,8 @@ public class HomeActivity extends AppCompatActivity
     }
     public void displayInfoPage(View v)
     {
-        // TODO: 13/11/2018 otan ginei to info page
-        //Intent intent=new Intent(this,InfoActivity.class);
-        //startActivity(intent);
+        Intent intent=new Intent(this,InfoActivity.class);
+        startActivity(intent);
     }
 
 

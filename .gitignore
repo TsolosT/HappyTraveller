@@ -21,3 +21,5 @@
 .idea/misc.xml
 .idea/misc.xml
 .idea/misc.xml
+# ignore the file literally named foo[01].txt
+foo\[01\].txt
