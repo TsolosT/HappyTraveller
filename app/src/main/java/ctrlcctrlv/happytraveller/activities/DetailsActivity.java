@@ -38,6 +38,7 @@ public class DetailsActivity extends AppCompatActivity {
     public String encoded=null;
     private static ArrayList<PlaceData> placeDataArrayList;
 
+
     EditText mEdit;
 
     @Override
