@@ -382,7 +382,7 @@ public class TabMapFragment extends Fragment implements OnMapReadyCallback
 
 
                 mMap.addMarker(new MarkerOptions().position(final_location).title(((PlaceData) obj).getName()));
-                System.out.println("Markers added in map");
+                System.out.println("Markers added in mapppasdasdsad123sd");
             }
         }
     }

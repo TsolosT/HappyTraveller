@@ -12,11 +12,13 @@ import android.widget.TextView;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
+
 import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import ctrlcctrlv.happytraveller.R;
+
 import ctrlcctrlv.happytraveller.activities.HomeActivity;
 import ctrlcctrlv.happytraveller.model.PlaceData;
 
@@ -29,7 +31,9 @@ public class ListItemAdapter extends ArrayAdapter<PlaceData> implements View.OnC
     private ArrayList<PlaceData> dataSet;
     private static final ctrlcctrlv.happytraveller.fragments.TabMapFragment TabMapFragment = ctrlcctrlv.happytraveller.fragments.TabMapFragment.getTabMap_instance();
     Context mContext;
+
     protected HomeActivity homeActivity = new HomeActivity();
+
 
     // View lookup cache
     private static class ViewHolder
@@ -53,7 +57,7 @@ public class ListItemAdapter extends ArrayAdapter<PlaceData> implements View.OnC
 
     }
 
-    @Override
+    @Override 
     public void onClick(View view)
     {
 
@@ -94,7 +98,6 @@ public class ListItemAdapter extends ArrayAdapter<PlaceData> implements View.OnC
             viewHolder.txtAddress=(TextView) convertView.findViewById(R.id.address);
             viewHolder.imgView=(ImageView)convertView.findViewById(R.id.imageView);
             viewHolder.btn=(Button)convertView.findViewById(R.id.btnDetails);
-            viewHolder.btnShowRoute=(Button)convertView.findViewById(R.id.btnShowRoute);
 
             result=convertView;
 
