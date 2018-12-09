@@ -13,8 +13,31 @@ import java.net.URL;
 import java.util.concurrent.ExecutionException;
 
 public class OpenParser {
+    String firstJson;
+    String secondJson;
     String openHours = null;
     String distance = null;
+
+    public OpenParser(String link) {
+        firstJson = link;
+
+    }
+
+    public String getFirstJson() {
+        return firstJson;
+    }
+
+    public void setFirstJson(String firstJson) {
+        this.firstJson = firstJson;
+    }
+
+    public String getSecondJson() {
+        return secondJson;
+    }
+
+    public void setSecondJson(String secondJson) {
+        this.secondJson = secondJson;
+    }
 
     JsonParse parse = new JsonParse();
 
@@ -22,7 +45,7 @@ public class OpenParser {
     {
         try {
 
-            openHours = parse.execute("https://maps.googleapis.com/maps/api/place/search/json?location=41.0943488%2C23.5544576&type=museum&radius=10000&sensor=true&key=AIzaSyDI0zKd22JBJEGco2k9Thg2CZWLLsWfq7k&fbclid=IwAR23Ofldq-QyCYVPQ_IgCtK71UogM53bN6HXQjHs17zOk_0UlZbxe3qSXNg").get();
+            openHours = parse.execute(firstJson).get();
 
         } catch (ExecutionException e1) {
             e1.printStackTrace();
@@ -71,6 +94,14 @@ public class OpenParser {
         }
         protected void onPostExecute(String openHours){
             super.onPostExecute(openHours);
+            JsonParse distanceParse = new JsonParse();
+            try {
+                distance = distanceParse.execute(secondJson).get();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             try {
 
 
@@ -83,6 +114,15 @@ public class OpenParser {
 
 
 
+
+                }
+                JSONArray distanceArray = new JSONArray(distance);
+                for (int i=0;i<distanceArray.length();i++){
+                    JSONObject routesPart = distanceArray.getJSONObject(i);
+                    JSONObject legsPart = routesPart.getJSONObject("legs");
+                    JSONObject distancePart = legsPart.getJSONObject("distance");
+                    // ayto einai to distance
+                    JSONObject distance = distancePart.getJSONObject("value");
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
