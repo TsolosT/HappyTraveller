@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.Polyline;
 import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -19,6 +20,7 @@ import ctrlcctrlv.happytraveller.R;
 import ctrlcctrlv.happytraveller.activities.HomeActivity;
 import ctrlcctrlv.happytraveller.model.PlaceData;
 
+import static ctrlcctrlv.happytraveller.fragments.TabMapFragment.getPolylineState;
 import static ctrlcctrlv.happytraveller.fragments.TabMapFragment.mMap;
 
 
@@ -27,7 +29,7 @@ public class ListItemAdapter extends ArrayAdapter<PlaceData> implements View.OnC
     private ArrayList<PlaceData> dataSet;
     private static final ctrlcctrlv.happytraveller.fragments.TabMapFragment TabMapFragment = ctrlcctrlv.happytraveller.fragments.TabMapFragment.getTabMap_instance();
     Context mContext;
-    protected HomeActivity homeActivity;
+    protected HomeActivity homeActivity = new HomeActivity();
 
     // View lookup cache
     private static class ViewHolder
@@ -55,18 +57,23 @@ public class ListItemAdapter extends ArrayAdapter<PlaceData> implements View.OnC
     public void onClick(View view)
     {
 
+        Polyline polyline = getPolylineState();
+        if(polyline!=null)
+        {
+            polyline.remove();
+            mMap.clear();
+        }
+
         TabMapFragment.passCoordinatesFromPlaces();
         int position = (Integer) view.getTag();
         System.out.println(position);
         HashMap dataPassedFromHash = TabMapFragment.getMapCoordinates();
-        double users_current_latitude = (homeActivity.getUsersLocation2().latitude);
-        double users_current_longitude = (homeActivity.getUsersLocation2().longitude);
+        double users_current_latitude = (homeActivity.getUsersLocation().latitude);
+        double users_current_longitude = (homeActivity.getUsersLocation().longitude);
         LatLng user_coordinates = new LatLng(users_current_latitude,users_current_longitude);
         LatLng selected_place_coordinates = (LatLng) dataPassedFromHash.get(position);
         mMap.addMarker(new MarkerOptions().position(selected_place_coordinates));
         TabMapFragment.getTabMap_instance().drawRouteOnMap(user_coordinates,selected_place_coordinates);
-
-
     }
 
     @Override
@@ -123,6 +130,5 @@ public class ListItemAdapter extends ArrayAdapter<PlaceData> implements View.OnC
         // Return the completed view to render on screen
         return convertView;
     }
-
 
 }

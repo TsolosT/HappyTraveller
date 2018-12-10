@@ -20,6 +20,9 @@ import org.apache.http.util.ByteArrayBuffer;
 import java.io.BufferedInputStream;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
+
 import ctrlcctrlv.happytraveller.R;
 import ctrlcctrlv.happytraveller.activities.HomeActivity;
 import ctrlcctrlv.happytraveller.activities.SignUpActivity;
@@ -42,7 +45,9 @@ public class TabListViewFragment extends Fragment
     private static ListItemAdapter adapter;
     protected HomeActivity homeActivity;
     protected  TextView textViewHidden;
-
+    private int delayTime;
+    private int renewTime;
+    private Timer timer;
 
 
     @Override
@@ -52,7 +57,6 @@ public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle sa
         view = inflater.inflate(R.layout.fragment_tab_list_view, container, false);
         init();
         homeActivity = new HomeActivity();
-
         return view;
     }
 
@@ -61,12 +65,15 @@ public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle sa
     {
         super.onStart();
         new googleplaces().execute();
-
+        refreshPlaceList();
     }
     public void init()
     {
         listView= (ListView)view.findViewById(R.id.listView);
         textViewHidden=(TextView)view.findViewById(R.id.textViewHidden);
+        delayTime=0;
+        renewTime=900000; //15min in ms
+        timer=new Timer();
 
     }
 
@@ -161,4 +168,17 @@ public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle sa
     }
     //function to fetch the placeData into tabMapFragment
     public static ArrayList<PlaceData> getPlaceData() { return placeData;}
+
+    //function to refetch near sights data  every specific time
+    public void refreshPlaceList()
+    {
+       timer.scheduleAtFixedRate(new TimerTask()
+        {
+            @Override
+            public void run()
+            {
+                new googleplaces().execute();
+            }
+        }, delayTime, renewTime);
+    }
 }
