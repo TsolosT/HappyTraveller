@@ -13,8 +13,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
-
-
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
+import org.w3c.dom.Text;
+import java.security.acl.Group;
+import java.time.ZoneOffset;
 import java.util.ArrayList;
 
 import ctrlcctrlv.happytraveller.adapters.PageFragAdapter;
@@ -40,6 +43,9 @@ public class MainActivity extends AppCompatActivity
     private static NavigationView navView;
     private static ArrayList<PlaceData> placeData=null;//for onclickinfos
     protected TabListViewFragment tabListViewFragment;
+    public String email;
+    private LogInActivity logInActivity;
+
 
 
     @Override
@@ -93,6 +99,8 @@ public class MainActivity extends AppCompatActivity
         drawerLayout=(DrawerLayout)findViewById(R.id.drawerLayout);
         mToggle=new ActionBarDrawerToggle(this,drawerLayout,R.string.openMenu,R.string.closeMenu);
         checkedTransportItem="onFoot";
+        logInActivity = new LogInActivity();
+
 
     }
 
@@ -103,9 +111,26 @@ public class MainActivity extends AppCompatActivity
         if(mToggle.onOptionsItemSelected(item))
         {
             renewTxtViewLocation();
+            setUserName();
             return true;
         }
          return  super.onOptionsItemSelected(item);
+    }
+
+
+    public void setUserName(){
+         TextView userView=(TextView) findViewById(R.id.userTextView);
+        email= logInActivity.getUserEmail();
+        System.out.println(email);
+        if (email==null)
+        {
+            System.out.println("UNLUCKY");
+        }
+        else
+        {
+           userView.setText(email);
+
+        }
     }
 
     //A method that triggered when weather(menuItem) is clicked and intent weather activity
@@ -149,12 +174,12 @@ public class MainActivity extends AppCompatActivity
     public void  onClickInfos(View view)
     {
        //get id button
-      //  System.out.println(view.getId());
+        //    System.out.println(view.getId());
         //fetch placeDataArraylist
         placeData=tabListViewFragment.getPlaceData();
         //k= id button
         int k=view.getId();
-       // System.out.println(k);
+      //  System.out.println(k);
         //get the correct search tittle
         String searchtittle=placeData.get(k).getName();
        // System.out.println(searchtittle);

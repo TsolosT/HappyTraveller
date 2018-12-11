@@ -66,7 +66,7 @@ public class ListItemAdapter extends ArrayAdapter<PlaceData> implements View.OnC
 
         TabMapFragment.passCoordinatesFromPlaces();
         int position = (Integer) view.getTag();
-        System.out.println(position);
+       // System.out.println(position);
         HashMap dataPassedFromHash = TabMapFragment.getMapCoordinates();
         double users_current_latitude = (homeActivity.getUsersLocation().latitude);
         double users_current_longitude = (homeActivity.getUsersLocation().longitude);
@@ -108,7 +108,7 @@ public class ListItemAdapter extends ArrayAdapter<PlaceData> implements View.OnC
 
         viewHolder.txtName.setText(placeData.getName());
         viewHolder.txtAddress.setText(placeData.getAddress());
-        viewHolder.btn.setId(placeData.getId());
+        viewHolder.btn.setId(position);
 
         //when need show all img not complete yet
         //Picasso.with(getContext()).load(placeData.getPlacePhotos().get(0).getImgUrl()).into(viewHolder.imgView);

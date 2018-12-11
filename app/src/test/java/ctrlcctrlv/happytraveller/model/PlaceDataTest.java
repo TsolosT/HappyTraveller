@@ -66,4 +66,38 @@ public class PlaceDataTest {
         placeDataArray.add(placeDataObject);
         assertNotEquals(2,placeDataArray.size());
     }
+
+    @Test
+    public void getIdCorrect()
+    {
+        placeDataObject.setId(5);
+        int expected=5;
+        assertEquals(expected,placeDataObject.getId());
+
+    }
+
+    @Test
+    public void getIdWrong()
+    {
+        placeDataObject.setId(10);
+        int expected=2;
+        assertNotEquals(expected,placeDataObject.getId());
+    }
+
+    @Test
+    public void getCityCountryCorrect()
+    {
+       placeDataObject.setCityCountry("serres");
+       String expected="serres";
+       assertEquals(expected,placeDataObject.getCityCountry());
+    }
+
+    @Test
+    public void getCityCountryWrong()
+    {
+        placeDataObject.setCityCountry("serres");
+        String expected="";
+        assertNotEquals(expected,placeDataObject.getCityCountry());
+    }
+
 }
