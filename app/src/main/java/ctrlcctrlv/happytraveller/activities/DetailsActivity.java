@@ -32,22 +32,16 @@ public class DetailsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details);
         wiki = findViewById(R.id.mediaWiki);
-
         ///call from mainactivity//
         Intent i = getIntent();
         searchName = i.getExtras().getString("searchtittle");
-
         // Configure related browser settings
         wiki.getSettings().setLoadsImagesAutomatically(true);
         wiki.getSettings().setJavaScriptEnabled(true);
         wiki.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
-
         // Configure the client to use when opening URLs
         wiki.setWebViewClient(new WebViewClient());
-
         URLsearch="https://www.google.com/search?q={"+searchName+" wikipedia}&btnI";
-
-
         //fetch the first result
         wiki.loadUrl(URLsearch);
 

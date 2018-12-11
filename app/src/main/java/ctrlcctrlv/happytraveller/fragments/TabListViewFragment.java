@@ -1,10 +1,8 @@
 package ctrlcctrlv.happytraveller.fragments;
 
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,7 +23,6 @@ import java.util.TimerTask;
 
 import ctrlcctrlv.happytraveller.R;
 import ctrlcctrlv.happytraveller.activities.HomeActivity;
-import ctrlcctrlv.happytraveller.activities.SignUpActivity;
 import ctrlcctrlv.happytraveller.adapters.ListItemAdapter;
 import ctrlcctrlv.happytraveller.model.PlaceData;
 import ctrlcctrlv.happytraveller.url.PlaceUrl;

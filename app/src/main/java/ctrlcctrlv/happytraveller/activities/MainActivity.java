@@ -129,15 +129,15 @@ public class MainActivity extends AppCompatActivity
     public void  onClickInfos(View view)
     {
        //get id button
-        System.out.println(view.getId());
+        //    System.out.println(view.getId());
         //fetch placeDataArraylist
         placeData=tabListViewFragment.getPlaceData();
         //k= id button
         int k=view.getId();
-        System.out.println(k);
+      //  System.out.println(k);
         //get the correct search tittle
         String searchtittle=placeData.get(k).getName();
-        System.out.println(searchtittle);
+       // System.out.println(searchtittle);
         //intent for DetailsActivity display
         Intent intentInfos=new Intent(this,DetailsActivity.class);
         intentInfos.putExtra("searchtittle",searchtittle);
