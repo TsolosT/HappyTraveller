@@ -71,7 +71,7 @@
                 android:typeface="serif" />
 
             <EditText
-                android:id="@+id/passwordInput"
+                android:id="@+id/passwordLogIn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
@@ -90,6 +90,7 @@
                 android:layout_marginRight="44dp"
                 android:layout_marginBottom="10dp"
                 android:background="@drawable/btn"
+                android:onClick="onClickLogIn"
                 android:text="Sing in"
                 android:textAllCaps="false"
                 android:textSize="18sp"
