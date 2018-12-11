@@ -110,13 +110,13 @@
         android:textColor="#878787"
         android:textColorHint="#ffffff"
         android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/passwordInput"
+        app:layout_constraintBottom_toTopOf="@+id/passwordLogIn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.125"
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
-        android:id="@+id/passwordInput"
+        android:id="@+id/passwordLogIn"
         android:layout_width="273dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="36dp"
@@ -137,6 +137,7 @@
         android:layout_width="176dp"
         android:layout_height="39dp"
         android:background="@drawable/btn"
+        android:onClick="onClickSignUp"
         android:text="CREATE ACCOUNT"
         android:textAllCaps="false"
         android:textColor="@color/colorPrimaryWhite"
