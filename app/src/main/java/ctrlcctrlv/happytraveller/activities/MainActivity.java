@@ -164,6 +164,7 @@ public class MainActivity extends AppCompatActivity
             SuggestSightsToVisit suggestSightsToVisit = new SuggestSightsToVisit();
 
             suggestSightsToVisit.suggestRouteBasedOn(usersFreeTime);
+            Toast.makeText(getApplicationContext(), "Red>Yellow>Green>Cyan>Blue",Toast.LENGTH_SHORT).show();
         }
 
 
