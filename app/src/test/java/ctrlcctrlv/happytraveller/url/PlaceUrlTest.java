@@ -178,18 +178,18 @@ public class PlaceUrlTest {
     @Test
     public void getMyLatLngWrong() {
         String expected="41.082100,23.549980";
-        urlTest.setLatLng(null);
+        urlTestAll.setLatLng(null);
         assertNotEquals(expected,urlTestAll.getLatLng());
     }
 
     @Test
     public void setMyLatLngCorrect() {
-        urlTest.setLatLng("25.24323,51.234423");
+        urlTestAll.setLatLng("25.24323,51.234423");
         assertEquals("25.22323,51.232323",urlTestAll.getLatLng());
     }
     @Test
     public void setMyLatLngWrong() {
-        urlTest.setLatLng("25.21123,51.232323");
+        urlTestAll.setLatLng("25.21123,51.232323");
         assertNotEquals("25.22323,51.232323",urlTestAll.getLatLng());
     }
     @After
