@@ -1,6 +1,5 @@
 package ctrlcctrlv.happytraveller.activities;
 
-import android.app.SearchManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -12,26 +11,22 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
-
-
-
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-
 import org.w3c.dom.Text;
-
 import java.security.acl.Group;
 import java.time.ZoneOffset;
 import java.util.ArrayList;
 
 import ctrlcctrlv.happytraveller.adapters.PageFragAdapter;
 import ctrlcctrlv.happytraveller.R;
+import ctrlcctrlv.happytraveller.checkIfIsValid.CheckIfNumberIsValidForTimePurpose;
 import ctrlcctrlv.happytraveller.fragments.TabListViewFragment;
 import ctrlcctrlv.happytraveller.fragments.TabMapFragment;
 import ctrlcctrlv.happytraveller.model.PlaceData;
+import ctrlcctrlv.happytraveller.suggestionsToUser.SuggestSightsToVisit;
 
 
 public class MainActivity extends AppCompatActivity
@@ -148,6 +143,32 @@ public class MainActivity extends AppCompatActivity
     {
         Intent intentShare=new Intent(this,ShareActivity.class);
         startActivity(intentShare);
+    }
+
+
+    public void suggestPathButton(View view)
+    {
+        TextView textSearch = (TextView) findViewById(R.id.editText);
+
+        CheckIfNumberIsValidForTimePurpose checkIfNumberIsValidForTimePurpose = new CheckIfNumberIsValidForTimePurpose();
+
+        int usersFreeTime = checkIfNumberIsValidForTimePurpose.theNumberUserGaveIs(textSearch.getText().toString());
+
+
+        if ( usersFreeTime == 0)
+        {
+            Toast.makeText(getApplicationContext(), "invalid number...",Toast.LENGTH_SHORT).show();
+        }
+        else
+        {
+            SuggestSightsToVisit suggestSightsToVisit = new SuggestSightsToVisit();
+
+            suggestSightsToVisit.suggestRouteBasedOn(usersFreeTime);
+        }
+
+
+        textSearch.setText(null);
+
     }
 
     public void  onClickInfos(View view)
@@ -272,7 +293,7 @@ public class MainActivity extends AppCompatActivity
         //get location from  array
         String location=places.get(0).getCityCountry();
         //display location
-            txtViewLocation.setText(location);
+        txtViewLocation.setText(location);
     }
 }
 
