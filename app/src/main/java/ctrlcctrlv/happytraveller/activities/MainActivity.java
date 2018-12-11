@@ -1,6 +1,5 @@
 package ctrlcctrlv.happytraveller.activities;
 
-import android.app.SearchManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -12,24 +11,19 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
 
-
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
-
-import java.security.acl.Group;
-import java.time.ZoneOffset;
 import java.util.ArrayList;
 
 import ctrlcctrlv.happytraveller.adapters.PageFragAdapter;
 import ctrlcctrlv.happytraveller.R;
+import ctrlcctrlv.happytraveller.checkIfIsValid.CheckIfNumberIsValidForTimePurpose;
 import ctrlcctrlv.happytraveller.fragments.TabListViewFragment;
 import ctrlcctrlv.happytraveller.fragments.TabMapFragment;
 import ctrlcctrlv.happytraveller.model.PlaceData;
+import ctrlcctrlv.happytraveller.suggestionsToUser.SuggestSightsToVisit;
 
 
 public class MainActivity extends AppCompatActivity
@@ -126,18 +120,44 @@ public class MainActivity extends AppCompatActivity
         startActivity(intentShare);
     }
 
+
+    public void suggestPathButton(View view)
+    {
+        TextView textSearch = (TextView) findViewById(R.id.editText);
+
+        CheckIfNumberIsValidForTimePurpose checkIfNumberIsValidForTimePurpose = new CheckIfNumberIsValidForTimePurpose();
+
+        int usersFreeTime = checkIfNumberIsValidForTimePurpose.theNumberUserGaveIs(textSearch.getText().toString());
+
+
+        if ( usersFreeTime == 0)
+        {
+            Toast.makeText(getApplicationContext(), "invalid number...",Toast.LENGTH_SHORT).show();
+        }
+        else
+        {
+            SuggestSightsToVisit suggestSightsToVisit = new SuggestSightsToVisit();
+
+            suggestSightsToVisit.suggestRouteBasedOn(usersFreeTime);
+        }
+
+
+        textSearch.setText(null);
+
+    }
+
     public void  onClickInfos(View view)
     {
        //get id button
-        System.out.println(view.getId());
+      //  System.out.println(view.getId());
         //fetch placeDataArraylist
         placeData=tabListViewFragment.getPlaceData();
         //k= id button
         int k=view.getId();
-        System.out.println(k);
+       // System.out.println(k);
         //get the correct search tittle
         String searchtittle=placeData.get(k).getName();
-        System.out.println(searchtittle);
+       // System.out.println(searchtittle);
         //intent for DetailsActivity display
         Intent intentInfos=new Intent(this,DetailsActivity.class);
         intentInfos.putExtra("searchtittle",searchtittle);
@@ -248,7 +268,7 @@ public class MainActivity extends AppCompatActivity
         //get location from  array
         String location=places.get(0).getCityCountry();
         //display location
-            txtViewLocation.setText(location);
+        txtViewLocation.setText(location);
     }
 }
 

@@ -31,12 +31,14 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 
 import ctrlcctrlv.happytraveller.R;
+import ctrlcctrlv.happytraveller.ThemisClass;
 import ctrlcctrlv.happytraveller.activities.HomeActivity;
 import ctrlcctrlv.happytraveller.activities.MainActivity;
 import ctrlcctrlv.happytraveller.animations.AnimatedButton;
@@ -68,6 +70,7 @@ public class TabMapFragment extends Fragment implements OnMapReadyCallback
     static HashMap<Integer,LatLng> mapCoordinates = new HashMap<>();
     public static String marker_name = null;
 
+    public static int changePolylineColor = 0 ;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -212,8 +215,8 @@ public class TabMapFragment extends Fragment implements OnMapReadyCallback
             {
                 //Code
             }
-        });
 
+        });
 
         mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
             @Override
@@ -231,9 +234,11 @@ public class TabMapFragment extends Fragment implements OnMapReadyCallback
                 markerPosition=marker.getPosition();
                 drawRouteOnMap(user_coordinates, markerPosition);
                 return false;
+
             }
         });
     }
+
 
 
     public static class TaskRequestDirections extends AsyncTask<String,Void,String>
@@ -290,6 +295,8 @@ public class TabMapFragment extends Fragment implements OnMapReadyCallback
 
             PolylineOptions polylineOptions= null;
 
+            MainActivity mainActivit = new MainActivity();
+
             for (List<HashMap<String, String>> path : lists)
             {
                 points = new ArrayList();
@@ -305,9 +312,27 @@ public class TabMapFragment extends Fragment implements OnMapReadyCallback
 
                 polylineOptions.addAll(points);
                 polylineOptions.width(15);
-                polylineOptions.color(Color.BLUE);
+                switch (changePolylineColor)
+                {
+                    case 0: polylineOptions.color(Color.RED);
+                        changePolylineColor ++ ;
+                        break;
+                    case 1: polylineOptions.color(Color.YELLOW);
+                        changePolylineColor ++;
+                        break;
+                    case 2: polylineOptions.color(Color.GREEN);
+                        changePolylineColor ++ ;
+                        break;
+                    case 3: polylineOptions.color(Color.CYAN);
+                        changePolylineColor ++;
+                        break;
+                    case 4: polylineOptions.color(Color.BLUE);
+                        changePolylineColor =0 ;
+                        break;
+                }
                 polylineOptions.geodesic(true);
             }
+
 
             if (polylineOptions != null)
             {
@@ -350,7 +375,20 @@ public class TabMapFragment extends Fragment implements OnMapReadyCallback
         RoutesUrl routesUrl = new RoutesUrl(getTravelMode());
         TaskRequestDirections taskRequestDirections = new TaskRequestDirections();
 
-        taskRequestDirections.execute(routesUrl.getUrl(origin,destination, getActivity().getApplicationContext(), Locale.getDefault()));
+
+        taskRequestDirections.execute(routesUrl.getUrl(origin,destination, context, Locale.getDefault()));
+    }
+    public void drawRouteOnMap(LatLng origin, LatLng destination,boolean pinsToo)
+    {
+
+        RoutesUrl routesUrl = new RoutesUrl(getTravelMode());
+        TaskRequestDirections taskRequestDirections = new TaskRequestDirections();
+
+
+        mMap.addMarker(new MarkerOptions().position(origin));
+        mMap.addMarker(new MarkerOptions().position(destination));
+
+        taskRequestDirections.execute(routesUrl.getUrl(origin,destination, context, Locale.getDefault()));
     }
 
 
@@ -382,7 +420,7 @@ public class TabMapFragment extends Fragment implements OnMapReadyCallback
 
 
                 mMap.addMarker(new MarkerOptions().position(final_location).title(((PlaceData) obj).getName()));
-                System.out.println("Markers added in map");
+                //System.out.println("Markers added in map");
             }
         }
     }
