@@ -14,6 +14,9 @@ public class PlaceData
     String pinsIcon;
     Double latitude;
     Double longitude;
+    String distance_in_meters;
+    int time_to_arrive;
+
 
 
 
@@ -48,6 +51,8 @@ public class PlaceData
         this.longitude=longitude;
         this.cityCountry=cityCountry;
         this.id=id;
+       // this.distance_in_meters=distance_in_meters;
+       // this.time_to_arrive=time_to_arrive;
     }
     public PlaceData()
     {

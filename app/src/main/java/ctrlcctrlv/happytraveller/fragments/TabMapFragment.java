@@ -6,6 +6,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Looper;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -26,10 +27,13 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.lang.reflect.Array;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -43,6 +47,7 @@ import ctrlcctrlv.happytraveller.animations.AnimatedButton;
 import ctrlcctrlv.happytraveller.google.RequestDirections;
 import ctrlcctrlv.happytraveller.jsonParser.DirectionsParser;
 import ctrlcctrlv.happytraveller.model.PlaceData;
+import ctrlcctrlv.happytraveller.model.SightData;
 import ctrlcctrlv.happytraveller.url.RoutesUrl;
 
 import static ctrlcctrlv.happytraveller.activities.MainActivity.getCheckedSightsItem;
@@ -67,7 +72,19 @@ public class TabMapFragment extends Fragment implements OnMapReadyCallback
     public static Iterator it = null;
     static HashMap<Integer,LatLng> mapCoordinates = new HashMap<>();
     public static String marker_name = null;
+    public static ArrayList<String> url_list = new ArrayList<>();
+    public static ArrayList<String> results_from_url_calls = new ArrayList<>();
+    public static ArrayList<String> returnedResults = new ArrayList<>();
+    public static ArrayList<String> distances_for_every_place_footsteps = new ArrayList<>();
+    public static ArrayList<String> duration_for_every_place = new ArrayList<>();
+    public static ArrayList<SightData> randoms;
 
+//
+//    @Override
+//    public void onStart() {
+//        super.onStart();
+//        new mulltipleUrlCalls().execute();
+//    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -207,10 +224,11 @@ public class TabMapFragment extends Fragment implements OnMapReadyCallback
         //Code that will be executed when click is pressed
         mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener()
         {
+
             @Override
-            public void onMapClick(LatLng latLng)
-            {
-                //Code
+            public void onMapClick(LatLng latLng) {
+
+
             }
         });
 
@@ -241,11 +259,17 @@ public class TabMapFragment extends Fragment implements OnMapReadyCallback
         @Override
         protected String doInBackground(String... strings)
         {
+
+
             String responseString = "";
             try {
+                //random it works
+                Looper.prepare();
+                setUpUrlsForEveryPlace();
                 // responseString = requestDirection(strings[0]);
                 RequestDirections requestDirections = new RequestDirections();
                 responseString = requestDirections.getDirections(strings[0]);
+
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -258,6 +282,9 @@ public class TabMapFragment extends Fragment implements OnMapReadyCallback
             super.onPostExecute(s);
             TaskParser taskParser = new TaskParser();
             taskParser.execute(s);
+            randoms=calculateTimeandMetersForAllPlaces();
+            System.out.println("GAMO TO SPITI MO");
+            System.out.println(randoms.size());
         }
     }
 
@@ -271,9 +298,12 @@ public class TabMapFragment extends Fragment implements OnMapReadyCallback
             JSONObject jsonObject = null;
             List<List<HashMap<String, String>>> routes = null;
             try {
+
                 jsonObject= new JSONObject(strings[0]);
                 DirectionsParser directionsParser = new DirectionsParser();
                 routes = directionsParser.parse(jsonObject);
+
+
 
             } catch (JSONException e)
             {
@@ -289,6 +319,7 @@ public class TabMapFragment extends Fragment implements OnMapReadyCallback
             ArrayList points = null;
 
             PolylineOptions polylineOptions= null;
+
 
             for (List<HashMap<String, String>> path : lists)
             {
@@ -321,7 +352,6 @@ public class TabMapFragment extends Fragment implements OnMapReadyCallback
             }
         }
     }
-
 
 
 
@@ -363,8 +393,9 @@ public class TabMapFragment extends Fragment implements OnMapReadyCallback
 
     public static void showSightsWithPins()
     {
-
+        String time;
         dataPassedFromListView = TabListViewFragment.getPlaceData();
+
 
         if (dataPassedFromListView == null)
         {
@@ -374,15 +405,24 @@ public class TabMapFragment extends Fragment implements OnMapReadyCallback
             for(int i=0;i< dataPassedFromListView.size();i++ )
             {
 
-                Object obj = dataPassedFromListView.get(i);
+                if(randoms == null)
+                {
+                    Toast.makeText(context, "GAMW TO SPITI MOU", Toast.LENGTH_SHORT).show();
+                     time = "Prosorina mi diathesimo";
+                }
+                else
+                {
+                    time = randoms.get(i).getTime_for_place();
+                }
+                    Object obj = dataPassedFromListView.get(i);
 
                 Double lat = dataPassedFromListView.get(i).getLatitude();
                 Double lng = dataPassedFromListView.get(i).getLongitude();
                 LatLng final_location = new LatLng(lat,lng);
 
 
-                mMap.addMarker(new MarkerOptions().position(final_location).title(((PlaceData) obj).getName()));
-                System.out.println("Markers added in map");
+                mMap.addMarker(new MarkerOptions().position(final_location).title(((PlaceData) obj).getName()).snippet((time)));
+                //System.out.println("Markers added in map");
             }
         }
     }
@@ -406,9 +446,87 @@ public class TabMapFragment extends Fragment implements OnMapReadyCallback
         }
     }
 
+    //create an arrayList that contains all different url calls for all places.
+     public static void setUpUrlsForEveryPlace() throws IOException {
+        RequestDirections requestDirections = new RequestDirections();
+        //call passCoordinatesFromPlaces in order to setup dataPassedFromListView and dataPassedFromMap.
+        passCoordinatesFromPlaces();
+        HashMap dataPassedFromMap = getMapCoordinates();
+        String myUrl= null;
+
+        for( int j=0; j < dataPassedFromListView.size();j++)
+        {
+            RoutesUrl routes_url = new RoutesUrl(getTravelMode());
+            LatLng place_lat_lng =  (LatLng) dataPassedFromMap.get(j);
+            myUrl=routes_url.getUrl(homeActivity.getUsersLocation(), place_lat_lng,context, Locale.getDefault());
+            //add all url's for all different places in ArrayList
+            url_list.add(myUrl);
+            //we need to parse the url to make all requests with requestDirections and add them to JSON Array.
+            //String parsed_url = requestDirections.getDirections(myUrl);
+            // System.out.println(parsed_url);
+            //System.out.println(j);
+            results_from_url_calls.add(requestDirections.getDirections(myUrl));
+
+
+        }
+
+    }
+
+    public static ArrayList<SightData> calculateTimeandMetersForAllPlaces()
+    {
+        ArrayList<SightData> temporary=null;
+        returnedResults = getResults_from_url_calls();
+
+        for(int i=0;i<returnedResults.size();i++)
+        {
+            try {
+                //parse results into jsonObject first.
+                JSONObject jsonObject = new JSONObject(returnedResults.get(i));
+                if(jsonObject.has("routes"))
+                {
+                    //System.out.println("Parsed correctly");
+                    JSONArray jsonArray = jsonObject.getJSONArray("routes");
+                    JSONObject routes = jsonArray.getJSONObject(0);
+                  //  System.out.println(routes.getJSONArray("bounds").getJSONArray(0).getString(0));
+                    JSONArray legs   = routes.getJSONArray("legs");
+                    JSONObject steps = legs.getJSONObject(0);
+                    JSONObject distance = steps.getJSONObject("distance");
+                    JSONObject duration = steps.getJSONObject("duration");
+                    JSONObject end_addr = steps.getJSONObject("end_address");
+                    String end_address = end_addr.getString("end_address");
+                    String duration_mins= duration.getString("text");
+                    String distance_in_text = distance.getString("text");
+                   // System.out.println(duration_mins);
+                    //distances_for_every_place_footsteps.add(distance_in_text);
+                    //duration_for_every_place.add(duration_mins);
+                    //System.out.println(distance_in_text);
+                    temporary.add(new SightData(end_address,distance_in_text,duration_mins));
+
+                }
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        return temporary;
+    }
+
+
     public static TabMapFragment getTabMap_instance() { return tabMap_instance;}
 
     public static HashMap<Integer,LatLng> getMapCoordinates() { return mapCoordinates;}
 
     public static Polyline getPolylineState() { return line;}
+
+    //all urls for all places
+    public static ArrayList<String> getUrlList() { return url_list;}
+
+    //the result after parsing each url for urlList.
+    public static ArrayList<String> getResults_from_url_calls() { return results_from_url_calls;}
+
+    public static ArrayList<String> getDistances_for_every_place_footsteps() { return distances_for_every_place_footsteps;}
+
+    public static ArrayList<String> getDuration_for_every_place() { return duration_for_every_place;}
+
+
 }

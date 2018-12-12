@@ -20,6 +20,7 @@ public class PlaceParser {
         Double latitude=null;
         Double longitude=null;
         int id;
+
         try {
             // make an jsonObject in order to parse the response
             JSONObject jsonObject = new JSONObject(response);
@@ -80,7 +81,7 @@ public class PlaceParser {
    public static String getCompountCode(String x)
    {    String cityAndCountry="not available";
         String[] parts= x.split(" ");
-       String[] subpart= parts[2].split("\"");
+        String[] subpart= parts[2].split("\"");
 
         cityAndCountry=parts[1]+subpart[0];
 

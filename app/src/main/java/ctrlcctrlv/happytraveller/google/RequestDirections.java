@@ -18,7 +18,7 @@ public class RequestDirections
         HttpURLConnection httpURLConnection = null;
 
         try {
-            System.out.println("getDirections");
+            //System.out.println("getDirections");
             URL url = new URL(givenUrl);
             httpURLConnection = (HttpURLConnection) url.openConnection();
             httpURLConnection.connect();
@@ -50,7 +50,9 @@ public class RequestDirections
             }
             httpURLConnection.disconnect();
         }
+        //System.out.println(responseString);
         return responseString;
+
 
     }
 

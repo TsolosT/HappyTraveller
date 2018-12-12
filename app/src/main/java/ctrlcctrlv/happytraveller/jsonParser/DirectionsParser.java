@@ -62,7 +62,7 @@ public class DirectionsParser
         } catch (Exception e) {
         }
 
-        System.out.println("DirectionsParser(parse):"+routes);
+       // System.out.println("DirectionsParser(parse):"+routes);
         return routes;
     }
 
