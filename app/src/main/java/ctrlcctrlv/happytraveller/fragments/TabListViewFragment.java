@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -24,6 +25,7 @@ import java.util.TimerTask;
 import ctrlcctrlv.happytraveller.R;
 import ctrlcctrlv.happytraveller.activities.HomeActivity;
 import ctrlcctrlv.happytraveller.adapters.ListItemAdapter;
+import ctrlcctrlv.happytraveller.connectivity.CheckConnection;
 import ctrlcctrlv.happytraveller.model.PlaceData;
 import ctrlcctrlv.happytraveller.url.PlaceUrl;
 
@@ -45,7 +47,8 @@ public class TabListViewFragment extends Fragment
     private int delayTime;
     private int renewTime;
     private Timer timer;
-
+    private static googleplaces gplaces;
+    private CheckConnection checkCon;
 
     @Override
 public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -54,6 +57,7 @@ public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle sa
         view = inflater.inflate(R.layout.fragment_tab_list_view, container, false);
         init();
         homeActivity = new HomeActivity();
+        gplaces=new googleplaces();
         return view;
     }
 
@@ -61,19 +65,32 @@ public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle sa
     public void onStart()
     {
         super.onStart();
-        new googleplaces().execute();
-        refreshPlaceList();
+        gplaces.execute();
+        refreshPlaceList(checkCon.checkSpeedConnection());
     }
     public void init()
     {
         listView= (ListView)view.findViewById(R.id.listView);
         textViewHidden=(TextView)view.findViewById(R.id.textViewHidden);
-        delayTime=0;
-        renewTime=900000; //15min in ms
+        delayTime=30000;//1min delay
+        //renewTime=900000; //15min in ms
+        renewTime=60000;
         timer=new Timer();
+        checkCon=new CheckConnection(getContext());
 
     }
-
+    //check is places download finished yet or not
+    public static boolean placesReceived()
+    {
+        if(gplaces.getStatus()==AsyncTask.Status.FINISHED)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
     private class googleplaces extends AsyncTask<View,String,String> {
 
         String jsonCallerMuseum;
@@ -167,9 +184,34 @@ public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle sa
     public static ArrayList<PlaceData> getPlaceData() { return placeData;}
 
     //function to refetch near sights data  every specific time
-    public void refreshPlaceList()
+    public void refreshPlaceList(int status)
     {
-       timer.scheduleAtFixedRate(new TimerTask()
+        String msgBad="Couldn't refresh place list due to bad speed connection";
+       switch(status)
+       {
+           case -1:
+                   runRefreshTimer();
+                   break;
+           case 0:
+                   Toast.makeText(getContext(),msgBad,Toast.LENGTH_LONG).show();
+                    break;
+           case 1:
+                     Toast.makeText(getContext(),msgBad,Toast.LENGTH_LONG).show();
+                     break;
+           case 2:
+                       runRefreshTimer();
+                       break;
+           case 3:
+                     runRefreshTimer();
+                     break;
+
+       }
+
+    }
+    //executes the timer for refresh time
+    public void runRefreshTimer()
+    {
+        timer.scheduleAtFixedRate(new TimerTask()
         {
             @Override
             public void run()
