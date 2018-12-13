@@ -65,6 +65,11 @@ public class SignUpActivity extends AppCompatActivity
     {
         String email = emailSignUp.getText().toString().trim();
         String password = passwordSignUp.getText().toString().trim();
+//        if (password.length()<4)
+//        {
+//            Toast.makeText(this,"Please password with more than 4 numbers", Toast.LENGTH_SHORT).show();
+//           return;
+//        }
 
         if(TextUtils.isEmpty(email))
         {
@@ -73,13 +78,26 @@ public class SignUpActivity extends AppCompatActivity
             //stopping the function executing further
             return;
         }
-        if(TextUtils.isEmpty(password))
-        {
+        if(TextUtils.isEmpty(password)) {
             //password is empty
-            Toast.makeText(this,"Please enter password", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Please enter password", Toast.LENGTH_SHORT).show();
             //stopping the function executing further
             return;
         }
+
+        if(TextUtils.getTrimmedLength(password)<6)
+        {
+            //if password less than 6 numbers
+            Toast.makeText(this,"Please enter password with more than 6 numbers", Toast.LENGTH_SHORT).show();
+            //stopping the function executing further
+            return;
+        }
+
+
+
+
+
+
         //if validations are ok
         //we will first show a progressbar
       //  progressDialog.setMessage("Registering User..");
@@ -93,11 +111,12 @@ public class SignUpActivity extends AppCompatActivity
                 if (task.isSuccessful())
                 {
                     //user is successfully registered and logged in
-                    // we will start the profile activity here
-                    // right now lest display  a toast only
+
                     Toast.makeText(SignUpActivity.this,"Registered successfully", Toast.LENGTH_SHORT).show();
                 }
                 else{
+
+                    // could not register
                     Toast.makeText(SignUpActivity.this,"Could not register , please try again", Toast.LENGTH_SHORT).show();
                 }
             }
