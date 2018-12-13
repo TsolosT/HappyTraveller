@@ -3,23 +3,32 @@ package ctrlcctrlv.happytraveller.connectivity;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.telephony.TelephonyManager;
 
 import java.lang.reflect.Method;
 
 public class CheckConnection
 {
     private Context context;
-
+    private NetworkInfo netInfo;
+    private ConnectivityManager connManager;
 
     public  CheckConnection(Context context)
     {
         this.context = context;
+        getReadyConnectionProperties();
     }
 
+    //initialize networkinfo and connectivityManager
+    public void getReadyConnectionProperties()
+    {
+        connManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        netInfo= connManager.getActiveNetworkInfo();
+    }
 
     public boolean wifiIs()
     {
-        ConnectivityManager connManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        connManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo mWifi = connManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
 
         return mWifi.isConnected();
@@ -41,4 +50,40 @@ public class CheckConnection
         }
         return mobileDataEnabled;
     }
+    public int checkSpeedConnection()
+    {
+        int type=-1; //default value of type_connection  "-1 = wifi type"
+
+        if(netInfo.getType() == ConnectivityManager.TYPE_WIFI)
+        {
+            return  type;
+        }
+        else if(netInfo.getType() == ConnectivityManager.TYPE_MOBILE)
+        {   // check NetworkInfo subtype
+            if (netInfo.getSubtype() == TelephonyManager.NETWORK_TYPE_GPRS)
+            {
+                // Bandwidth between 100 kbps and below
+                    type=0;
+                    return type;
+            }
+            else if(netInfo.getSubtype() == TelephonyManager.NETWORK_TYPE_EVDO_0 || netInfo.getSubtype() == TelephonyManager.NETWORK_TYPE_EVDO_A)
+            {
+                // Bandwidth between 400-1000 kbps or 600-1400kbps
+                type=1;
+                return type;
+            }
+            else if(netInfo.getSubtype() == TelephonyManager.NETWORK_TYPE_UMTS ||netInfo.getSubtype() == TelephonyManager.NETWORK_TYPE_HSUPA ){
+                // Bandwidth between 600-1400 kbps or 1-23 mbps
+                type=2;
+                return type;
+            }
+            else if(netInfo.getSubtype()==TelephonyManager.NETWORK_TYPE_UNKNOWN)
+            {
+                type=3;
+                return type;
+            }
+        }
+        return type;
+    }
+
 }
