@@ -11,24 +11,26 @@ public class CheckConnection
 {
     private Context context;
     private NetworkInfo netInfo;
+
+
+
     private ConnectivityManager connManager;
 
     public  CheckConnection(Context context)
     {
         this.context = context;
-        getReadyConnectionProperties();
-    }
-
-    //initialize networkinfo and connectivityManager
-    public void getReadyConnectionProperties()
-    {
         connManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        netInfo= connManager.getActiveNetworkInfo();
     }
-
+    //just for testing propose at the moment
+    public  CheckConnection(Context context,NetworkInfo info)
+    {
+        this.context = context;
+        connManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        this.netInfo=info;
+    }
     public boolean wifiIs()
     {
-        connManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+       // connManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo mWifi = connManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
 
         return mWifi.isConnected();
@@ -52,6 +54,10 @@ public class CheckConnection
     }
     public int checkSpeedConnection()
     {
+        if(netInfo==null)
+        {
+            netInfo= connManager.getActiveNetworkInfo();
+        }
         int type=-1; //default value of type_connection  "-1 = wifi type"
 
         if(netInfo.getType() == ConnectivityManager.TYPE_WIFI)
@@ -85,5 +91,6 @@ public class CheckConnection
         }
         return type;
     }
+
 
 }
