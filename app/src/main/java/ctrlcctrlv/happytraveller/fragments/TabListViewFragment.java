@@ -73,8 +73,7 @@ public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle sa
         listView= (ListView)view.findViewById(R.id.listView);
         textViewHidden=(TextView)view.findViewById(R.id.textViewHidden);
         delayTime=30000;//1min delay
-        //renewTime=900000; //15min in ms
-        renewTime=60000;
+        renewTime=900000; //15min in ms
         timer=new Timer();
         checkCon=new CheckConnection(getContext());
 
@@ -217,6 +216,7 @@ public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle sa
             public void run()
             {
                 new googleplaces().execute();
+
             }
         }, delayTime, renewTime);
     }
