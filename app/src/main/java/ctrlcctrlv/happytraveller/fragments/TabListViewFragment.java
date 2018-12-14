@@ -51,16 +51,14 @@ public class TabListViewFragment extends Fragment
     private CheckConnection checkCon;
 
     @Override
-public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
 
         view = inflater.inflate(R.layout.fragment_tab_list_view, container, false);
         init();
-        homeActivity = new HomeActivity();
-        gplaces=new googleplaces();
+
         return view;
     }
-
     @Override
     public void onStart()
     {
@@ -76,6 +74,8 @@ public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle sa
         renewTime=900000; //15min in ms
         timer=new Timer();
         checkCon=new CheckConnection(getContext());
+        homeActivity = new HomeActivity();
+        gplaces=new googleplaces();
 
     }
     //check is places download finished yet or not
@@ -103,16 +103,14 @@ public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle sa
             PlaceUrl urlMuseum = new PlaceUrl();
             PlaceUrl urlParks = new PlaceUrl();
             PlaceUrl urlChurch = new PlaceUrl();
-            // urlMuseum.setLatLng("41.081622,23.550124");
+
             urlMuseum.setLatLng(homeActivity.getUsersLocation().latitude+","+homeActivity.getUsersLocation().longitude);
             urlMuseum.setPlaceType("museum");
 
             urlParks.setLatLng(homeActivity.getUsersLocation().latitude+","+homeActivity.getUsersLocation().longitude);
-            // urlParks.setLatLng("41.081622,23.550124");
             urlParks.setPlaceType("park");
 
             urlChurch.setLatLng(homeActivity.getUsersLocation().latitude+","+homeActivity.getUsersLocation().longitude);
-            //     urlChurch.setLatLng("41.081622,23.550124");
             urlChurch.setPlaceType("church");
 
             jsonCallerMuseum = makeCall(urlMuseum.getUrl());
@@ -125,26 +123,33 @@ public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle sa
 
         @Override
         protected void onPostExecute(String result) {
-            if (jsonCallerMuseum == null && jsonCallerParks == null && jsonCallerChurch== null) {
+            if (jsonCallerMuseum == null && jsonCallerParks == null && jsonCallerChurch== null)
+            {
+                Toast.makeText(getContext(),"Could not get list of sights due to bad speed connection.",Toast.LENGTH_LONG).show();
                 // we have an error to the call
-            } else {
+            }
+            else
+                {
                 // all things went right
                 // parse Google places search result
-                //todo make  photo call ...
                 placeData = (parseGoogleParse(jsonCallerMuseum));
                 placeData.addAll(parseGoogleParse(jsonCallerChurch));
                 placeData.addAll(parseGoogleParse(jsonCallerParks));
-                if (placeData.size() == 0) {
-                    textViewHidden.setVisibility(View.VISIBLE);
-                } else {
 
+                if (placeData.size() == 0)
+                {
+                    textViewHidden.setVisibility(View.VISIBLE);
+                }
+                else
+                    {
                     adapter = new ListItemAdapter(placeData, getContext());
                     listView.setAdapter(adapter);
-                }
+                 }
             }
         }
 
-        public String makeCall(String url) {
+        public String makeCall(String url)
+        {
             // string buffers the url
             StringBuffer buffer_string = new StringBuffer(url);
             String replyString = "";
@@ -154,7 +159,8 @@ public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle sa
             // instanciate an HttpGet
             HttpGet httpget = new HttpGet(buffer_string.toString());
 
-            try {
+            try
+            {
 
                 // get the responce of the httpclient execution of the url
                 HttpResponse response = httpclient.execute(httpget);
@@ -169,10 +175,12 @@ public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle sa
                 }
                 // the result as a string is ready for parsing
                 replyString = new String(baf.toByteArray());
-            } catch (Exception e) {
-                e.printStackTrace();
             }
-            //System.out.println(replyString);
+            catch (Exception e)
+            {
+                e.printStackTrace();
+                return replyString.trim();
+            }
 
             // trim the whitespaces
             return replyString.trim();
@@ -198,8 +206,8 @@ public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle sa
                      Toast.makeText(getContext(),msgBad,Toast.LENGTH_LONG).show();
                      break;
            case 2:
-                       runRefreshTimer();
-                       break;
+                     runRefreshTimer();
+                     break;
            case 3:
                      runRefreshTimer();
                      break;
@@ -216,7 +224,6 @@ public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle sa
             public void run()
             {
                 new googleplaces().execute();
-
             }
         }, delayTime, renewTime);
     }

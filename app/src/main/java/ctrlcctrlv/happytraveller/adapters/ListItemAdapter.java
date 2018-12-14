@@ -26,9 +26,10 @@ import static ctrlcctrlv.happytraveller.fragments.TabMapFragment.mMap;
 
 public class ListItemAdapter extends ArrayAdapter<PlaceData> implements View.OnClickListener
 {
+
     private ArrayList<PlaceData> dataSet;
     private static final ctrlcctrlv.happytraveller.fragments.TabMapFragment TabMapFragment = ctrlcctrlv.happytraveller.fragments.TabMapFragment.getTabMap_instance();
-    Context mContext;
+    private Context mContext;
     protected HomeActivity homeActivity = new HomeActivity();
 
     // View lookup cache
@@ -42,7 +43,6 @@ public class ListItemAdapter extends ArrayAdapter<PlaceData> implements View.OnC
 
         //add more data var-components px : img info etc..
     }
-
 
 
     public ListItemAdapter(ArrayList<PlaceData> data, Context context)
@@ -130,5 +130,6 @@ public class ListItemAdapter extends ArrayAdapter<PlaceData> implements View.OnC
         // Return the completed view to render on screen
         return convertView;
     }
+
 
 }
