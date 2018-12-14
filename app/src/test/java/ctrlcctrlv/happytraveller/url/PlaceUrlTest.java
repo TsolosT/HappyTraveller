@@ -28,7 +28,7 @@ public class PlaceUrlTest {
     @Test
     public void getUrlWithThousandRadiusCorrect() {
 
-        String urlExpected="https://maps.googleapis.com/maps/api/place/search/json?location=41.0943488,23.5544576&type=museum&radius=10000&sensor=true&key=AIzaSyDI0zKd22JBJEGco2k9Thg2CZWLLsWfq7k";
+        String urlExpected="https://maps.googleapis.com/maps/api/place/search/json?location=41.082100,23.549980&type=null&radius=1000&sensor=true&key=AIzaSyDI0zKd22JBJEGco2k9Thg2CZWLLsWfq7k";
         assertEquals(urlExpected,urlTestAll.getUrl());
     }
     @Test
@@ -92,6 +92,7 @@ public class PlaceUrlTest {
     @Test
     public void getPlaceTypeParkCorrect() {
         String expected="park";
+        urlTestAll.setPlaceType("park");
         assertEquals(expected,urlTestAll.getPlaceType());
     }
     @Test
@@ -104,6 +105,7 @@ public class PlaceUrlTest {
     @Test
     public void getPlaceTypeChurchCorrect() {
         String expected="church";
+        urlTest.setPlaceType("church");
         assertEquals(expected,urlTest.getPlaceType());
     }
     @Test
@@ -117,16 +119,19 @@ public class PlaceUrlTest {
     @Test
     public void setPlaceTypeMuseumCorrect() {
         String expected="museum";
+        urlTestAll.setPlaceType("museum");
         assertEquals(expected,urlTestAll.getPlaceType());
     }
     @Test
     public void setPlaceTypeMuseumWrong() {
         String expected="museum";
+
         assertNotEquals(expected,urlTestAll.getPlaceType());
     }
     @Test
     public void setPlaceTypeParkCorrect() {
         String expected="park";
+        urlTestAll.setPlaceType("park");
         assertEquals(expected,urlTestAll.getPlaceType());
     }
     @Test
@@ -137,6 +142,7 @@ public class PlaceUrlTest {
     @Test
     public void setPlaceTypeChurchCorrect() {
         String expected="church";
+        urlTestAll.setPlaceType("church");
         assertEquals(expected,urlTestAll.getPlaceType());
     }
     @Test
@@ -185,7 +191,7 @@ public class PlaceUrlTest {
     @Test
     public void setMyLatLngCorrect() {
         urlTestAll.setLatLng("25.24323,51.234423");
-        assertEquals("25.22323,51.232323",urlTestAll.getLatLng());
+        assertEquals("25.24323,51.234423",urlTestAll.getLatLng());
     }
     @Test
     public void setMyLatLngWrong() {

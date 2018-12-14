@@ -66,7 +66,7 @@ public class CheckConnection
         }
         else if(netInfo.getType() == ConnectivityManager.TYPE_MOBILE)
         {   // check NetworkInfo subtype
-            if (netInfo.getSubtype() == TelephonyManager.NETWORK_TYPE_GPRS)
+            if (netInfo.getSubtype() == TelephonyManager.NETWORK_TYPE_GPRS || netInfo.getSubtype() == TelephonyManager.NETWORK_TYPE_GSM)
             {
                 // Bandwidth between 100 kbps and below
                     type=0;
