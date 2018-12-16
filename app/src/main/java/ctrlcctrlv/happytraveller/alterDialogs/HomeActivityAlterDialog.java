@@ -16,7 +16,6 @@ public class HomeActivityAlterDialog
         AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.AlertDialog);
         builder.setTitle("Restart");
         builder.setMessage("Application has to reboot");
-      //  builder.setIcon(R.drawable.places_ic_search);
         builder.setCancelable(false);
 
         builder.setPositiveButton("Sure!", new DialogInterface.OnClickListener()

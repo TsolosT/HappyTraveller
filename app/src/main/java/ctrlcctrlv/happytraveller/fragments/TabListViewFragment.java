@@ -1,5 +1,6 @@
 package ctrlcctrlv.happytraveller.fragments;
 
+import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -24,6 +25,7 @@ import java.util.TimerTask;
 
 import ctrlcctrlv.happytraveller.R;
 import ctrlcctrlv.happytraveller.activities.HomeActivity;
+import ctrlcctrlv.happytraveller.activities.MainActivity;
 import ctrlcctrlv.happytraveller.adapters.ListItemAdapter;
 import ctrlcctrlv.happytraveller.connectivity.CheckConnection;
 import ctrlcctrlv.happytraveller.model.PlaceData;
@@ -39,7 +41,7 @@ import static ctrlcctrlv.happytraveller.jsonParser.PlaceParser.parseGoogleParse;
 public class TabListViewFragment extends Fragment
 {
     protected View view;
-    private static ArrayList<PlaceData> placeData;
+    private static   ArrayList<PlaceData> placeData;
     protected  ListView listView;
     private static ListItemAdapter adapter;
     protected HomeActivity homeActivity;
@@ -47,6 +49,7 @@ public class TabListViewFragment extends Fragment
     private int delayTime;
     private int renewTime;
     private Timer timer;
+    private static Context context;
     private static googleplaces gplaces;
     private CheckConnection checkCon;
 
@@ -63,6 +66,7 @@ public class TabListViewFragment extends Fragment
     public void onStart()
     {
         super.onStart();
+
         gplaces.execute();
         refreshPlaceList(checkCon.checkSpeedConnection());
     }
@@ -73,6 +77,15 @@ public class TabListViewFragment extends Fragment
         delayTime=30000;//1min delay
         renewTime=900000; //15min in ms
         timer=new Timer();
+        context = getContext();
+
+
+    }
+
+
+    public class GooglePlaces extends AsyncTask<View,String,String>
+    {
+
         checkCon=new CheckConnection(getContext());
         homeActivity = new HomeActivity();
         gplaces=new googleplaces();
@@ -90,7 +103,8 @@ public class TabListViewFragment extends Fragment
             return false;
         }
     }
-    private class googleplaces extends AsyncTask<View,String,String> {
+    private class googleplaces extends AsyncTask<View,String,String> 
+    {
 
         String jsonCallerMuseum;
         String jsonCallerParks;
@@ -187,8 +201,17 @@ public class TabListViewFragment extends Fragment
         }
 
     }
+
+    public void showSightOnList(ArrayList<PlaceData> listWithSights)
+    {
+        adapter = new ListItemAdapter(listWithSights, context);
+        listView.setAdapter(adapter);
+    }
+
+
+
     //function to fetch the placeData into tabMapFragment
-    public static ArrayList<PlaceData> getPlaceData() { return placeData;}
+    public  ArrayList<PlaceData> getPlaceData() { return placeData;}
 
     //function to refetch near sights data  every specific time
     public void refreshPlaceList(int status)
@@ -223,7 +246,7 @@ public class TabListViewFragment extends Fragment
             @Override
             public void run()
             {
-                new googleplaces().execute();
+                new GooglePlaces().execute();
             }
         }, delayTime, renewTime);
     }

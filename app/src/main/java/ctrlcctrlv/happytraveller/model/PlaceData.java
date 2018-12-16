@@ -58,7 +58,7 @@ public class PlaceData implements Comparable<PlaceData>
         this.name = name;
         this.address = address;
     }
-    public PlaceData(String name, String address,PlacePhoto photo,Double latitude,Double longitude,String cityCountry,int id)
+    public PlaceData(String name, String address,PlacePhoto photo,Double latitude,Double longitude,String cityCountry)
     {
         this.name = name;
         this.address = address;

@@ -1,5 +1,7 @@
 package ctrlcctrlv.happytraveller.activities;
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -8,6 +10,7 @@ import android.support.design.widget.TabLayout.TabLayoutOnPageChangeListener;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
@@ -25,6 +28,7 @@ import java.util.ArrayList;
 
 import ctrlcctrlv.happytraveller.adapters.PageFragAdapter;
 import ctrlcctrlv.happytraveller.R;
+import ctrlcctrlv.happytraveller.alterDialogs.MainActivityAlterDialog;
 import ctrlcctrlv.happytraveller.checkIfIsValid.CheckIfNumberIsValidForTimePurpose;
 import ctrlcctrlv.happytraveller.fragments.TabListViewFragment;
 import ctrlcctrlv.happytraveller.fragments.TabMapFragment;
@@ -52,6 +56,8 @@ public class MainActivity extends AppCompatActivity
     public String email;
     private LogInActivity logInActivity;
     private Button btnLogOut ;
+
+
 
 
 
@@ -172,17 +178,17 @@ public class MainActivity extends AppCompatActivity
         {
             Toast.makeText(getApplicationContext(), "invalid number...",Toast.LENGTH_SHORT).show();
         }
-        else
-        {
+        else {
             SuggestSightsToVisit suggestSightsToVisit = new SuggestSightsToVisit();
 
-            suggestSightsToVisit.suggestRouteBasedOn(usersFreeTime);
-            Toast.makeText(getApplicationContext(), "Red>Yellow>Green>Cyan>Blue",Toast.LENGTH_SHORT).show();
+            MainActivityAlterDialog mainActivityAlterDialog = new MainActivityAlterDialog();
+
+            mainActivityAlterDialog.setSuggestedSights(suggestSightsToVisit.suggestRouteBasedOn(usersFreeTime));
+            mainActivityAlterDialog.showSuggestedSights(this);
         }
 
 
         textSearch.setText(null);
-
     }
 
     public void  onClickInfos(View view)
@@ -226,9 +232,20 @@ public class MainActivity extends AppCompatActivity
 
     }
 
-    //Retrieves a string  'on foot' is transport is selected onFoot and 'car' if is selected car
-    public String getCheckedTransportItem(){
-        return checkedTransportItem;
+    //Retrieves a string  'walking' is transport is selected onFoot and 'driving' if is selected car
+    public String getCheckedTransportItem()
+    {
+        String returnValue = null;
+        switch (checkedTransportItem)
+        {
+            case "onFoot":
+                returnValue = "walking";
+                break;
+            case "car":
+                returnValue = "driving";
+                break;
+        }
+        return returnValue;
     }
 
     //Change status of sight checkbox and display pins on map with sights
@@ -282,11 +299,14 @@ public class MainActivity extends AppCompatActivity
 
     //set and  reset  nav_header txtView location with users current location
     public void renewTxtViewLocation()
-    {    //get nav view then  header and then  textview
+    {
+        TabListViewFragment tabListViewFragment = new TabListViewFragment();
+        //get nav view then  header and then  textview
         NavigationView navView=(NavigationView)findViewById(R.id.navView);
         View header= navView.getHeaderView(0);
         TextView txtViewLocation=(TextView)header.findViewById(R.id.locationTextView);
         //get place data array
+
         ArrayList<PlaceData> places=TabListViewFragment.getPlaceData();
 
         String location;
@@ -302,6 +322,7 @@ public class MainActivity extends AppCompatActivity
         //display location
         txtViewLocation.setText(location);
     }
+
 
     public void setVisible()
     {
