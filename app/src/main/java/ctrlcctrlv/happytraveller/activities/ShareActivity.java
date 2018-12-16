@@ -22,7 +22,7 @@ public class ShareActivity  extends AppCompatActivity
     private  static LatLng latLng = null;
     private Intent intent;
     private Intent intent2;
-    //intents
+    //obj
     protected HomeActivity homeActivity;
 
     @Override
