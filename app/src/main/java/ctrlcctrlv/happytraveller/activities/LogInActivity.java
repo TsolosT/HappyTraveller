@@ -46,10 +46,10 @@ public class LogInActivity  extends AppCompatActivity
         setContentView(R.layout.activity_log_in);
         init();
 
-       if (firebaseAuth.getCurrentUser() != null)
-       {
-
-       }
+//       if (firebaseAuth.getCurrentUser() != null)
+//       {
+//
+//       }
 
     }
 
@@ -86,6 +86,7 @@ private void userLogIn() {
         return;
     }
 
+    // function for sign in by email and password
     firebaseAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
         @Override
         public void onComplete(@NonNull Task<AuthResult> task) {
@@ -94,6 +95,11 @@ private void userLogIn() {
             {
                 finish();
                 userEmail=email;
+                Toast.makeText(LogInActivity.this,"You signed in successfully", Toast.LENGTH_SHORT).show();
+            }
+            else
+            {
+                Toast.makeText(LogInActivity.this,"Could not sign in, please try again later ", Toast.LENGTH_SHORT).show();
             }
 
         }

@@ -14,10 +14,13 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.firebase.auth.FirebaseAuth;
+
 import org.w3c.dom.Text;
 import java.security.acl.Group;
 import java.time.ZoneOffset;
@@ -31,6 +34,9 @@ import ctrlcctrlv.happytraveller.fragments.TabListViewFragment;
 import ctrlcctrlv.happytraveller.fragments.TabMapFragment;
 import ctrlcctrlv.happytraveller.model.PlaceData;
 import ctrlcctrlv.happytraveller.suggestionsToUser.SuggestSightsToVisit;
+
+import static android.view.View.INVISIBLE;
+import static android.view.View.VISIBLE;
 
 
 public class MainActivity extends AppCompatActivity
@@ -49,6 +55,7 @@ public class MainActivity extends AppCompatActivity
     protected TabListViewFragment tabListViewFragment;
     public String email;
     private LogInActivity logInActivity;
+    private Button btnLogOut ;
 
 
 
@@ -87,6 +94,7 @@ public class MainActivity extends AppCompatActivity
         });
 
         drawerLayout.addDrawerListener(mToggle);
+//        btnLogOut.setVisibility(View.INVISIBLE);
         mToggle.syncState();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -106,8 +114,8 @@ public class MainActivity extends AppCompatActivity
         mToggle=new ActionBarDrawerToggle(this,drawerLayout,R.string.openMenu,R.string.closeMenu);
         checkedTransportItem="onFoot";
         logInActivity = new LogInActivity();
-
-
+        email="";
+      //  btnLogOut = (Button)findViewById(R.id.btnLogOut);
     }
 
     @Override
@@ -126,6 +134,7 @@ public class MainActivity extends AppCompatActivity
 
     public void setUserName(){
          TextView userView=(TextView) findViewById(R.id.userTextView);
+
         email= logInActivity.getUserEmail();
         System.out.println(email);
         if (email==null)
@@ -136,7 +145,11 @@ public class MainActivity extends AppCompatActivity
         {
            userView.setText(email);
 
+          setVisible();
+
         }
+
+
     }
 
     //A method that triggered when weather(menuItem) is clicked and intent weather activity
@@ -180,29 +193,16 @@ public class MainActivity extends AppCompatActivity
 
     public void  onClickInfos(View view)
     {
-       //get id button
-        //    System.out.println(view.getId());
         //fetch placeDataArraylist
         placeData=tabListViewFragment.getPlaceData();
         //k= id button
         int k=view.getId();
-      //  System.out.println(k);
         //get the correct search tittle
         String searchtittle=placeData.get(k).getName();
-       // System.out.println(searchtittle);
         //intent for DetailsActivity display
         Intent intentInfos=new Intent(this,DetailsActivity.class);
         intentInfos.putExtra("searchtittle",searchtittle);
         startActivity(intentInfos);
-
-
-
-
-
-        // na anoigei to activity kai na pernaw ton titlo apo to antikeimeno kai ayto tha to pairnei to activity tha to bazei sto url
-//
-//
-
     }
 
     //Change checkbox on transport menu items
@@ -248,7 +248,6 @@ public class MainActivity extends AppCompatActivity
         return returnValue;
     }
 
-
     //Change status of sight checkbox and display pins on map with sights
     public void changeSightPinStatus(MenuItem item)
     {   //get menu
@@ -283,8 +282,6 @@ public class MainActivity extends AppCompatActivity
     }
     public static void refreshSightButton(String result)
     {
-
-
         if (result == "false")
         {
             MenuItem sight = navView.getMenu().getItem(2);
@@ -309,15 +306,48 @@ public class MainActivity extends AppCompatActivity
         View header= navView.getHeaderView(0);
         TextView txtViewLocation=(TextView)header.findViewById(R.id.locationTextView);
         //get place data array
-        ArrayList<PlaceData> places=tabListViewFragment.getPlaceData();
-        //get location from  array
-        String location=places.get(0).getCityCountry();
+
+        ArrayList<PlaceData> places=TabListViewFragment.getPlaceData();
+
+        String location;
+        if(TabListViewFragment.placesReceived())
+        {
+            //get location from  array
+           location=places.get(0).getCityCountry();
+        }
+        else
+        {
+            location="currently not available";
+        }
         //display location
         txtViewLocation.setText(location);
     }
 
 
+    public void setVisible()
+    {
+        //get nav view then  header and then  textview
+        NavigationView navView=(NavigationView)findViewById(R.id.navView);
+        View header= navView.getHeaderView(0);
+        Button btnLogOut=(Button)header.findViewById(R.id.btnLogOut);
+        btnLogOut.setVisibility(View.VISIBLE);
 
+    }
 
+    public void onClickLogOut(View view)
+    {
+        NavigationView navView=(NavigationView)findViewById(R.id.navView);
+        View header= navView.getHeaderView(0);
+        Button btnLogOut=(Button)header.findViewById(R.id.btnLogOut);
+        if(btnLogOut.isPressed())
+        {
+            FirebaseAuth.getInstance().signOut();
+            Toast.makeText(getApplicationContext(), "You have successfully signed out ",Toast.LENGTH_SHORT).show();
+            finish();
+            startActivity(new Intent(this,HomeActivity.class));
+            btnLogOut.setVisibility(View.GONE);
+
+        }
+    }
 }
 

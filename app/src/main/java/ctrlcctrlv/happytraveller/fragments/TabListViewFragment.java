@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -26,6 +27,7 @@ import ctrlcctrlv.happytraveller.R;
 import ctrlcctrlv.happytraveller.activities.HomeActivity;
 import ctrlcctrlv.happytraveller.activities.MainActivity;
 import ctrlcctrlv.happytraveller.adapters.ListItemAdapter;
+import ctrlcctrlv.happytraveller.connectivity.CheckConnection;
 import ctrlcctrlv.happytraveller.model.PlaceData;
 import ctrlcctrlv.happytraveller.url.PlaceUrl;
 
@@ -48,31 +50,31 @@ public class TabListViewFragment extends Fragment
     private int renewTime;
     private Timer timer;
     private static Context context;
-
-
+    private static googleplaces gplaces;
+    private CheckConnection checkCon;
 
     @Override
-public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
 
         view = inflater.inflate(R.layout.fragment_tab_list_view, container, false);
         init();
-        homeActivity = new HomeActivity();
+
         return view;
     }
-
     @Override
     public void onStart()
     {
         super.onStart();
-        new GooglePlaces().execute();
-        refreshPlaceList();
+
+        gplaces.execute();
+        refreshPlaceList(checkCon.checkSpeedConnection());
     }
     public void init()
     {
         listView= (ListView)view.findViewById(R.id.listView);
         textViewHidden=(TextView)view.findViewById(R.id.textViewHidden);
-        delayTime=0;
+        delayTime=30000;//1min delay
         renewTime=900000; //15min in ms
         timer=new Timer();
         context = getContext();
@@ -82,6 +84,26 @@ public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle sa
 
 
     public class GooglePlaces extends AsyncTask<View,String,String>
+    {
+
+        checkCon=new CheckConnection(getContext());
+        homeActivity = new HomeActivity();
+        gplaces=new googleplaces();
+
+    }
+    //check is places download finished yet or not
+    public static boolean placesReceived()
+    {
+        if(gplaces.getStatus()==AsyncTask.Status.FINISHED)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    private class googleplaces extends AsyncTask<View,String,String> 
     {
 
         String jsonCallerMuseum;
@@ -95,16 +117,14 @@ public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle sa
             PlaceUrl urlMuseum = new PlaceUrl();
             PlaceUrl urlParks = new PlaceUrl();
             PlaceUrl urlChurch = new PlaceUrl();
-            // urlMuseum.setLatLng("41.081622,23.550124");
+
             urlMuseum.setLatLng(homeActivity.getUsersLocation().latitude+","+homeActivity.getUsersLocation().longitude);
             urlMuseum.setPlaceType("museum");
 
             urlParks.setLatLng(homeActivity.getUsersLocation().latitude+","+homeActivity.getUsersLocation().longitude);
-            // urlParks.setLatLng("41.081622,23.550124");
             urlParks.setPlaceType("park");
 
             urlChurch.setLatLng(homeActivity.getUsersLocation().latitude+","+homeActivity.getUsersLocation().longitude);
-            //     urlChurch.setLatLng("41.081622,23.550124");
             urlChurch.setPlaceType("church");
 
             jsonCallerMuseum = makeCall(urlMuseum.getUrl());
@@ -117,29 +137,33 @@ public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle sa
 
         @Override
         protected void onPostExecute(String result) {
-            if (jsonCallerMuseum == null && jsonCallerParks == null && jsonCallerChurch== null) {
+            if (jsonCallerMuseum == null && jsonCallerParks == null && jsonCallerChurch== null)
+            {
+                Toast.makeText(getContext(),"Could not get list of sights due to bad speed connection.",Toast.LENGTH_LONG).show();
                 // we have an error to the call
-            } else {
+            }
+            else
+                {
                 // all things went right
                 // parse Google places search result
-                //todo make  photo call ...
                 placeData = (parseGoogleParse(jsonCallerMuseum));
                 placeData.addAll(parseGoogleParse(jsonCallerChurch));
                 placeData.addAll(parseGoogleParse(jsonCallerParks));
-                if (placeData.size() == 0) {
+
+                if (placeData.size() == 0)
+                {
                     textViewHidden.setVisibility(View.VISIBLE);
-                } else {
-                    //Set id for every sight
-                    for (int i=1 ; i < placeData.size()+1 ; i++)
-                        placeData.get(i-1).setId(i);
-
-
-                    showSightOnList(placeData);
                 }
+                else
+                    {
+                    adapter = new ListItemAdapter(placeData, getContext());
+                    listView.setAdapter(adapter);
+                 }
             }
         }
 
-        public String makeCall(String url) {
+        public String makeCall(String url)
+        {
             // string buffers the url
             StringBuffer buffer_string = new StringBuffer(url);
             String replyString = "";
@@ -149,7 +173,8 @@ public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle sa
             // instanciate an HttpGet
             HttpGet httpget = new HttpGet(buffer_string.toString());
 
-            try {
+            try
+            {
 
                 // get the responce of the httpclient execution of the url
                 HttpResponse response = httpclient.execute(httpget);
@@ -164,10 +189,12 @@ public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle sa
                 }
                 // the result as a string is ready for parsing
                 replyString = new String(baf.toByteArray());
-            } catch (Exception e) {
-                e.printStackTrace();
             }
-            //System.out.println(replyString);
+            catch (Exception e)
+            {
+                e.printStackTrace();
+                return replyString.trim();
+            }
 
             // trim the whitespaces
             return replyString.trim();
@@ -186,10 +213,35 @@ public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle sa
     //function to fetch the placeData into tabMapFragment
     public  ArrayList<PlaceData> getPlaceData() { return placeData;}
 
-    //function to refresh near sights data  every specific time
-    public void refreshPlaceList()
+    //function to refetch near sights data  every specific time
+    public void refreshPlaceList(int status)
     {
-       timer.scheduleAtFixedRate(new TimerTask()
+        String msgBad="Couldn't refresh place list due to bad speed connection";
+       switch(status)
+       {
+           case -1:
+                   runRefreshTimer();
+                   break;
+           case 0:
+                   Toast.makeText(getContext(),msgBad,Toast.LENGTH_LONG).show();
+                    break;
+           case 1:
+                     Toast.makeText(getContext(),msgBad,Toast.LENGTH_LONG).show();
+                     break;
+           case 2:
+                     runRefreshTimer();
+                     break;
+           case 3:
+                     runRefreshTimer();
+                     break;
+
+       }
+
+    }
+    //executes the timer for refresh time
+    public void runRefreshTimer()
+    {
+        timer.scheduleAtFixedRate(new TimerTask()
         {
             @Override
             public void run()
