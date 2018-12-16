@@ -66,7 +66,6 @@ public class TabListViewFragment extends Fragment
     public void onStart()
     {
         super.onStart();
-
         gplaces.execute();
         refreshPlaceList(checkCon.checkSpeedConnection());
     }
@@ -78,19 +77,13 @@ public class TabListViewFragment extends Fragment
         renewTime=900000; //15min in ms
         timer=new Timer();
         context = getContext();
-
-
-    }
-
-
-    public class GooglePlaces extends AsyncTask<View,String,String>
-    {
-
         checkCon=new CheckConnection(getContext());
         homeActivity = new HomeActivity();
-        gplaces=new googleplaces();
+        gplaces = new googleplaces();
 
     }
+
+
     //check is places download finished yet or not
     public static boolean placesReceived()
     {
@@ -246,7 +239,7 @@ public class TabListViewFragment extends Fragment
             @Override
             public void run()
             {
-                new GooglePlaces().execute();
+                new googleplaces().execute();
             }
         }, delayTime, renewTime);
     }

@@ -307,7 +307,7 @@ public class MainActivity extends AppCompatActivity
         TextView txtViewLocation=(TextView)header.findViewById(R.id.locationTextView);
         //get place data array
 
-        ArrayList<PlaceData> places=TabListViewFragment.getPlaceData();
+        ArrayList<PlaceData> places=tabListViewFragment.getPlaceData();
 
         String location;
         if(TabListViewFragment.placesReceived())
