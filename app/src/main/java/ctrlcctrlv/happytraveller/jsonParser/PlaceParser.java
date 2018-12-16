@@ -58,11 +58,11 @@ public class PlaceParser {
 //                                placePhotos.add(new PlacePhoto(((JSONObject) photos.get(j)).getString("photo_reference")));
 //                            }
 
-                            temp.add(new PlaceData(jsonArray.getJSONObject(i).optString("name"), jsonArray.getJSONObject(i).optString("vicinity"),new PlacePhoto(((JSONObject) photos.get(0)).getString("photo_reference")),latitude,longitude,cityAndCountry,id));
+                            temp.add(new PlaceData(jsonArray.getJSONObject(i).optString("name"), jsonArray.getJSONObject(i).optString("vicinity"),new PlacePhoto(((JSONObject) photos.get(0)).getString("photo_reference")),latitude,longitude,cityAndCountry));
                         }
                         else
                         {
-                            temp.add(new PlaceData(jsonArray.getJSONObject(i).optString("name"), jsonArray.getJSONObject(i).optString("vicinity"),new PlacePhoto(null),latitude,longitude,cityAndCountry,id));
+                            temp.add(new PlaceData(jsonArray.getJSONObject(i).optString("name"), jsonArray.getJSONObject(i).optString("vicinity"),new PlacePhoto(null),latitude,longitude,cityAndCountry));
                         }
 
                     }

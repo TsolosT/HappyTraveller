@@ -1,5 +1,6 @@
 package ctrlcctrlv.happytraveller.fragments;
 
+import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -23,6 +24,7 @@ import java.util.TimerTask;
 
 import ctrlcctrlv.happytraveller.R;
 import ctrlcctrlv.happytraveller.activities.HomeActivity;
+import ctrlcctrlv.happytraveller.activities.MainActivity;
 import ctrlcctrlv.happytraveller.adapters.ListItemAdapter;
 import ctrlcctrlv.happytraveller.model.PlaceData;
 import ctrlcctrlv.happytraveller.url.PlaceUrl;
@@ -37,7 +39,7 @@ import static ctrlcctrlv.happytraveller.jsonParser.PlaceParser.parseGoogleParse;
 public class TabListViewFragment extends Fragment
 {
     protected View view;
-    private static ArrayList<PlaceData> placeData;
+    private static   ArrayList<PlaceData> placeData;
     protected  ListView listView;
     private static ListItemAdapter adapter;
     protected HomeActivity homeActivity;
@@ -45,6 +47,8 @@ public class TabListViewFragment extends Fragment
     private int delayTime;
     private int renewTime;
     private Timer timer;
+    private static Context context;
+
 
 
     @Override
@@ -61,7 +65,7 @@ public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle sa
     public void onStart()
     {
         super.onStart();
-        new googleplaces().execute();
+        new GooglePlaces().execute();
         refreshPlaceList();
     }
     public void init()
@@ -71,10 +75,14 @@ public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle sa
         delayTime=0;
         renewTime=900000; //15min in ms
         timer=new Timer();
+        context = getContext();
+
 
     }
 
-    private class googleplaces extends AsyncTask<View,String,String> {
+
+    public class GooglePlaces extends AsyncTask<View,String,String>
+    {
 
         String jsonCallerMuseum;
         String jsonCallerParks;
@@ -121,9 +129,12 @@ public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle sa
                 if (placeData.size() == 0) {
                     textViewHidden.setVisibility(View.VISIBLE);
                 } else {
+                    //Set id for every sight
+                    for (int i=1 ; i < placeData.size()+1 ; i++)
+                        placeData.get(i-1).setId(i);
 
-                    adapter = new ListItemAdapter(placeData, getContext());
-                    listView.setAdapter(adapter);
+
+                    showSightOnList(placeData);
                 }
             }
         }
@@ -163,10 +174,19 @@ public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle sa
         }
 
     }
-    //function to fetch the placeData into tabMapFragment
-    public static ArrayList<PlaceData> getPlaceData() { return placeData;}
 
-    //function to refetch near sights data  every specific time
+    public void showSightOnList(ArrayList<PlaceData> listWithSights)
+    {
+        adapter = new ListItemAdapter(listWithSights, context);
+        listView.setAdapter(adapter);
+    }
+
+
+
+    //function to fetch the placeData into tabMapFragment
+    public  ArrayList<PlaceData> getPlaceData() { return placeData;}
+
+    //function to refresh near sights data  every specific time
     public void refreshPlaceList()
     {
        timer.scheduleAtFixedRate(new TimerTask()
@@ -174,7 +194,7 @@ public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle sa
             @Override
             public void run()
             {
-                new googleplaces().execute();
+                new GooglePlaces().execute();
             }
         }, delayTime, renewTime);
     }
