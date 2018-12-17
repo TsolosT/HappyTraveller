@@ -3,11 +3,11 @@ package ctrlcctrlv.happytraveller.activities;
 import android.content.Context;
 import android.content.Intent;
 import android.support.test.InstrumentationRegistry;
-import android.support.test.rule.ActivityTestRule;
+
 import android.support.test.rule.GrantPermissionRule;
 import android.support.test.runner.AndroidJUnit4;
 
-import org.junit.Assert;
+
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -19,8 +19,8 @@ public class ShareActivityTest {
 
     // third parameter is set to false which means the activity is not started automatically
     @Rule
-    public ActivityTestRule<ShareActivity> rule =
-            new ActivityTestRule(ShareActivity.class, true, false);
+    public androidx.test.rule.ActivityTestRule<ShareActivity> rule =
+            new androidx.test.rule.ActivityTestRule(ShareActivity.class, true, false);
     @Rule
     public GrantPermissionRule mGrantPermissionRule =
             GrantPermissionRule.grant(
