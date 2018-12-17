@@ -86,8 +86,6 @@ public class TabMapFragment extends Fragment implements OnMapReadyCallback
         context = getActivity().getApplicationContext();
         tabMap_instance = this;
 
-
-
         //Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_tab_map, container, false);
     }
@@ -221,7 +219,6 @@ public class TabMapFragment extends Fragment implements OnMapReadyCallback
     }
 
 
-
     public static class TaskRequestDirections extends AsyncTask<String,Void,String>
     {
         @Override
@@ -229,7 +226,6 @@ public class TabMapFragment extends Fragment implements OnMapReadyCallback
         {
             String responseString = "";
             try {
-                // responseString = requestDirection(strings[0]);
                 RequestDirections requestDirections = new RequestDirections();
                 responseString = requestDirections.getDirections(strings[0]);
             } catch (IOException e) {
@@ -246,7 +242,6 @@ public class TabMapFragment extends Fragment implements OnMapReadyCallback
             taskParser.execute(s);
         }
     }
-
 
     public static class  TaskParser extends AsyncTask<String , Void , List<List<HashMap<String, String>>>>
     {
@@ -314,20 +309,16 @@ public class TabMapFragment extends Fragment implements OnMapReadyCallback
                 polylineOptions.geodesic(true);
             }
 
-
             if (polylineOptions != null)
             {
                 line = mMap.addPolyline(polylineOptions);
                 polylineFlag = true;
             }else
             {
-                //  Toast.makeText(getActivity().getApplicationContext(), "Direction not found!",Toast.LENGTH_SHORT).show();
-                System.out.println("Problem here");
-
+                  Toast.makeText(getTabMap_instance().getActivity().getApplicationContext(), "Direction not found!",Toast.LENGTH_SHORT).show();
             }
         }
     }
-
 
 
     public void drawRouteOnMap(LatLng origin, LatLng destination)
@@ -346,10 +337,8 @@ public class TabMapFragment extends Fragment implements OnMapReadyCallback
         RoutesUrl routesUrl = new RoutesUrl(mainActivity.getCheckedTransportItem());
         TaskRequestDirections taskRequestDirections = new TaskRequestDirections();
 
-
         mMap.addMarker(new MarkerOptions().position(origin));
         mMap.addMarker(new MarkerOptions().position(destination).title(sight.getName()).snippet("Suggested Sight"));
-
 
         taskRequestDirections.execute(routesUrl.getUrl(origin,destination, context, Locale.getDefault()));
     }
@@ -375,16 +364,13 @@ public class TabMapFragment extends Fragment implements OnMapReadyCallback
         else {
             for(int i=0;i< dataPassedFromListView.size();i++ )
             {
-
                 Object obj = dataPassedFromListView.get(i);
 
                 Double lat = dataPassedFromListView.get(i).getLatitude();
                 Double lng = dataPassedFromListView.get(i).getLongitude();
                 LatLng final_location = new LatLng(lat,lng);
 
-
                 mMap.addMarker(new MarkerOptions().position(final_location).title(((PlaceData) obj).getName()));
-                //System.out.println("Markers added in map");
             }
         }
     }

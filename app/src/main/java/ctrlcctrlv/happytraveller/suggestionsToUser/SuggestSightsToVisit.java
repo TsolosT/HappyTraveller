@@ -122,7 +122,6 @@ public class SuggestSightsToVisit
 
         TabMapFragment.changePolylineColor = 0;
 
-
         return suggestedPlaces ;
 
     }

@@ -37,19 +37,12 @@ public class LogInActivity  extends AppCompatActivity
     public static String userEmail ;
 
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_log_in);
         init();
-
-//       if (firebaseAuth.getCurrentUser() != null)
-//       {
-//
-//       }
 
     }
 
@@ -67,7 +60,15 @@ public class LogInActivity  extends AppCompatActivity
     public void displaySignUp(View v)
     {
         Intent intent=new Intent(this,SignUpActivity.class);
-        startActivity(intent);
+        try
+        {
+            startActivity(intent);
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+            Toast.makeText(getApplicationContext(), "Opps you can't navigate this page now...",Toast.LENGTH_SHORT).show();
+        }
     }
 
 private void userLogIn() {
@@ -108,8 +109,8 @@ private void userLogIn() {
     });
 }
 
-
-     public static String getUserEmail(){
+public static String getUserEmail()
+{
 
         return userEmail;
 }

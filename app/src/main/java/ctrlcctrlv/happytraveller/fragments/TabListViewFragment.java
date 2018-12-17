@@ -49,7 +49,7 @@ public class TabListViewFragment extends Fragment
     private int delayTime;
     private int renewTime;
     private Timer timer;
-    private static Context context;
+    public static Context context;
     private static googleplaces gplaces;
     private CheckConnection checkCon;
 

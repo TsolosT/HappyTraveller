@@ -14,33 +14,11 @@ public class PlaceData implements Comparable<PlaceData>
     String pinsIcon;
     Double latitude;
     Double longitude;
-
+    String cityCountry;
     // TODO: 12/12/2018 #themis values to fill with
     int distance;
     int timeTillArrival;
-
-    public int getDistance() {
-        return distance;
-    }
-
-    public void setDistance(int distance) {
-        this.distance = distance;
-    }
-
-    public void setTimeTillArrival(int timeTillArrival) {
-        this.timeTillArrival = timeTillArrival;
-    }
-
-    public int getTimeTillArrival()
-    {
-        return timeTillArrival;
-    }
-
     int id;
-
-
-    String cityCountry;
-
 
     ArrayList<PlacePhoto> placePhotos;
     PlacePhoto defaultImg;
@@ -150,5 +128,21 @@ public class PlaceData implements Comparable<PlaceData>
     public int compareTo(PlaceData placeData)
     {
         return (this.timeTillArrival - placeData.timeTillArrival);
+    }
+    public int getDistance() {
+        return distance;
+    }
+
+    public void setDistance(int distance) {
+        this.distance = distance;
+    }
+
+    public void setTimeTillArrival(int timeTillArrival) {
+        this.timeTillArrival = timeTillArrival;
+    }
+
+    public int getTimeTillArrival()
+    {
+        return timeTillArrival;
     }
 }

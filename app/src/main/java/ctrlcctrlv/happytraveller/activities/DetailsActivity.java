@@ -21,12 +21,8 @@ public class DetailsActivity extends AppCompatActivity {
     static String URLsearch = "";
 
 
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
 
         //ui
         super.onCreate(savedInstanceState);
@@ -45,13 +41,7 @@ public class DetailsActivity extends AppCompatActivity {
         //fetch the first result
         wiki.loadUrl(URLsearch);
 
-
-
-
-
-
     }
-
 
 }
 
