@@ -31,6 +31,7 @@ import ctrlcctrlv.happytraveller.connectivity.CheckConnection;
 import ctrlcctrlv.happytraveller.model.PlaceData;
 import ctrlcctrlv.happytraveller.url.PlaceUrl;
 
+import static ctrlcctrlv.happytraveller.jsonParser.PlaceParser.getCompountCode;
 import static ctrlcctrlv.happytraveller.jsonParser.PlaceParser.parseGoogleParse;
 
 /*
@@ -143,14 +144,15 @@ public class TabListViewFragment extends Fragment
                 placeData.addAll(parseGoogleParse(jsonCallerChurch));
                 placeData.addAll(parseGoogleParse(jsonCallerParks));
 
-                if (placeData.size() == 0)
+                if (placeData.size() == 0 || getContext()==null)
                 {
                     textViewHidden.setVisibility(View.VISIBLE);
                 }
                 else
                     {
-                    adapter = new ListItemAdapter(placeData, getContext());
-                    listView.setAdapter(adapter);
+                        //if(getActivity()!=null)
+                            adapter = new ListItemAdapter(placeData, getContext());
+                            listView.setAdapter(adapter);
                  }
             }
         }
