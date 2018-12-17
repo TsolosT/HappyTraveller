@@ -12,9 +12,9 @@ public class DetailsActivity extends AppCompatActivity
 {
 
     //ui
-    public WebView wiki;
+    static WebView wiki;
     //variables
-    private static String searchName = null;
+    static String searchName = null;
     static String URLsearch = "";
 
 

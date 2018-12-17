@@ -54,7 +54,7 @@ public class ShareActivity  extends AppCompatActivity
                 String shareSub = "THIS APP ROCKS :";//details
                 myIntent.putExtra(Intent.EXTRA_SUBJECT, shareSub);
                 String rate;
-                myIntent.putExtra(Intent.EXTRA_TEXT,"Love this app...I rate it for "+ratingBar.getRating()+"  Stars....please download this project" +d);
+                myIntent.putExtra(Intent.EXTRA_TEXT,"Love this app...I rate it for "+ratingBar.getRating()+"  Stars....please download this project " +d);
                 startActivity(Intent.createChooser(myIntent, "Share using"));
                 init();
             }
