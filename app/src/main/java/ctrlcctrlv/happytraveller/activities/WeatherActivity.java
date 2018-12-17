@@ -35,22 +35,21 @@ public class WeatherActivity extends AppCompatActivity
     private Intent intent;
     String j1 = null;
     String j2 = null;
-    String temp=null;
     String key;
-    String lat="41.2";
-    String lon="23.2";
     TextView weatherReport;
 
 
 
-    public void checkWeather (View view) {
+    public void checkWeather (View view)
+    {
 
         DownloadTask task = new DownloadTask();
+        HomeActivity homeActivity = new HomeActivity();
 
 
 
         try {
-            j1 = task.execute("http://dataservice.accuweather.com/locations/v1/cities/geoposition/search?apikey=jq2F4GlI2Q5e4JuDkghiWDOcrVBApCJH&q="+lat+","+lon).get();
+            j1 = task.execute("http://dataservice.accuweather.com/locations/v1/cities/geoposition/search?apikey=jq2F4GlI2Q5e4JuDkghiWDOcrVBApCJH&q="+homeActivity.getUsersLocation().latitude+","+homeActivity.getUsersLocation().longitude).get();
 
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -79,7 +78,7 @@ public class WeatherActivity extends AppCompatActivity
         protected String doInBackground(String... urls)
         {
 
-            String result = "";
+            StringBuilder result = new StringBuilder();
             URL url;
             HttpURLConnection urlConnection = null;
 
@@ -93,12 +92,12 @@ public class WeatherActivity extends AppCompatActivity
                 while (data != -1) {
 
                     char current = (char) data;
-                    result += current;
+                    result.append(current);
                     data = reader.read();
 
                 }
 
-                return result;
+                return result.toString();
 
             }
             catch (Exception e) {
@@ -117,11 +116,11 @@ public class WeatherActivity extends AppCompatActivity
             // print key value
 
             try {
-                JSONObject thekey  = new JSONObject(j1);
+                JSONObject theKey  = new JSONObject(j1);
 
 
 
-                key = thekey.getString("Key");
+                key = theKey.getString("Key");
 
 
 

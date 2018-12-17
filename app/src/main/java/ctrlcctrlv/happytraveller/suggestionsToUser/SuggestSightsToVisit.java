@@ -10,6 +10,7 @@ import ctrlcctrlv.happytraveller.activities.HomeActivity;
 import ctrlcctrlv.happytraveller.fragments.TabListViewFragment;
 import ctrlcctrlv.happytraveller.fragments.TabMapFragment;
 import ctrlcctrlv.happytraveller.model.PlaceData;
+import ctrlcctrlv.happytraveller.model.PlacePhoto;
 
 public class SuggestSightsToVisit
 {
@@ -23,7 +24,7 @@ public class SuggestSightsToVisit
         TabMapFragment.changePolylineColor = 0;
 
         TabListViewFragment tabListViewFragment = new TabListViewFragment();
-        ArrayList<PlaceData> placeDataListTwo = (ArrayList<PlaceData>) tabListViewFragment.getPlaceData().clone();
+        ArrayList<PlaceData> placeDataListTwo = new ArrayList<>(tabListViewFragment.getPlaceData());
         ArrayList<PlaceData> suggestedPlaces = new ArrayList<>(placeDataListTwo.size());
         HomeActivity homeActivity = new HomeActivity();
         ThemisClass themisClass = new ThemisClass();
@@ -116,7 +117,7 @@ public class SuggestSightsToVisit
 
         if (placeDataListTwo.size() < 2)
         {
-            System.out.println("================telos ta aksiotheata gamw to spiti mou =============");
+            System.out.println("================telos ta aksiotheata=============");
         }
 
         TabMapFragment.changePolylineColor = 0;
