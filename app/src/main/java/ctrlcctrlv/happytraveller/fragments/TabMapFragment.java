@@ -68,6 +68,7 @@ public class TabMapFragment extends Fragment implements OnMapReadyCallback
     static HashMap<Integer,LatLng> mapCoordinates = new HashMap<>();
     public static String marker_name = null;
 
+    public static int changePolylineColor = 0 ;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -85,25 +86,21 @@ public class TabMapFragment extends Fragment implements OnMapReadyCallback
         context = getActivity().getApplicationContext();
         tabMap_instance = this;
 
-
-
         //Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_tab_map, container, false);
     }
 
 
     @Override
-    public void onMapReady(GoogleMap googleMap)
-    {
+    public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
         mMap.getUiSettings().setZoomControlsEnabled(true);
 
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(homeActivity.getUsersLocation(),15));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(homeActivity.getUsersLocation(), 15));
 
 
-        if (ActivityCompat.checkSelfPermission(getActivity().getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getActivity().getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED)
-        {
+        if (ActivityCompat.checkSelfPermission(getActivity().getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getActivity().getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
             //    ActivityCompat#requestPermissions
             // here to request the missing permissions, and then overriding
@@ -119,51 +116,27 @@ public class TabMapFragment extends Fragment implements OnMapReadyCallback
         final Button refreshButton = (Button) getView().findViewById(R.id.refreshButton);
 
         //When refreshButton is clicked refreshes the route from user`s location and the pin
-        refreshButton.setOnClickListener(new View.OnClickListener()
-        {
+        refreshButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
-                if (!longClickIs)
-                {
-                    if (pinsLatLng != null)
-                    {
-                        if (homeActivity.getUsersLocation() != null)
-                        {
-                            if (polylineFlag)
-                                line.remove();
-
-
-                            drawRouteOnMap(homeActivity.getUsersLocation(),pinsLatLng);
-
-                        }else
-                        {
-                            Toast.makeText(getActivity().getApplicationContext(), "My location not found !",Toast.LENGTH_SHORT).show();
-                        }
-
-                    }else
-                    {
-                        Toast.makeText(getActivity().getApplicationContext(), "You have to add a pin !",Toast.LENGTH_SHORT).show();
-                    }
-                }else
-                {
+            public void onClick(View v) {
+                if (!longClickIs) {
+                    //code
+                } else {
                     longClickIs = false;
                 }
             }
         });
 
         //When Refresh refreshButton long clicked clears the map from pins and polyLines with a cool animation
-        refreshButton.setOnLongClickListener(new View.OnLongClickListener()
-        {
+        refreshButton.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
-            public boolean onLongClick(View v)
-            {
-                longClickIs = true ;
+            public boolean onLongClick(View v) {
+                longClickIs = true;
 
                 refreshButton.setText("Clearing");
 
                 AnimatedButton animatedButton = new AnimatedButton(refreshButton);
-                animatedButton.makeButtonTextTo("Clearing.",500,"Clearing..",500,"Clearing...",500,"Refresh",500);
+                animatedButton.makeButtonTextTo("Clearing.", 500, "Clearing..", 500, "Clearing...", 500, "Refresh", 500);
 
                 //clears map from everything (pins , polyLines)
                 mMap.clear();
@@ -180,11 +153,9 @@ public class TabMapFragment extends Fragment implements OnMapReadyCallback
 //==========================================================================================================================================================================================
 
         //Code that will be executed when long click is pressed
-        mMap.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener()
-        {
+        mMap.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener() {
             @Override
-            public void onMapLongClick(LatLng current_latLng)
-            {
+            public void onMapLongClick(LatLng current_latLng) {
                 //set location listener on
 
                 pinsLatLng = current_latLng;
@@ -205,33 +176,45 @@ public class TabMapFragment extends Fragment implements OnMapReadyCallback
 
 
         //Code that will be executed when click is pressed
-        mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener()
-        {
+        mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
             @Override
-            public void onMapClick(LatLng latLng)
-            {
+            public void onMapClick(LatLng latLng) {
                 //Code
             }
+
         });
 
-
-        mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+        mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener()
+        {
             @Override
             public boolean onMarkerClick(Marker marker)
             {
-                //check if a route already exists
-                if(line != null)
-                    line.remove();
 
-                marker_name= marker.getTitle();
-                double users_current_latitude = (homeActivity.getUsersLocation().latitude);
-                double users_current_longitude = (homeActivity.getUsersLocation().longitude);
-                LatLng user_coordinates = new LatLng(users_current_latitude,users_current_longitude);
-                LatLng markerPosition;
-                markerPosition=marker.getPosition();
-                drawRouteOnMap(user_coordinates, markerPosition);
+                if (marker.getSnippet() != null)
+                {
+                    if (marker.getSnippet().equals("Suggested Sight"))
+                    {
+                        marker.showInfoWindow();
+                    }
+                }
+                     else
+                        {
+                        //check if a route already exists
+                        if (line != null)
+                            line.remove();
+
+                        marker_name = marker.getTitle();
+                        double users_current_latitude = (homeActivity.getUsersLocation().latitude);
+                        double users_current_longitude = (homeActivity.getUsersLocation().longitude);
+                        LatLng user_coordinates = new LatLng(users_current_latitude, users_current_longitude);
+                        LatLng markerPosition;
+                        markerPosition = marker.getPosition();
+                        drawRouteOnMap(user_coordinates, markerPosition);
+
+                    }
                 return false;
             }
+
         });
     }
 
@@ -243,7 +226,6 @@ public class TabMapFragment extends Fragment implements OnMapReadyCallback
         {
             String responseString = "";
             try {
-                // responseString = requestDirection(strings[0]);
                 RequestDirections requestDirections = new RequestDirections();
                 responseString = requestDirections.getDirections(strings[0]);
             } catch (IOException e) {
@@ -260,7 +242,6 @@ public class TabMapFragment extends Fragment implements OnMapReadyCallback
             taskParser.execute(s);
         }
     }
-
 
     public static class  TaskParser extends AsyncTask<String , Void , List<List<HashMap<String, String>>>>
     {
@@ -290,6 +271,8 @@ public class TabMapFragment extends Fragment implements OnMapReadyCallback
 
             PolylineOptions polylineOptions= null;
 
+            MainActivity mainActivit = new MainActivity();
+
             for (List<HashMap<String, String>> path : lists)
             {
                 points = new ArrayList();
@@ -305,7 +288,24 @@ public class TabMapFragment extends Fragment implements OnMapReadyCallback
 
                 polylineOptions.addAll(points);
                 polylineOptions.width(15);
-                polylineOptions.color(Color.BLUE);
+                switch (changePolylineColor)
+                {
+                    case 0: polylineOptions.color(Color.RED);
+                        changePolylineColor ++ ;
+                        break;
+                    case 1: polylineOptions.color(Color.YELLOW);
+                        changePolylineColor ++;
+                        break;
+                    case 2: polylineOptions.color(Color.GREEN);
+                        changePolylineColor ++ ;
+                        break;
+                    case 3: polylineOptions.color(Color.CYAN);
+                        changePolylineColor ++;
+                        break;
+                    case 4: polylineOptions.color(Color.BLUE);
+                        changePolylineColor =0 ;
+                        break;
+                }
                 polylineOptions.geodesic(true);
             }
 
@@ -315,42 +315,32 @@ public class TabMapFragment extends Fragment implements OnMapReadyCallback
                 polylineFlag = true;
             }else
             {
-                //  Toast.makeText(getActivity().getApplicationContext(), "Direction not found!",Toast.LENGTH_SHORT).show();
-                System.out.println("Problem here");
-
+                  Toast.makeText(getTabMap_instance().getActivity().getApplicationContext(), "Direction not found!",Toast.LENGTH_SHORT).show();
             }
         }
     }
 
 
-
-
-    private static String getTravelMode()
-    {
-        MainActivity mainActivity = new MainActivity();
-        String returnValue = null;
-
-        switch (mainActivity.getCheckedTransportItem())
-        {
-            case "onFoot":
-                returnValue = "walking";
-                break;
-            case "car":
-                returnValue = "driving";
-                break;
-        }
-        return returnValue;
-    }
-
-
-
     public void drawRouteOnMap(LatLng origin, LatLng destination)
     {
-
-        RoutesUrl routesUrl = new RoutesUrl(getTravelMode());
+        MainActivity mainActivity = new MainActivity();
+        RoutesUrl routesUrl = new RoutesUrl(mainActivity.getCheckedTransportItem());
         TaskRequestDirections taskRequestDirections = new TaskRequestDirections();
 
-        taskRequestDirections.execute(routesUrl.getUrl(origin,destination, getActivity().getApplicationContext(), Locale.getDefault()));
+        taskRequestDirections.execute(routesUrl.getUrl(origin,destination, context, Locale.getDefault()));
+    }
+
+    public void drawRouteOnMap(LatLng origin, LatLng destination,PlaceData sight)
+    {
+        MainActivity mainActivity = new MainActivity();
+
+        RoutesUrl routesUrl = new RoutesUrl(mainActivity.getCheckedTransportItem());
+        TaskRequestDirections taskRequestDirections = new TaskRequestDirections();
+
+        mMap.addMarker(new MarkerOptions().position(origin));
+        mMap.addMarker(new MarkerOptions().position(destination).title(sight.getName()).snippet("Suggested Sight"));
+
+        taskRequestDirections.execute(routesUrl.getUrl(origin,destination, context, Locale.getDefault()));
     }
 
 
@@ -363,8 +353,9 @@ public class TabMapFragment extends Fragment implements OnMapReadyCallback
 
     public static void showSightsWithPins()
     {
+        TabListViewFragment tabListViewFragment = new TabListViewFragment();
 
-        dataPassedFromListView = TabListViewFragment.getPlaceData();
+        dataPassedFromListView = tabListViewFragment.getPlaceData();
 
         if (dataPassedFromListView == null)
         {
@@ -373,23 +364,22 @@ public class TabMapFragment extends Fragment implements OnMapReadyCallback
         else {
             for(int i=0;i< dataPassedFromListView.size();i++ )
             {
-
                 Object obj = dataPassedFromListView.get(i);
 
                 Double lat = dataPassedFromListView.get(i).getLatitude();
                 Double lng = dataPassedFromListView.get(i).getLongitude();
                 LatLng final_location = new LatLng(lat,lng);
 
-
                 mMap.addMarker(new MarkerOptions().position(final_location).title(((PlaceData) obj).getName()));
-                System.out.println("Markers added in map");
             }
         }
     }
 
     public static void passCoordinatesFromPlaces()
     {
-        dataPassedFromListView = TabListViewFragment.getPlaceData();
+        TabListViewFragment tabListViewFragment = new TabListViewFragment();
+
+        dataPassedFromListView = tabListViewFragment.getPlaceData();
 
         for(int i=0;i< dataPassedFromListView.size();i++)
         {

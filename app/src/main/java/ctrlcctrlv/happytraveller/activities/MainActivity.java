@@ -1,6 +1,6 @@
 package ctrlcctrlv.happytraveller.activities;
 
-import android.app.SearchManager;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -9,27 +9,25 @@ import android.support.design.widget.TabLayout.TabLayoutOnPageChangeListener;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+import com.google.firebase.auth.FirebaseAuth;
 
-
-
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
-
-import java.security.acl.Group;
-import java.time.ZoneOffset;
 import java.util.ArrayList;
 
 import ctrlcctrlv.happytraveller.adapters.PageFragAdapter;
 import ctrlcctrlv.happytraveller.R;
+import ctrlcctrlv.happytraveller.alterDialogs.MainActivityAlterDialog;
+import ctrlcctrlv.happytraveller.checkIfIsValid.CheckIfNumberIsValidForTimePurpose;
 import ctrlcctrlv.happytraveller.fragments.TabListViewFragment;
 import ctrlcctrlv.happytraveller.fragments.TabMapFragment;
 import ctrlcctrlv.happytraveller.model.PlaceData;
+import ctrlcctrlv.happytraveller.suggestionsToUser.SuggestSightsToVisit;
 
 
 public class MainActivity extends AppCompatActivity
@@ -46,6 +44,10 @@ public class MainActivity extends AppCompatActivity
     private static NavigationView navView;
     private static ArrayList<PlaceData> placeData=null;//for onclickinfos
     protected TabListViewFragment tabListViewFragment;
+    public String email;
+    public String password;
+    private LogInActivity logInActivity;
+
 
 
     @Override
@@ -53,7 +55,6 @@ public class MainActivity extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
 
         init();
         tabListViewFragment=new TabListViewFragment();
@@ -83,8 +84,6 @@ public class MainActivity extends AppCompatActivity
         drawerLayout.addDrawerListener(mToggle);
         mToggle.syncState();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-
     }
 
     //Initialize the variables that need to be used
@@ -99,7 +98,9 @@ public class MainActivity extends AppCompatActivity
         drawerLayout=(DrawerLayout)findViewById(R.id.drawerLayout);
         mToggle=new ActionBarDrawerToggle(this,drawerLayout,R.string.openMenu,R.string.closeMenu);
         checkedTransportItem="onFoot";
-
+        logInActivity = new LogInActivity();
+        email="";
+        password="";
     }
 
     @Override
@@ -109,21 +110,80 @@ public class MainActivity extends AppCompatActivity
         if(mToggle.onOptionsItemSelected(item))
         {
             renewTxtViewLocation();
+            setUserName();
             return true;
         }
          return  super.onOptionsItemSelected(item);
+    }
+
+    public void setUserName(){
+         TextView userView=(TextView) findViewById(R.id.userTextView);
+
+        email= logInActivity.getUserEmail();
+        password=logInActivity.getUserPassword();
+        if (email==null)
+        {
+           //do nothing
+        }
+        else
+        {
+           userView.setText(email);
+          setVisible();
+        }
     }
 
     //A method that triggered when weather(menuItem) is clicked and intent weather activity
     public void displayWeatherPage(MenuItem item)
     {
         Intent intentWeather=new Intent(this,WeatherActivity.class);
-        startActivity(intentWeather);
+        try
+        {
+            startActivity(intentWeather);
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+            Toast.makeText(getApplicationContext(), "Opps you can't navigate this page now...",Toast.LENGTH_SHORT).show();
+        }
     }
     public void displaySharePage(MenuItem item)
     {
         Intent intentShare=new Intent(this,ShareActivity.class);
-        startActivity(intentShare);
+        try
+        {
+            startActivity(intentShare);
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+            Toast.makeText(getApplicationContext(), "Opps you can't navigate this page now...",Toast.LENGTH_SHORT).show();
+        }
+    }
+
+
+    public void suggestPathButton(View view)
+    {
+        TextView textSearch = (TextView) findViewById(R.id.editText);
+
+        CheckIfNumberIsValidForTimePurpose checkIfNumberIsValidForTimePurpose = new CheckIfNumberIsValidForTimePurpose();
+
+        int usersFreeTime = checkIfNumberIsValidForTimePurpose.theNumberUserGaveIs(textSearch.getText().toString());
+
+
+        if ( usersFreeTime == 0)
+        {
+            Toast.makeText(getApplicationContext(), "invalid number...",Toast.LENGTH_SHORT).show();
+        }
+        else {
+            SuggestSightsToVisit suggestSightsToVisit = new SuggestSightsToVisit();
+
+            MainActivityAlterDialog mainActivityAlterDialog = new MainActivityAlterDialog();
+
+            mainActivityAlterDialog.setSuggestedSights(suggestSightsToVisit.suggestRouteBasedOn(usersFreeTime));
+            mainActivityAlterDialog.showSuggestedSights(this);
+        }
+
+        textSearch.setText(null);
     }
 
     public void  onClickInfos(View view)
@@ -137,7 +197,17 @@ public class MainActivity extends AppCompatActivity
         //intent for DetailsActivity display
         Intent intentInfos=new Intent(this,DetailsActivity.class);
         intentInfos.putExtra("searchtittle",searchtittle);
-        startActivity(intentInfos);
+
+        try
+        {
+            startActivity(intentInfos);
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+            Toast.makeText(getApplicationContext(), "Opps you can't navigate this page now...",Toast.LENGTH_SHORT).show();
+        }
+
 
     }
 
@@ -168,11 +238,21 @@ public class MainActivity extends AppCompatActivity
 
     }
 
-    //Retrieves a string  'on foot' is transport is selected onFoot and 'car' if is selected car
-    public String getCheckedTransportItem(){
-        return checkedTransportItem;
+    //Retrieves a string  'walking' is transport is selected onFoot and 'driving' if is selected car
+    public String getCheckedTransportItem()
+    {
+        String returnValue = null;
+        switch (checkedTransportItem)
+        {
+            case "onFoot":
+                returnValue = "walking";
+                break;
+            case "car":
+                returnValue = "driving";
+                break;
+        }
+        return returnValue;
     }
-
 
     //Change status of sight checkbox and display pins on map with sights
     public void changeSightPinStatus(MenuItem item)
@@ -206,17 +286,30 @@ public class MainActivity extends AppCompatActivity
         }
 
     }
+
+    public String getChangedPinStatus()
+    {
+        String status=null;
+        switch (checkedSightsItem)
+        {
+            case "true":
+                status="true";
+                break;
+            case "false":
+                status="false";
+                break;
+        }
+                return status;
+    }
+
     public static void refreshSightButton(String result)
     {
-
-
         if (result == "false")
         {
             MenuItem sight = navView.getMenu().getItem(2);
             MenuItem sightPins = sight.getSubMenu().getItem(0);
             sightPins.setChecked(false);
             sightPins.setIcon(R.drawable.ic_check_box_outline_blank_black_24dp);
-
         }
     }
 
@@ -227,16 +320,55 @@ public class MainActivity extends AppCompatActivity
 
     //set and  reset  nav_header txtView location with users current location
     public void renewTxtViewLocation()
-    {    //get nav view then  header and then  textview
+    {
+        TabListViewFragment tabListViewFragment = new TabListViewFragment();
+        //get nav view then  header and then  textview
         NavigationView navView=(NavigationView)findViewById(R.id.navView);
         View header= navView.getHeaderView(0);
         TextView txtViewLocation=(TextView)header.findViewById(R.id.locationTextView);
         //get place data array
-        ArrayList<PlaceData> places=TabListViewFragment.getPlaceData();
-        //get location from  array
-        String location=places.get(0).getCityCountry();
+
+        ArrayList<PlaceData> places=tabListViewFragment.getPlaceData();
+
+        String location;
+        if(TabListViewFragment.placesReceived())
+        {
+            //get location from  array
+           location=places.get(0).getCityCountry();
+        }
+        else
+        {
+            location="currently not available";
+        }
         //display location
-            txtViewLocation.setText(location);
+        txtViewLocation.setText(location);
+    }
+
+    public void setVisible()
+    {
+        //get nav view then  header and then  textview
+        NavigationView navView=(NavigationView)findViewById(R.id.navView);
+        View header= navView.getHeaderView(0);
+        Button btnLogOut=(Button)header.findViewById(R.id.btnLogOut);
+        btnLogOut.setVisibility(View.VISIBLE);
+    }
+
+    public void onClickLogOut(View view)
+    {
+        TextView userView=(TextView) findViewById(R.id.userTextView);
+        NavigationView navView=(NavigationView)findViewById(R.id.navView);
+        View header= navView.getHeaderView(0);
+        Button btnLogOut=(Button)header.findViewById(R.id.btnLogOut);
+        if(btnLogOut.isPressed())
+        {
+            FirebaseAuth.getInstance().signOut();
+            Toast.makeText(getApplicationContext(), "You have successfully signed out ",Toast.LENGTH_SHORT).show();
+            btnLogOut.setVisibility(View.GONE);
+            userView.setText(" ");
+            finish();
+            startActivity(new Intent(this,HomeActivity.class));
+
+        }
     }
 }
 

@@ -92,7 +92,9 @@ public class ShareActivity  extends AppCompatActivity
             public void onClick(View v) {
                 txtRating.setText("I gave a rating "+ratingBar.getRating());
             }
+
         });//end of submit click listener
+
 
     }
 

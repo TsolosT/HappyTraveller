@@ -26,9 +26,10 @@ import static ctrlcctrlv.happytraveller.fragments.TabMapFragment.mMap;
 
 public class ListItemAdapter extends ArrayAdapter<PlaceData> implements View.OnClickListener
 {
+
     private ArrayList<PlaceData> dataSet;
     private static final ctrlcctrlv.happytraveller.fragments.TabMapFragment TabMapFragment = ctrlcctrlv.happytraveller.fragments.TabMapFragment.getTabMap_instance();
-    Context mContext;
+    private Context mContext;
     protected HomeActivity homeActivity = new HomeActivity();
 
     // View lookup cache
@@ -42,7 +43,6 @@ public class ListItemAdapter extends ArrayAdapter<PlaceData> implements View.OnC
 
         //add more data var-components px : img info etc..
     }
-
 
 
     public ListItemAdapter(ArrayList<PlaceData> data, Context context)
@@ -66,7 +66,7 @@ public class ListItemAdapter extends ArrayAdapter<PlaceData> implements View.OnC
 
         TabMapFragment.passCoordinatesFromPlaces();
         int position = (Integer) view.getTag();
-        System.out.println(position);
+       // System.out.println(position);
         HashMap dataPassedFromHash = TabMapFragment.getMapCoordinates();
         double users_current_latitude = (homeActivity.getUsersLocation().latitude);
         double users_current_longitude = (homeActivity.getUsersLocation().longitude);
@@ -101,17 +101,16 @@ public class ListItemAdapter extends ArrayAdapter<PlaceData> implements View.OnC
             result=convertView;
 
             convertView.setTag(viewHolder);
-        } else {
+        }
+        else
+        {
             viewHolder = (ViewHolder) convertView.getTag();
             result=convertView;
         }
 
         viewHolder.txtName.setText(placeData.getName());
         viewHolder.txtAddress.setText(placeData.getAddress());
-        viewHolder.btn.setId(placeData.getId());
-
-        //when need show all img not complete yet
-        //Picasso.with(getContext()).load(placeData.getPlacePhotos().get(0).getImgUrl()).into(viewHolder.imgView);
+        viewHolder.btn.setId(position);
 
         //check if no default img show error img
         if(placeData.getDefaultImg().getPhotoReference()==null)
@@ -125,10 +124,10 @@ public class ListItemAdapter extends ArrayAdapter<PlaceData> implements View.OnC
 
         viewHolder.btnShowRoute.setOnClickListener(this);
         viewHolder.btnShowRoute.setTag(position);
-        //  viewHolder.info.setOnClickListener(this);
-        // viewHolder.info.setTag(position);
+
         // Return the completed view to render on screen
         return convertView;
     }
+
 
 }

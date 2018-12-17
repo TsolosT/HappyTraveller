@@ -135,6 +135,7 @@ public class HomeActivity extends AppCompatActivity
             {
                 Intent intent=new Intent(this,MainActivity.class);
                 startActivity(intent);
+
             }else
             {
                 checkUsersDataConnectivity();
@@ -145,16 +146,40 @@ public class HomeActivity extends AppCompatActivity
     }
     public void displayLogInPage(View v){
         Intent intent=new Intent(this,LogInActivity.class);
-        startActivity(intent);
+        try
+        {
+            startActivity(intent);
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+            Toast.makeText(getApplicationContext(), "Opps you can't navigate this page now...",Toast.LENGTH_SHORT).show();
+        }
     }
     public void displaySignUpPage(View v){
         Intent intent=new Intent(this,SignUpActivity.class);
-        startActivity(intent);
+        try
+        {
+            startActivity(intent);
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+            Toast.makeText(getApplicationContext(), "Opps you can't navigate this page now...",Toast.LENGTH_SHORT).show();
+        }
     }
     public void displayInfoPage(View v)
     {
         Intent intent=new Intent(this,InfoActivity.class);
-        startActivity(intent);
+        try
+        {
+            startActivity(intent);
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+            Toast.makeText(getApplicationContext(), "Opps you can't navigate this page now...",Toast.LENGTH_SHORT).show();
+        }
     }
 
 

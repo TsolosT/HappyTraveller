@@ -33,6 +33,30 @@ public class PlaceDataTest {
     }
 
     @Test
+    public void getNameMuseum()
+    {
+        placeDataObject.setName("bezesteni");
+        String expected="bezezteni";
+        assertEquals(expected,placeDataObject.getName());
+    }
+
+    @Test
+    public void getNamePark()
+    {
+        placeDataObject.setName("serres");
+        String expected ="serres";
+        assertEquals(expected,placeDataObject.getName());
+    }
+
+    @Test
+    public void getNameChurch()
+    {
+        placeDataObject.setName("Agios Kwstantinos");
+        String expected = "Agios Kvstantinos";
+        assertEquals(expected,placeDataObject.getName());
+    }
+
+    @Test
     public void getAddressCorrect() {
         placeDataObject.setAddress("FooHomees 12");
         String expected="FooHomees 12";
@@ -43,6 +67,30 @@ public class PlaceDataTest {
     public void getNameWrong() {
         placeDataObject.setName("");
         String expected="Foo Museum";
+        assertNotEquals(expected,placeDataObject.getName());
+    }
+
+    @Test
+    public void getNameChurchWrong()
+    {
+        placeDataObject.setName("");
+        String expected="Agia Elenh";
+        assertNotEquals(expected,placeDataObject.getName());
+    }
+
+    @Test
+    public void getNameParkWrong()
+    {
+        placeDataObject.setName("");
+        String expected="Serres park";
+        assertNotEquals(expected,placeDataObject.getName());
+    }
+
+    @Test
+    public void getNameMuseumWrong()
+    {
+        placeDataObject.setName("");
+        String expected="bezesteni";
         assertNotEquals(expected,placeDataObject.getName());
     }
 
@@ -66,4 +114,38 @@ public class PlaceDataTest {
         placeDataArray.add(placeDataObject);
         assertNotEquals(2,placeDataArray.size());
     }
+
+    @Test
+    public void getIdCorrect()
+    {
+        placeDataObject.setId(5);
+        int expected=5;
+        assertEquals(expected,placeDataObject.getId());
+
+    }
+
+    @Test
+    public void getIdWrong()
+    {
+        placeDataObject.setId(10);
+        int expected=2;
+        assertNotEquals(expected,placeDataObject.getId());
+    }
+
+    @Test
+    public void getCityCountryCorrect()
+    {
+       placeDataObject.setCityCountry("serres");
+       String expected="serres";
+       assertEquals(expected,placeDataObject.getCityCountry());
+    }
+
+    @Test
+    public void getCityCountryWrong()
+    {
+        placeDataObject.setCityCountry("serres");
+        String expected="";
+        assertNotEquals(expected,placeDataObject.getCityCountry());
+    }
+
 }

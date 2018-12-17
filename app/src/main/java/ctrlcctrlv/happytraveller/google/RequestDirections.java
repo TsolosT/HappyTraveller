@@ -7,6 +7,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+// TODO: 12/10/2018 Change name
 public class RequestDirections
 {
 
@@ -18,7 +19,6 @@ public class RequestDirections
         HttpURLConnection httpURLConnection = null;
 
         try {
-            System.out.println("getDirections");
             URL url = new URL(givenUrl);
             httpURLConnection = (HttpURLConnection) url.openConnection();
             httpURLConnection.connect();

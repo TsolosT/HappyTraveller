@@ -1,14 +1,16 @@
 package ctrlcctrlv.happytraveller.model;
 
 
-public class PlacePhoto {
+public class PlacePhoto
+{
 
 
     private String width;
     private String photoReference;
     private String imgUrl;
 
-    public PlacePhoto(){
+    public PlacePhoto()
+    {
         this.width="";
         this.photoReference="";
         this.imgUrl="https://maps.googleapis.com/maps/api/place/photo?" +
@@ -16,7 +18,8 @@ public class PlacePhoto {
                 "&photoreference=" +this.photoReference+
                 "&key=AIzaSyDI0zKd22JBJEGco2k9Thg2CZWLLsWfq7k";
     }
-    public PlacePhoto(String imgReference){
+    public PlacePhoto(String imgReference)
+    {
         this.width="";
         this.photoReference=imgReference;
         this.imgUrl="https://maps.googleapis.com/maps/api/place/photo?" +

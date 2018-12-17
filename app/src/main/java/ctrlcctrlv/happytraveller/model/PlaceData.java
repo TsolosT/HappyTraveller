@@ -5,7 +5,7 @@ import com.google.android.gms.maps.model.LatLng;
 
 import java.util.ArrayList;
 
-public class PlaceData
+public class PlaceData implements Comparable<PlaceData>
 {
     String name;
     String address;
@@ -14,14 +14,11 @@ public class PlaceData
     String pinsIcon;
     Double latitude;
     Double longitude;
-
-
-
-    int id;
-
-
     String cityCountry;
-
+    // TODO: 12/12/2018 #themis values to fill with
+    int distance;
+    int timeTillArrival;
+    int id;
 
     ArrayList<PlacePhoto> placePhotos;
     PlacePhoto defaultImg;
@@ -39,7 +36,7 @@ public class PlaceData
         this.name = name;
         this.address = address;
     }
-    public PlaceData(String name, String address,PlacePhoto photo,Double latitude,Double longitude,String cityCountry,int id)
+    public PlaceData(String name, String address,PlacePhoto photo,Double latitude,Double longitude,String cityCountry)
     {
         this.name = name;
         this.address = address;
@@ -127,4 +124,25 @@ public class PlaceData
         this.id = id;
     }
 
+    @Override
+    public int compareTo(PlaceData placeData)
+    {
+        return (this.timeTillArrival - placeData.timeTillArrival);
+    }
+    public int getDistance() {
+        return distance;
+    }
+
+    public void setDistance(int distance) {
+        this.distance = distance;
+    }
+
+    public void setTimeTillArrival(int timeTillArrival) {
+        this.timeTillArrival = timeTillArrival;
+    }
+
+    public int getTimeTillArrival()
+    {
+        return timeTillArrival;
+    }
 }

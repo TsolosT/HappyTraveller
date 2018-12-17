@@ -35,29 +35,23 @@ public class WeatherActivity extends AppCompatActivity
     private Intent intent;
     String j1 = null;
     String j2 = null;
-    String temp=null;
     String key;
-    String lat="41.2";
-    String lon="23.2";
     TextView weatherReport;
 
-
-
-    public void checkWeather (View view) {
+    public void checkWeather (View view)
+    {
 
         DownloadTask task = new DownloadTask();
-
-
+        HomeActivity homeActivity = new HomeActivity();
 
         try {
-            j1 = task.execute("http://dataservice.accuweather.com/locations/v1/cities/geoposition/search?apikey=jq2F4GlI2Q5e4JuDkghiWDOcrVBApCJH&q="+lat+","+lon).get();
+            j1 = task.execute("http://dataservice.accuweather.com/locations/v1/cities/geoposition/search?apikey=jq2F4GlI2Q5e4JuDkghiWDOcrVBApCJH&q="+homeActivity.getUsersLocation().latitude+","+homeActivity.getUsersLocation().longitude).get();
 
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
-
 
     }
     @Override
@@ -66,71 +60,52 @@ public class WeatherActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_weather);
         init();
-
-        weatherReport = (TextView) findViewById(R.id.weatherReport);
-
     }
 
     public class DownloadTask extends AsyncTask<String, Void, String>
     {
 
-
         @Override
         protected String doInBackground(String... urls)
         {
 
-            String result = "";
+            StringBuilder result = new StringBuilder();
             URL url;
             HttpURLConnection urlConnection = null;
 
             try {
-
                 url = new URL(urls[0]);
                 urlConnection = (HttpURLConnection) url.openConnection();
                 InputStream in = urlConnection.getInputStream();
                 InputStreamReader reader = new InputStreamReader(in);
                 int data = reader.read();
                 while (data != -1) {
-
                     char current = (char) data;
-                    result += current;
+                    result.append(current);
                     data = reader.read();
 
                 }
-
-                return result;
+                return result.toString();
 
             }
             catch (Exception e) {
                 e.printStackTrace();
                 return "FAILED";
-
             }
-
         }
-
         @Override
         protected void onPostExecute(String j1)
         {
             super.onPostExecute(j1);
-
             // print key value
-
             try {
-                JSONObject thekey  = new JSONObject(j1);
+                JSONObject theKey  = new JSONObject(j1);
 
-
-
-                key = thekey.getString("Key");
-
-
-
-
+                key = theKey.getString("Key");
 
                 try {
                     DownloadTask weather = new DownloadTask();
                     j2 = weather.execute("http://dataservice.accuweather.com/currentconditions/v1/"+ key + ".json?language=en&apikey=5LGnlvGAhG9hCLTxO33ASOrDkv7JZtOc").get();
-
 
                     JSONArray weatherArray = new JSONArray(j2);
                     for (int i = 0; i<weatherArray.length(); i++){
@@ -139,9 +114,7 @@ public class WeatherActivity extends AppCompatActivity
                         JSONObject temp = weatherPart.getJSONObject("Temperature");
                         String tempC = temp.getJSONObject("Metric").getString("Value");
 
-
                         weatherReport.setText(weatherPart.getString("WeatherText")+ " " +tempC+"C" );
-
 
                     }
 
@@ -156,16 +129,12 @@ public class WeatherActivity extends AppCompatActivity
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-
-
-
         }
     }
 
-    public void init(){
+    public void init()
+    {
         intent=getIntent();
+        weatherReport = (TextView) findViewById(R.id.weatherReport);
     }
-
-
-
 }

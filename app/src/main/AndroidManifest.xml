@@ -13,6 +13,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
 
+
     <uses-feature android:name="android.hardware.location.gps" />
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -92,13 +93,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activities.MainActivity" />
         </activity>
-        <activity android:name=".activities.InfoActivity"
-                  android:parentActivityName=".activities.HomeActivity">
-         <meta-data
-            android:name="android.support.PARENT_ACTIVITY"
-            android:value=".activities.HomeActivity" />
+        <activity
+            android:name=".activities.InfoActivity"
+            android:parentActivityName=".activities.HomeActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activities.HomeActivity" />
         </activity>
-
+        <activity android:name=".activities.ResetPasswordActivity"></activity>
     </application>
 
 </manifest>
