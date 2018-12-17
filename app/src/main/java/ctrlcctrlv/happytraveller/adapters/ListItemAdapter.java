@@ -29,7 +29,7 @@ public class ListItemAdapter extends ArrayAdapter<PlaceData> implements View.OnC
 
     private ArrayList<PlaceData> dataSet;
     private static final ctrlcctrlv.happytraveller.fragments.TabMapFragment TabMapFragment = ctrlcctrlv.happytraveller.fragments.TabMapFragment.getTabMap_instance();
-    private Context mContext;
+    Context mContext;
     protected HomeActivity homeActivity = new HomeActivity();
 
     // View lookup cache
