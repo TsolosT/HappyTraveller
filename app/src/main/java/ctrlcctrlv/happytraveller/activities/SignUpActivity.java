@@ -1,6 +1,6 @@
 package ctrlcctrlv.happytraveller.activities;
 
-import android.app.ProgressDialog;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -32,7 +32,6 @@ public class SignUpActivity extends AppCompatActivity
     private EditText passwordSignUp;
     private EditText emailSignUp;
     private Button btnSignUp ;
-    private ProgressDialog progressDialog;
     private FirebaseAuth firebaseAuth;
 
 
@@ -55,21 +54,23 @@ public class SignUpActivity extends AppCompatActivity
 
     }
 
-
     public void displayLogInPage(View v){
         Intent intent=new Intent(this,LogInActivity.class);
-        startActivity(intent);
+        try
+        {
+            startActivity(intent);
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+            Toast.makeText(getApplicationContext(), "Opps you can't navigate this page now...",Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void registerUser()
     {
         String email = emailSignUp.getText().toString().trim();
         String password = passwordSignUp.getText().toString().trim();
-//        if (password.length()<4)
-//        {
-//            Toast.makeText(this,"Please password with more than 4 numbers", Toast.LENGTH_SHORT).show();
-//           return;
-//        }
 
         if(TextUtils.isEmpty(email))
         {
@@ -92,18 +93,6 @@ public class SignUpActivity extends AppCompatActivity
             //stopping the function executing further
             return;
         }
-
-
-
-
-
-
-        //if validations are ok
-        //we will first show a progressbar
-      //  progressDialog.setMessage("Registering User..");
-      //  progressDialog.show();
-
-
 
         firebaseAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override

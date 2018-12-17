@@ -101,7 +101,9 @@ public class ListItemAdapter extends ArrayAdapter<PlaceData> implements View.OnC
             result=convertView;
 
             convertView.setTag(viewHolder);
-        } else {
+        }
+        else
+        {
             viewHolder = (ViewHolder) convertView.getTag();
             result=convertView;
         }
@@ -109,9 +111,6 @@ public class ListItemAdapter extends ArrayAdapter<PlaceData> implements View.OnC
         viewHolder.txtName.setText(placeData.getName());
         viewHolder.txtAddress.setText(placeData.getAddress());
         viewHolder.btn.setId(position);
-
-        //when need show all img not complete yet
-        //Picasso.with(getContext()).load(placeData.getPlacePhotos().get(0).getImgUrl()).into(viewHolder.imgView);
 
         //check if no default img show error img
         if(placeData.getDefaultImg().getPhotoReference()==null)
@@ -125,8 +124,7 @@ public class ListItemAdapter extends ArrayAdapter<PlaceData> implements View.OnC
 
         viewHolder.btnShowRoute.setOnClickListener(this);
         viewHolder.btnShowRoute.setTag(position);
-        //  viewHolder.info.setOnClickListener(this);
-        // viewHolder.info.setTag(position);
+
         // Return the completed view to render on screen
         return convertView;
     }

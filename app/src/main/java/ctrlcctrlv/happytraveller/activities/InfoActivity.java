@@ -6,7 +6,8 @@ import android.webkit.WebView;
 
 import ctrlcctrlv.happytraveller.R;
 
-public class InfoActivity extends AppCompatActivity {
+public class InfoActivity extends AppCompatActivity
+{
 
     @Override
     protected void onCreate(Bundle savedInstanceState)

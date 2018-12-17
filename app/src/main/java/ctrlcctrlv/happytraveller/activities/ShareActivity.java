@@ -93,7 +93,6 @@ public class ShareActivity  extends AppCompatActivity
                 startActivity(Intent.createChooser(myIntent2, "Share using"));
                 init2();
 
-
             }
         });//end button location click listener
         Submit.setOnClickListener(new View.OnClickListener() {
@@ -103,9 +102,6 @@ public class ShareActivity  extends AppCompatActivity
 
             }
         });
-
-
-
 
     }
 

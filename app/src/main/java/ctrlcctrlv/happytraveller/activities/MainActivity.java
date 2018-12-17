@@ -1,7 +1,6 @@
 package ctrlcctrlv.happytraveller.activities;
 
-import android.content.Context;
-import android.content.DialogInterface;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -10,20 +9,15 @@ import android.support.design.widget.TabLayout.TabLayoutOnPageChangeListener;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AlertDialog;
+
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.auth.FirebaseAuth;
 
-import org.w3c.dom.Text;
-import java.security.acl.Group;
-import java.time.ZoneOffset;
 import java.util.ArrayList;
 
 import ctrlcctrlv.happytraveller.adapters.PageFragAdapter;
@@ -34,9 +28,6 @@ import ctrlcctrlv.happytraveller.fragments.TabListViewFragment;
 import ctrlcctrlv.happytraveller.fragments.TabMapFragment;
 import ctrlcctrlv.happytraveller.model.PlaceData;
 import ctrlcctrlv.happytraveller.suggestionsToUser.SuggestSightsToVisit;
-
-import static android.view.View.INVISIBLE;
-import static android.view.View.VISIBLE;
 
 
 public class MainActivity extends AppCompatActivity
@@ -55,9 +46,6 @@ public class MainActivity extends AppCompatActivity
     protected TabListViewFragment tabListViewFragment;
     public String email;
     private LogInActivity logInActivity;
-    private Button btnLogOut ;
-
-
 
 
 
@@ -66,7 +54,6 @@ public class MainActivity extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
 
         init();
         tabListViewFragment=new TabListViewFragment();
@@ -94,11 +81,8 @@ public class MainActivity extends AppCompatActivity
         });
 
         drawerLayout.addDrawerListener(mToggle);
-//        btnLogOut.setVisibility(View.INVISIBLE);
         mToggle.syncState();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-
     }
 
     //Initialize the variables that need to be used
@@ -115,7 +99,6 @@ public class MainActivity extends AppCompatActivity
         checkedTransportItem="onFoot";
         logInActivity = new LogInActivity();
         email="";
-      //  btnLogOut = (Button)findViewById(R.id.btnLogOut);
     }
 
     @Override
@@ -131,37 +114,47 @@ public class MainActivity extends AppCompatActivity
          return  super.onOptionsItemSelected(item);
     }
 
-
     public void setUserName(){
          TextView userView=(TextView) findViewById(R.id.userTextView);
 
         email= logInActivity.getUserEmail();
-        System.out.println(email);
         if (email==null)
         {
-            System.out.println("UNLUCKY");
+           //do nothing
         }
         else
         {
            userView.setText(email);
-
           setVisible();
-
         }
-
-
     }
 
     //A method that triggered when weather(menuItem) is clicked and intent weather activity
     public void displayWeatherPage(MenuItem item)
     {
         Intent intentWeather=new Intent(this,WeatherActivity.class);
-        startActivity(intentWeather);
+        try
+        {
+            startActivity(intentWeather);
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+            Toast.makeText(getApplicationContext(), "Opps you can't navigate this page now...",Toast.LENGTH_SHORT).show();
+        }
     }
     public void displaySharePage(MenuItem item)
     {
         Intent intentShare=new Intent(this,ShareActivity.class);
-        startActivity(intentShare);
+        try
+        {
+            startActivity(intentShare);
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+            Toast.makeText(getApplicationContext(), "Opps you can't navigate this page now...",Toast.LENGTH_SHORT).show();
+        }
     }
 
 
@@ -187,7 +180,6 @@ public class MainActivity extends AppCompatActivity
             mainActivityAlterDialog.showSuggestedSights(this);
         }
 
-
         textSearch.setText(null);
     }
 
@@ -202,7 +194,16 @@ public class MainActivity extends AppCompatActivity
         //intent for DetailsActivity display
         Intent intentInfos=new Intent(this,DetailsActivity.class);
         intentInfos.putExtra("searchtittle",searchtittle);
-        startActivity(intentInfos);
+        try
+        {
+            startActivity(intentInfos);
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+            Toast.makeText(getApplicationContext(), "Opps you can't navigate this page now...",Toast.LENGTH_SHORT).show();
+        }
+
     }
 
     //Change checkbox on transport menu items
@@ -288,7 +289,6 @@ public class MainActivity extends AppCompatActivity
             MenuItem sightPins = sight.getSubMenu().getItem(0);
             sightPins.setChecked(false);
             sightPins.setIcon(R.drawable.ic_check_box_outline_blank_black_24dp);
-
         }
     }
 
@@ -323,7 +323,6 @@ public class MainActivity extends AppCompatActivity
         txtViewLocation.setText(location);
     }
 
-
     public void setVisible()
     {
         //get nav view then  header and then  textview
@@ -331,7 +330,6 @@ public class MainActivity extends AppCompatActivity
         View header= navView.getHeaderView(0);
         Button btnLogOut=(Button)header.findViewById(R.id.btnLogOut);
         btnLogOut.setVisibility(View.VISIBLE);
-
     }
 
     public void onClickLogOut(View view)
@@ -346,7 +344,6 @@ public class MainActivity extends AppCompatActivity
             finish();
             startActivity(new Intent(this,HomeActivity.class));
             btnLogOut.setVisibility(View.GONE);
-
         }
     }
 }
