@@ -45,6 +45,7 @@ public class MainActivity extends AppCompatActivity
     private static ArrayList<PlaceData> placeData=null;//for onclickinfos
     protected TabListViewFragment tabListViewFragment;
     public String email;
+    public String password;
     private LogInActivity logInActivity;
 
 
@@ -99,6 +100,7 @@ public class MainActivity extends AppCompatActivity
         checkedTransportItem="onFoot";
         logInActivity = new LogInActivity();
         email="";
+        password="";
     }
 
     @Override
@@ -118,6 +120,7 @@ public class MainActivity extends AppCompatActivity
          TextView userView=(TextView) findViewById(R.id.userTextView);
 
         email= logInActivity.getUserEmail();
+        password=logInActivity.getUserPassword();
         if (email==null)
         {
            //do nothing
@@ -350,6 +353,7 @@ public class MainActivity extends AppCompatActivity
 
     public void onClickLogOut(View view)
     {
+        TextView userView=(TextView) findViewById(R.id.userTextView);
         NavigationView navView=(NavigationView)findViewById(R.id.navView);
         View header= navView.getHeaderView(0);
         Button btnLogOut=(Button)header.findViewById(R.id.btnLogOut);
@@ -357,9 +361,11 @@ public class MainActivity extends AppCompatActivity
         {
             FirebaseAuth.getInstance().signOut();
             Toast.makeText(getApplicationContext(), "You have successfully signed out ",Toast.LENGTH_SHORT).show();
+            btnLogOut.setVisibility(View.GONE);
+            userView.setText(" ");
             finish();
             startActivity(new Intent(this,HomeActivity.class));
-            btnLogOut.setVisibility(View.GONE);
+
         }
     }
 }

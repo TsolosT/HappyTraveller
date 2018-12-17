@@ -35,6 +35,7 @@ public class LogInActivity  extends AppCompatActivity
     private FirebaseAuth firebaseAuth;
     private ProgressDialog progressDialog;
     public static String userEmail ;
+    public static String userPassword;
 
 
     @Override
@@ -73,7 +74,7 @@ public class LogInActivity  extends AppCompatActivity
 
 private void userLogIn() {
       final  String email = emailLogIn.getText().toString().trim();
-    String password = passwordLogIn.getText().toString().trim();
+  final String password = passwordLogIn.getText().toString().trim();
     if (TextUtils.isEmpty(email)) {
         //email is empty
         Toast.makeText(this, "Please enter email", Toast.LENGTH_SHORT).show();
@@ -96,6 +97,7 @@ private void userLogIn() {
             {
                 finish();
                 userEmail=email;
+                userPassword=password;
                 Toast.makeText(LogInActivity.this,"You signed in successfully", Toast.LENGTH_SHORT).show();
             }
             else
@@ -107,6 +109,10 @@ private void userLogIn() {
 
 
     });
+}
+public static String getUserPassword()
+{
+    return userPassword;
 }
 
 public static String getUserEmail()
