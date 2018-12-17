@@ -1,5 +1,7 @@
 package ctrlcctrlv.happytraveller.activities;
 
+import android.view.View;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -57,4 +59,21 @@ public class MainActivityTest
         String checkedTransport=main.getCheckedTransportItem();
         assertThat("on foot...failed",checkedTransport,is("car"));
     }
+
+    @Test
+    public void changeSightPinStatus()
+    {
+        when(main.getChangedPinStatus()).thenReturn("true");
+        String changedPinStatus=main.getChangedPinStatus();
+        assertThat("pin status not changed",changedPinStatus,is("true"));
+    }
+    @Test
+    public void notChangedPinStatus()
+    {
+        when(main.getChangedPinStatus()).thenReturn("false");
+        String changedPinStatus=main.getChangedPinStatus();
+        assertThat("pin status changed",changedPinStatus,is("false"));
+    }
+
+
 }

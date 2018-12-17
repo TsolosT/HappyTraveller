@@ -281,6 +281,22 @@ public class MainActivity extends AppCompatActivity
         }
 
     }
+
+    public String getChangedPinStatus()
+    {
+        String status=null;
+        switch (checkedSightsItem)
+        {
+            case "true":
+                status="true";
+                break;
+            case "false":
+                status="false";
+                break;
+        }
+                return status;
+    }
+
     public static void refreshSightButton(String result)
     {
         if (result == "false")

@@ -83,40 +83,40 @@ public class CheckIfNumberIsValidTest
     @Test
     public void theNumberUserGaveIsNotCorrectTest1()
     {
-        int numberExpeted = 342534;
+        int numberExpected = 342534;
 
-        assertNotEquals(numberExpeted,checkIfNumberIsValidForTimePurpose.theNumberUserGaveIs("342534"));
+        assertNotEquals(numberExpected,checkIfNumberIsValidForTimePurpose.theNumberUserGaveIs("342534"));
     }
 
     @Test
     public void theNumberUserGaveIsNotCorrectTest2()
     {
-        int numberExpeted = 11;
+        int numberExpected = 11;
 
-        assertNotEquals(numberExpeted,checkIfNumberIsValidForTimePurpose.theNumberUserGaveIs("1.1"));
+        assertNotEquals(numberExpected,checkIfNumberIsValidForTimePurpose.theNumberUserGaveIs("1.1"));
     }
 
     @Test
     public void theNumberUserGaveIsNotCorrectTest3()
     {
-        int numberExpeted = 100;
+        int numberExpected = 100;
 
-        assertNotEquals(numberExpeted,checkIfNumberIsValidForTimePurpose.theNumberUserGaveIs("0"));
+        assertNotEquals(numberExpected,checkIfNumberIsValidForTimePurpose.theNumberUserGaveIs("0"));
     }
 
     @Test
     public void theNumberUserGaveIsNotCorrectTest4()
     {
-        int numberExpeted = 0;
+        int numberExpected = 0;
 
-        assertNotEquals(numberExpeted,checkIfNumberIsValidForTimePurpose.theNumberUserGaveIs("12.59"));
+        assertNotEquals(numberExpected,checkIfNumberIsValidForTimePurpose.theNumberUserGaveIs("12.59"));
     }
 
     @Test
     public void theNumberUserGaveIsNotCorrectTest5()
     {
-        int numberExpeted = 1259;
+        int numberExpected = 1259;
 
-        assertNotEquals(numberExpeted,checkIfNumberIsValidForTimePurpose.theNumberUserGaveIs("12.59"));
+        assertNotEquals(numberExpected,checkIfNumberIsValidForTimePurpose.theNumberUserGaveIs("12.59"));
     }
 }
