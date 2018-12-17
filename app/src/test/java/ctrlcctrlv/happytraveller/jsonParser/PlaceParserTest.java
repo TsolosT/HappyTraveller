@@ -8,6 +8,8 @@ import org.junit.runner.RunWith;
 import org.mockito.runners.MockitoJUnitRunner;
 import java.util.ArrayList;
 import ctrlcctrlv.happytraveller.model.PlaceData;
+import ctrlcctrlv.happytraveller.model.PlacePhoto;
+
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -22,6 +24,7 @@ public class PlaceParserTest {
     private  PlaceParser parser;
     private PlaceData mockPlace;
     private String plusCode;
+    private ArrayList<PlacePhoto> placePhotos;
 
     @Before
     public void setUp() {
@@ -80,6 +83,9 @@ public class PlaceParserTest {
            when(mockArray.get(0)).thenReturn(mockPlace);
            when(mockArray.get(0).getName()).thenReturn("Αρχαιολογικό Μουσείο Μπεζεστένι");
            when(mockArray.get(0).getAddress()).thenReturn("Λεωφόρος Μεραρχίας 858, Σέρρες");
+           when(mockArray.get(0).getLatitude()).thenReturn(Double.valueOf("41.0909417"));
+           when(mockArray.get(0).getLongitude()).thenReturn(Double.valueOf("23.549367"));
+           when(mockArray.get(0).getId()).thenReturn(0);
            when(mockArray.size()).thenReturn(1);
            parser=new PlaceParser();
             plusCode="{\"compound_code\":\"3HV3+JX Serres, Greece\",\"global_code\":\"8GH53HV3+JX\"}";
@@ -123,11 +129,68 @@ public class PlaceParserTest {
         String expected="Serres, Greece";
         assertNotEquals(expected,cityAndCountry);
     }
+
+    @Test
+    public void checkLatitudeParseCorrect()
+    {
+        ArrayList<PlaceData> testPlaceDataArray=new ArrayList<>();
+        testPlaceDataArray= parser.parseGoogleParse(jsonReply);
+        assertEquals(mockArray.get(0).getLatitude(),testPlaceDataArray.get(0).getLatitude());
+    }
+
+    @Test
+    public void checkLongitudeParseCorrect()
+    {
+        ArrayList<PlaceData> testPlaceDataArray=new ArrayList<>();
+        testPlaceDataArray= parser.parseGoogleParse(jsonReply);
+        assertEquals(mockArray.get(0).getLongitude(),testPlaceDataArray.get(0).getLongitude());
+    }
+
+    @Test
+    public void checkLatitudeParsedWrong()
+    {
+        ArrayList<PlaceData> testPlaceDataArray=new ArrayList<>();
+        testPlaceDataArray= parser.parseGoogleParse(jsonReply);
+        String expected=null;
+        assertNotEquals(expected,testPlaceDataArray.get(0).getLatitude());
+    }
+
+    @Test
+    public void checkLongitudeParsedWrong()
+    {
+        ArrayList<PlaceData> testPlaceDataArray=new ArrayList<>();
+        testPlaceDataArray= parser.parseGoogleParse(jsonReply);
+        String expected=null;
+        assertNotEquals(expected,testPlaceDataArray.get(0).getLongitude());
+    }
+
+    @Test
+    public void checkIfIdParsedCorrectly()
+    {
+        //id for first place is 0.
+        ArrayList<PlaceData> testPlaceDataArray=new ArrayList<>();
+        testPlaceDataArray= parser.parseGoogleParse(jsonReply);
+        assertEquals(mockArray.get(0).getId(),testPlaceDataArray.get(0).getId());
+
+    }
+
+    @Test
+    public void idParsedWrong()
+    {
+        ArrayList<PlaceData> testPlaceDataArray=new ArrayList<>();
+        testPlaceDataArray= parser.parseGoogleParse(jsonReply);
+        // we use 1 cause id the first time it parse the place is 0 , so it will work
+        int id_expected=1;
+        assertNotEquals(id_expected,testPlaceDataArray.get(0).getId());
+    }
+
+
+
     @After
     public void tearDown()
     {
         jsonReply=null;
-       mockArray=null;
+        mockArray=null;
     }
 
 
