@@ -36,7 +36,7 @@ public class PlaceDataTest {
     public void getNameMuseum()
     {
         placeDataObject.setName("bezesteni");
-        String expected="bezezteni";
+        String expected="bezesteni";
         assertEquals(expected,placeDataObject.getName());
     }
 
@@ -52,7 +52,7 @@ public class PlaceDataTest {
     public void getNameChurch()
     {
         placeDataObject.setName("Agios Kwstantinos");
-        String expected = "Agios Kvstantinos";
+        String expected = "Agios Kwstantinos";
         assertEquals(expected,placeDataObject.getName());
     }
 
