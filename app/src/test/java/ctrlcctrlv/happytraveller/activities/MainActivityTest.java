@@ -75,5 +75,4 @@ public class MainActivityTest
         assertThat("pin status changed",changedPinStatus,is("false"));
     }
 
-
 }
