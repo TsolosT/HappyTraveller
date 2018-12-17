@@ -197,6 +197,7 @@ public class MainActivity extends AppCompatActivity
         //intent for DetailsActivity display
         Intent intentInfos=new Intent(this,DetailsActivity.class);
         intentInfos.putExtra("searchtittle",searchtittle);
+
         try
         {
             startActivity(intentInfos);
@@ -206,6 +207,7 @@ public class MainActivity extends AppCompatActivity
             e.printStackTrace();
             Toast.makeText(getApplicationContext(), "Opps you can't navigate this page now...",Toast.LENGTH_SHORT).show();
         }
+
 
     }
 

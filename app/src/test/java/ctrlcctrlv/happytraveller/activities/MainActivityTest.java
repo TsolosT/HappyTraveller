@@ -1,13 +1,12 @@
 package ctrlcctrlv.happytraveller.activities;
 
-import android.view.View;
 
+import android.view.View;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.runners.MockitoJUnitRunner;
-
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
@@ -76,3 +75,4 @@ public class MainActivityTest
     }
 
 }
+

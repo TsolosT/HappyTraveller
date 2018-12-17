@@ -6,24 +6,19 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
-
 import ctrlcctrlv.happytraveller.R;
 
-public class DetailsActivity extends AppCompatActivity {
+public class DetailsActivity extends AppCompatActivity
+{
 
     //ui
-    public WebView wiki;
+    static WebView wiki;
     //variables
-    private static String searchName = null;
+    static String searchName = null;
     static String URLsearch = "";
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         //ui
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details);
@@ -40,9 +35,7 @@ public class DetailsActivity extends AppCompatActivity {
         URLsearch="https://www.google.com/search?q={"+searchName+" wikipedia}&btnI";
         //fetch the first result
         wiki.loadUrl(URLsearch);
-
     }
-
 }
 
 
