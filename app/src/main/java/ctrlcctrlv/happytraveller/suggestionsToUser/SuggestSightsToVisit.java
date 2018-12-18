@@ -5,12 +5,11 @@ import com.google.android.gms.maps.model.LatLng;
 import java.util.ArrayList;
 import java.util.Collections;
 
-import ctrlcctrlv.happytraveller.ThemisClass;
+import ctrlcctrlv.happytraveller.url.MultipleParseUrl;
 import ctrlcctrlv.happytraveller.activities.HomeActivity;
 import ctrlcctrlv.happytraveller.fragments.TabListViewFragment;
 import ctrlcctrlv.happytraveller.fragments.TabMapFragment;
 import ctrlcctrlv.happytraveller.model.PlaceData;
-import ctrlcctrlv.happytraveller.model.PlacePhoto;
 
 public class SuggestSightsToVisit
 {
@@ -27,7 +26,7 @@ public class SuggestSightsToVisit
         ArrayList<PlaceData> placeDataListTwo = new ArrayList<>(tabListViewFragment.getPlaceData());
         ArrayList<PlaceData> suggestedPlaces = new ArrayList<>(placeDataListTwo.size());
         HomeActivity homeActivity = new HomeActivity();
-        ThemisClass themisClass = new ThemisClass();
+        MultipleParseUrl multipleParseUrl = new MultipleParseUrl();
         int timeToRemove;
         TabMapFragment tabMapFragment = new TabMapFragment();
         int listsId = 0;
@@ -81,9 +80,8 @@ public class SuggestSightsToVisit
                     int [] [] distanceAndTime = new int [1][2];
                     LatLng latLng = new LatLng(placeDataListTwo.get(i).getLatitude(),placeDataListTwo.get(i).getLongitude());
 
-                    // TODO: 12/12/2018 #themis replace themisClass.getDistanceAndTime with yours and set the array distanceAndTime like this ->      distanceAndTime[0][0] = yourClass.getDistance(latLngOfPreviousSight,latLng)
-                    // TODO: 12/12/2018 #themis                     (tha to tsekaroume kai mazi an einai)                                             distanceAndTime[0][1] = yourClass.getTime(latLngOfPreviousSight,latLng)
-                    distanceAndTime  = themisClass.getDistanceAndTime(latLngOfPreviousSight,latLng);
+
+                    distanceAndTime  = multipleParseUrl.getDistanceAndTime(latLngOfPreviousSight,latLng);
                     placeDataListTwo.get(i).setDistance(distanceAndTime[0][0]);
                     placeDataListTwo.get(i).setTimeTillArrival(distanceAndTime[0][1]);
                 }
