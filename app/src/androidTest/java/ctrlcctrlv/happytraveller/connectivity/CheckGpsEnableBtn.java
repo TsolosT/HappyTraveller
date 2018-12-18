@@ -30,6 +30,8 @@ import static android.support.test.espresso.matcher.ViewMatchers.withText;
 
 import static org.hamcrest.core.AllOf.allOf;
 
+//TODO in order to pass this test you have to disable GPS
+
 
 @LargeTest
 @RunWith(AndroidJUnit4.class)

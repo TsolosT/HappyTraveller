@@ -46,7 +46,6 @@ import ctrlcctrlv.happytraveller.model.PlaceData;
 import ctrlcctrlv.happytraveller.url.RoutesUrl;
 
 import static ctrlcctrlv.happytraveller.activities.MainActivity.getCheckedSightsItem;
-// TODO: 15/11/2018 fix bug #1 need restart the app after permission request about location use
 
 
 public class TabMapFragment extends Fragment implements OnMapReadyCallback

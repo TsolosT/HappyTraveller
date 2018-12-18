@@ -25,20 +25,20 @@ public class RequestDirectionsTest
         String expected = "{   \"geocoded_waypoints\" : [      {         \"geocoder_status\" : \"OK\",         \"partial_match\" : true,         \"place_id\" : \"EipMZW9mLiBNZXJhcmNo" +
                 "aWFzIDgwLCBTZXJyZXMgNjIxIDI1LCBHcmVlY2UiGhIYChQKEgmZkKw8inGpFBFDKC3NmVsW_RBQ\",         \"types\" : [ \"street_address\" ]      },      {         \"geocoder_status\" :" +
                 " \"OK\",         \"partial_match\" : true,         \"place_id\" : \"ChIJQYVXPCdyqRQREaPIvDwFEgw\",         \"types\" : [ \"street_address\" ]      }   ],   \"routes\" :" +
-                " [      {         \"bounds\" : {            \"northeast\" : {               \"lat\" : 41.0839559,               \"lng\" : 23.5438956            },            \"southwest" +
+                " [      {         \"bounds\" : {            \"northeast\" : {               \"lat\" : 41.083956,               \"lng\" : 23.5438956            },            \"southwest" +
                 "\" : {               \"lat\" : 41.0812238,               \"lng\" : 23.5418144            }         },         \"copyrights\" : \"Map data ©2018 Google\",         \"legs" +
                 "\" : [            {               \"distance\" : {                  \"text\" : \"0.4 km\",                  \"value\" : 352               },               \"duration\" :" +
                 " {                  \"text\" : \"4 mins\",                  \"value\" : 261               },               \"end_address\" : \"Leof. Merarchias 113, Serres 621 25, Greec" +
                 "e\",               \"end_location\" : {                  \"lat\" : 41.0812238,                  \"lng\" : 23.5418144               },               \"start_address\" : \"" +
-                "Leof. Merarchias 80, Serres 621 25, Greece\",               \"start_location\" : {                  \"lat\" : 41.0839559,                  \"lng\" : 23.5438956            " +
+                "Leof. Merarchias 80, Serres 621 25, Greece\",               \"start_location\" : {                  \"lat\" : 41.083956,                  \"lng\" : 23.5438956            " +
                 "   },               \"steps\" : [                  {                     \"distance\" : {                        \"text\" : \"0.4 km\",                        \"value\" : " +
                 "352                     },                     \"duration\" : {                        \"text\" : \"4 mins\",                        \"value\" : 261                     }, " +
                 "                    \"end_location\" : {                        \"lat\" : 41.0812238,                        \"lng\" : 23.5418144                     },                     " +
                 "\"html_instructions\" : \"Head \\u003cb\\u003esouthwest\\u003c/b\\u003e on \\u003cb\\u003eLeof. Merarchias\\u003c/b\\u003e toward \\u003cb\\u003eKidonion\\u003c/b\\u003e\\u0" +
-                "03cdiv style=\\\"font-size:0.9em\\\"\\u003eDestination will be on the left\\u003c/div\\u003e\",                     \"polyline\" : {                        \"points\" : \"wew" +
-                "yFklunCx@j@TFZZxEbDhD~BHNf@Z@@\"                     },                     \"start_location\" : {                        \"lat\" : 41.0839559,                        \"lng\"" +
-                ": 23.5438956                     },                     \"travel_mode\" : \"WALKING\"                  }               ],               \"traffic_speed_entry\" : [],          " +
-                "     \"via_waypoint\" : []            }         ],         \"overview_polyline\" : {            \"points\" : \"wewyFklunCx@j@TFZZxEbDhD~BHNh@\\\\\"         },         \"summary" +
+                "03cdiv style=\\\"font-size:0.9em\\\"\\u003eDestination will be on the left\\u003c/div\\u003e\",                     \"polyline\" : {                        \"points\" : \"wewyFk" +
+                "lunCZT\\\\TTFZZ^T\\\\V^V\\\\V^V^T\\\\VLH^V\\\\V^V^V\\\\THNFD^T@@\"                     },                     \"start_location\" : {                        \"lat\" : 41.083956,  "+
+                "                      \"lng\" : 23.5438956                     },                     \"travel_mode\" : \"WALKING\"                  }               ],               \"traffic_speed_entry\" : [],          " +
+                "     \"via_waypoint\" : []            }         ],         \"overview_polyline\" : {            \"points\" : \"wewyFklunCx@j@TFZZ|@l@|@n@jBnA|B~A\\\\THNf@Z@@\"         },         \"summary" +
                 "\" : \"Leof. Merarchias\",         \"warnings\" : [            \"Walking directions are in beta.    Use caution – This route may be missing sidewalks or pedestrian paths.\"     " +
                 "    ],         \"waypoint_order\" : []      }   ],   \"status\" : \"OK\"}";
 
@@ -101,7 +101,8 @@ public class RequestDirectionsTest
                 "gs\" : [            \"Walking directions are in beta.    Use caution – This route may be missing sidewalks or pedestrian paths.\"         ],         \"waypoint_order\" : []      " +
                 "}   ],   \"status\" : \"OK\"}";
 
-        assertEquals(expected,requestDirections.getDirections("https://maps.googleapis.com/maps/api/directions/json?&mode=walking&origin=Leof.Merarchias80,Serres62125,Greece,Serres,&destination=Karaiskaki1,Serres62121,Greece,SerresOK&key=AIzaSyDI0zKd22JBJEGco2k9Thg2CZWLLsWfq7k"));
+
+        assertNotEquals(expected,requestDirections.getDirections("https://maps.googleapis.com/maps/api/directions/json?&mode=walking&origin=Leof.Merarchias80,Serres62125,Greece,Serres,&destination=Karaiskaki1,Serres62121,Greece,SerresOK&key=AIzaSyDI0zKd22JBJEGco2k9Thg2CZWLLsWfq7k"));
     }
 
     @Test
