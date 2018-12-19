@@ -52,14 +52,14 @@ public class WeatherActivityButtonTest {
             e.printStackTrace();
         }
 
-        ViewInteraction appCompatButton = onView(
-                allOf(withId(android.R.id.button1), withText("Sure!"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(R.id.buttonPanel),
-                                        0),
-                                3)));
-        appCompatButton.perform(scrollTo(), click());
+//         ViewInteraction appCompatButton = onView(
+//                 allOf(withId(android.R.id.button1), withText("Sure!"),
+//                         childAtPosition(
+//                                 childAtPosition(
+//                                         withId(R.id.buttonPanel),
+//                                         0),
+//                                 3)));
+//         appCompatButton.perform(scrollTo(), click());
 
         // Added a sleep statement to match the app's execution delay.
         // The recommended way to handle such scenarios is to use Espresso idling resources:
