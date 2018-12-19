@@ -33,13 +33,21 @@ public class WeatherActivity extends AppCompatActivity
 {
 
     private Intent intent;
+    // j1=JSON for location of weather
     String j1 = null;
+    //j2=JSON for weather of that location
     String j2 = null;
+
+    //Key from the json of the location
+
     String key;
     TextView weatherReport;
 
     public void checkWeather (View view)
     {
+
+        //parse for the JSON
+
 
         DownloadTask task = new DownloadTask();
         HomeActivity homeActivity = new HomeActivity();
@@ -108,6 +116,7 @@ public class WeatherActivity extends AppCompatActivity
                     j2 = weather.execute("http://dataservice.accuweather.com/currentconditions/v1/"+ key + ".json?language=en&apikey=5LGnlvGAhG9hCLTxO33ASOrDkv7JZtOc").get();
 
                     JSONArray weatherArray = new JSONArray(j2);
+                    //all data for weather from the JSON
                     for (int i = 0; i<weatherArray.length(); i++){
 
                         JSONObject weatherPart = weatherArray.getJSONObject(i);
