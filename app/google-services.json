@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "144599928853",
+    "firebase_url": "https://happytravellerdb.firebaseio.com",
+    "project_id": "happytravellerdb",
+    "storage_bucket": "happytravellerdb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:144599928853:android:a939de52dea1542c",
+        "android_client_info": {
+          "package_name": "ctrlcctrlv.happytraveller"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "144599928853-c1m5kf9g97isk232odm58p7a69pblo7n.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCjx9kkzr6cK8GJ7GSKBzPQdodqufH5Y2s"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

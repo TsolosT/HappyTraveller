@@ -9,3 +9,20 @@
 /build
 /captures
 .externalNativeBuild
+# Android Studio / IntelliJ IDEA 
+*.iws
+.idea/libraries
+.idea/tasks.xml
+.idea/vcs.xml
+.idea/workspace.xml
+.idea/assetWizardSettings.xml
+.idea/misc.xml
+.idea/misc.xml
+.idea/misc.xml
+.idea/misc.xml
+.idea/misc.xml
+# ignore the file literally named foo[01].txt
+foo\[01\].txt
+*.xml
+.idea/vcs.xml
+.idea/runConfigurations.xml

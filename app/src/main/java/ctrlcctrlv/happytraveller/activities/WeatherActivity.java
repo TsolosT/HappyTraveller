@@ -37,13 +37,17 @@ public class WeatherActivity extends AppCompatActivity
     String j1 = null;
     //j2=JSON for weather of that location
     String j2 = null;
+
     //Key from the json of the location
+
     String key;
     TextView weatherReport;
 
     public void checkWeather (View view)
     {
+
         //parse for the JSON
+
 
         DownloadTask task = new DownloadTask();
         HomeActivity homeActivity = new HomeActivity();

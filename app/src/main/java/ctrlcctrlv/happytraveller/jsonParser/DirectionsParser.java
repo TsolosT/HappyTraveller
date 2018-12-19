@@ -19,9 +19,8 @@ public class DirectionsParser
     /**
      * Returns a list of lists containing latitude and longitude from a JSONObject
      */
-    public List<List<HashMap<String, String>>> parse(JSONObject jObject) {
-        System.out.println("skata");
-
+    public List<List<HashMap<String, String>>> parse(JSONObject jObject)
+    {
         List<List<HashMap<String, String>>> routes = new ArrayList<List<HashMap<String, String>>>();
         JSONArray jRoutes = null;
         JSONArray jLegs = null;
@@ -63,6 +62,7 @@ public class DirectionsParser
         } catch (Exception e) {
         }
 
+        //System.out.println("DirectionsParser(parse):"+routes);
         return routes;
     }
 
@@ -70,10 +70,8 @@ public class DirectionsParser
      * Method to decode polyline
      * Source : http://jeffreysambells.com/2010/05/27/decoding-polylines-from-google-maps-direction-api-with-java
      */
-    private List decodePolyline(String encoded)
+    public List decodePolyline(String encoded)
     {
-        System.out.println("decodePolyline");
-
         List poly = new ArrayList();
         int index = 0, len = encoded.length();
         int lat = 0, lng = 0;
