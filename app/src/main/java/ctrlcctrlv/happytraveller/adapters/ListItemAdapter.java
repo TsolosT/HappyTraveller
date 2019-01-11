@@ -23,7 +23,25 @@ import ctrlcctrlv.happytraveller.model.PlaceData;
 import static ctrlcctrlv.happytraveller.fragments.TabMapFragment.getPolylineState;
 import static ctrlcctrlv.happytraveller.fragments.TabMapFragment.mMap;
 
-
+/*
+*An List Item adapter that adapt the data from each place object to the UI.
+*An adapter class that display alla place data object in proper format on
+*ListView tab on UI.
+*
+*@param dataSet ArrayList<PlaceData> array that hold the place object data that will be displayed.
+*@param mContext See Context.
+*@param TabMapFragment
+*@param homeActivity
+*
+*@extend ArrayAdapter<PlaceData>
+*@implement View.OnClickListener
+*
+*@see ArrayAdapter<PlaceData>
+*@see View.OnClickListener
+*@see Context
+*
+*@since 15 Nov 2018
+*/
 public class ListItemAdapter extends ArrayAdapter<PlaceData> implements View.OnClickListener
 {
 
@@ -32,7 +50,16 @@ public class ListItemAdapter extends ArrayAdapter<PlaceData> implements View.OnC
     Context mContext;
     protected HomeActivity homeActivity = new HomeActivity();
 
-    // View lookup cache
+    /*
+     *View lookup cache class
+     *
+     *@param txtName The object that will get the value of the place name to display.
+     *@param txtAddress The object that will get the value of the place address to display.
+     *@param imgView The object that will get the value of the place image to display.
+     *@param btn
+     *@param btnShowRoute
+     *
+     */
     private static class ViewHolder
     {
         TextView txtName;
@@ -40,11 +67,15 @@ public class ListItemAdapter extends ArrayAdapter<PlaceData> implements View.OnC
         ImageView imgView;
         Button btn;
         Button btnShowRoute;
-
         //add more data var-components px : img info etc..
     }
 
-
+    /*
+    *The constructor that initialize the basic variables
+    *And display the list_view.xml .
+    *@param data An ArrayList<PlaceData> that will pass value to the dataSet.
+    *@param context An Context object that will pass value to the mContext.
+    */
     public ListItemAdapter(ArrayList<PlaceData> data, Context context)
     {
         super(context, R.layout.list_view, data);
@@ -76,6 +107,10 @@ public class ListItemAdapter extends ArrayAdapter<PlaceData> implements View.OnC
         TabMapFragment.getTabMap_instance().drawRouteOnMap(user_coordinates,selected_place_coordinates);
     }
 
+    /*
+    *The main method that will adapt the data to the list xml.
+    *@see View.getView
+     */
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         // Get the data item for this position
