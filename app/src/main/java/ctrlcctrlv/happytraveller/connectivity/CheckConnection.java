@@ -6,14 +6,19 @@ import android.net.NetworkInfo;
 import android.telephony.TelephonyManager;
 
 import java.lang.reflect.Method;
-
+/*
+*
+*
+* @param context
+* @param netInfo
+* @param connManager
+*
+* @since 27 Nov 2018
+ */
 public class CheckConnection
-{
+{   //stis alles gra4e esu aimilie sxolia k panw apo thn clash sumplirwse oti den uparxh
     private Context context;
     private NetworkInfo netInfo;
-
-
-
     private ConnectivityManager connManager;
 
     public  CheckConnection(Context context)
@@ -52,6 +57,15 @@ public class CheckConnection
         }
         return mobileDataEnabled;
     }
+
+
+    /*
+    *  A method that checks the speed connection and return the type .
+    *  An public int method that is checking via netInfo object the type of the
+    *  connection speed and return it as type variable.
+    * @param type A integer that will be used to check the connection speed type.
+    * @return type
+     */
     public int checkSpeedConnection()
     {
         if(netInfo==null)

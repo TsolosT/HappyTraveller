@@ -35,10 +35,34 @@ import static ctrlcctrlv.happytraveller.jsonParser.PlaceParser.getCompountCode;
 import static ctrlcctrlv.happytraveller.jsonParser.PlaceParser.parseGoogleParse;
 
 /*
- * This class is the fragment for the tab list view
- * It displays the fragment_tab_list_view.xml
+ * This class is the fragment for the tab list view ,it displays the fragment_tab_list_view.xml .
+ * It display the ListView UI with or without the place data,
+ * and controls the functions tha make the place api call ,display it on ui.
  *
- * */
+ *@param view See View.
+ *@param placeData A static ArrayList<PlaceData> that will get as data the places from the api call.
+ *@param listView See ListView.
+ *@param homeActivity That object is used to get the current location value.
+ *@param textViewHidden See TextView.This UI component is displayed when placeData is null.
+ *@param delayTime An variable that will hold that delay time for refresh data method.
+ *@param renewTime An variable that will hold the renew time for refresh data method.
+ *@param timer See Timer.
+ *@param context See Context.
+ *@param checkCon An object that has the connection type and speed and is used on check if can do api call or not.
+ *@param gplaces An googleplaces object that triggers the api call.
+ *
+ *@extend Fragment
+ *
+ *@see Context
+ *@see ListView
+ *@see Fragment
+ *@see View
+ *@see TextView.
+ *@see Timer
+ *
+ *@since 5 Nov 2018
+ *
+ */
 public class TabListViewFragment extends Fragment
 {
     protected View view;
@@ -70,6 +94,11 @@ public class TabListViewFragment extends Fragment
         gplaces.execute();
         refreshPlaceList(checkCon.checkSpeedConnection());
     }
+
+    /*
+     * Initialize the variables that need to be used.
+     * A public void method that initialize all the components that need to be used in this class.
+     */
     public void init()
     {
         listView= (ListView)view.findViewById(R.id.listView);
@@ -85,7 +114,12 @@ public class TabListViewFragment extends Fragment
     }
 
 
-    //check is places download finished yet or not
+    /*
+    *A method that check the download status.
+    *A public static boolean method that checks if the download status is finished or not
+    * and return the status.
+    * @return true/false
+    */
     public static boolean placesReceived()
     {
         if(gplaces.getStatus()==AsyncTask.Status.FINISHED)
@@ -97,6 +131,22 @@ public class TabListViewFragment extends Fragment
             return false;
         }
     }
+
+    /*
+    *An class that extend AsyncTask and makes the api call.
+    *It prepares all need to make the api call and retrieve the data
+    *to be ready to display and display it.
+    *
+    *@param jsonCallerMuseum An String variable that will hold the proper url string for museum.
+    *@param jsonCallerParks An String variable that will hold the proper url string for parks.
+    *@param jsonCallerChurch    An String variable that will hold the proper url string for church.
+    *
+    *@extend AsyncTask
+    *
+    *@see AsyncTask
+    *
+    *@since 15 Nov 2018
+    */
     private class googleplaces extends AsyncTask<View,String,String> 
     {
 
@@ -156,7 +206,15 @@ public class TabListViewFragment extends Fragment
                  }
             }
         }
-
+        /*
+        *An method that make the call for the api.
+        *It prepares the connection and makes the call for google place api
+        *and retrieves the response.
+        *
+        *@param url The url that need to call.
+        *
+        *@return replyString The json response as string buffed.
+        */
         public String makeCall(String url)
         {
             // string buffers the url
@@ -196,7 +254,13 @@ public class TabListViewFragment extends Fragment
         }
 
     }
-
+    /*
+    *The method that shows the places on the list.
+    * It initialize the adapter and prepare it for displaying the data
+    *
+    *@param listWithSights An ArrayList<PlaceData> that have the parsed place data.
+    *
+     */
     public void showSightOnList(ArrayList<PlaceData> listWithSights)
     {
         adapter = new ListItemAdapter(listWithSights, context);
@@ -208,7 +272,13 @@ public class TabListViewFragment extends Fragment
     //function to fetch the placeData into tabMapFragment
     public  ArrayList<PlaceData> getPlaceData() { return placeData;}
 
-    //function to refetch near sights data  every specific time
+    /*
+    *Function to refetch near sights data  every specific time.
+    *A method that depend on status type it renew the place data list
+    * or not.
+    *
+    *@param status An integer that hold the speed connection type.
+     */
     public void refreshPlaceList(int status)
     {
         String msgBad="Couldn't refresh place list due to bad speed connection";
@@ -233,7 +303,9 @@ public class TabListViewFragment extends Fragment
        }
 
     }
-    //executes the timer for refresh time
+    /*
+    *A method thatexecutes the timer for refresh time.
+     */
     public void runRefreshTimer()
     {
         timer.scheduleAtFixedRate(new TimerTask()
