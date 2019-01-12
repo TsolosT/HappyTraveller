@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.util.List;
 
 
-//Url class has two constructor one just to truck the route and one if the user prefers a travel mode
+
 public class RoutesUrl
 {
 
@@ -17,12 +17,23 @@ public class RoutesUrl
     private  String destination = null;
 
 
-
+    /**
+     * Initialize the half url with the travel mode user picked
+     * @param travelMode
+     */
     public RoutesUrl(String travelMode)
     {
         url = "https://maps.googleapis.com/maps/api/directions/json?"+"&mode="+travelMode+"&origin=";
     }
 
+    /**
+     * Initialize the other half url with a start and end point
+     * @param start
+     * @param end
+     * @param context
+     * @param locale
+     * @return the whole url
+     */
     public String getUrl(LatLng start, LatLng end ,android.content.Context context, java.util.Locale locale)
     {
         origin = getLocationsName(start,context,locale);
@@ -33,7 +44,14 @@ public class RoutesUrl
     }
 
 
-
+    /**
+     *
+     * @param area a latitude and longitude
+     * @param context
+     * @param locale
+     *
+     * @return the name that the specific area (lat,lng) has .
+     */
     private String getLocationsName(LatLng area , android.content.Context context ,java.util.Locale locale)
     {
         Geocoder originLocation ;

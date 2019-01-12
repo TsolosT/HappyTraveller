@@ -343,7 +343,9 @@ public class TabMapFragment extends Fragment implements OnMapReadyCallback
     }
 
 
-
+    /**
+     * Clears everything map has (pins , routes etc.)
+     */
     public void clearMap()
     {
         mMap.clear();

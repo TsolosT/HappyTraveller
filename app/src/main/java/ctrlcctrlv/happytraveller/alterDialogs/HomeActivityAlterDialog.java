@@ -8,9 +8,16 @@ import android.support.v7.app.AlertDialog;
 
 import ctrlcctrlv.happytraveller.R;
 
+/**
+ * Three functions to serve HomeActivity classes alter dialogs
+ */
 public class HomeActivityAlterDialog
 {
 
+    /**
+     * First time the application boots needs a quick restart. this alter dialog let the user know about it
+     * @param context
+     */
     public void restartAlterDialog(final Context context)
     {
         AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.AlertDialog);
@@ -35,7 +42,10 @@ public class HomeActivityAlterDialog
     }
 
 
-
+    /**
+     * User must have internet connection some way. This alter dialog give user to choose if he will use mobile data or Wi-Fi to serve him
+     * @param context
+     */
     public void openDataAlterDialog(final Context context)
     {
         AlertDialog.Builder builder = new AlertDialog.Builder(context,R.style.AlertDialog);
@@ -67,9 +77,10 @@ public class HomeActivityAlterDialog
     }
 
 
-
-
-
+    /**
+     * Application needs GPS in order to function correctly. So it is an alter dialog for user to know he must use phones gps
+     * @param context
+     */
     public void openGPSAlterDialog(final Context context)
     {
         AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.AlertDialog);

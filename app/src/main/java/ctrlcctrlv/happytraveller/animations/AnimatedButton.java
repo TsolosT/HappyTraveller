@@ -3,7 +3,10 @@ package ctrlcctrlv.happytraveller.animations;
 import android.os.Handler;
 import android.widget.Button;
 
-
+/**
+ * A class to make a cool animation on map`s button.
+ *
+ */
 public class AnimatedButton
 {
     Button button;
@@ -46,7 +49,6 @@ public class AnimatedButton
                 }, delayTime);
             }
         }, delayTime2);
-
 
     }
 
@@ -122,11 +124,5 @@ public class AnimatedButton
         }, delayTime4);
 
     }
-
-
-
-
-
-
 
 }
