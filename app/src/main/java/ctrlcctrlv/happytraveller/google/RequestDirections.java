@@ -11,6 +11,13 @@ import java.net.URL;
 public class RequestDirections
 {
 
+    /**
+     * With the given url extracts an JSONObject about a direction
+     *
+     * @param givenUrl
+     * @return JSONObject
+     * @throws IOException
+     */
     public String getDirections(String givenUrl) throws IOException
     {
 
