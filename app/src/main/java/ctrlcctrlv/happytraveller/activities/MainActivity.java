@@ -29,7 +29,22 @@ import ctrlcctrlv.happytraveller.fragments.TabMapFragment;
 import ctrlcctrlv.happytraveller.model.PlaceData;
 import ctrlcctrlv.happytraveller.suggestionsToUser.SuggestSightsToVisit;
 
-
+/**
+ *<h2>This class,it's used to display the map and the list UI.</h2>
+ *<p>The main activity that display the map and the list view UI,
+ * and triggers the most functions.Also extends AppCompatActivity.</p>
+ *
+ *
+ *
+ *@see AppCompatActivity
+ *@see TabLayout
+ *@see Intent
+ *@see DrawerLayout
+ *@see ActionBarDrawerToggle
+ *@see NavigationView
+ *
+ *@since 5 Nov 2018
+ */
 public class MainActivity extends AppCompatActivity
 {
     //declare variables
@@ -86,7 +101,10 @@ public class MainActivity extends AppCompatActivity
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
-    //Initialize the variables that need to be used
+    /**
+    * <h2>Initialize the variables that need to be used.</h2>
+    * <p>A public void method that initialize all the components that need to be used in this class.</p>
+    */
     public void init()
     {
         intent=getIntent();
@@ -132,7 +150,15 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    //A method that triggered when weather(menuItem) is clicked and intent weather activity
+    /**
+     *<h2>A method that when it triggers display the weather page.</h2>
+     *<p></p>A public method  it navigates to the weather page.</p>
+     *
+     * @param item  MenuItem object
+     * @throws Exception If something went wrong it printstack of the error and display a toast to the user.
+     * @see MenuItem
+     * @see Toast
+     */
     public void displayWeatherPage(MenuItem item)
     {
         Intent intentWeather=new Intent(this,WeatherActivity.class);
@@ -146,6 +172,16 @@ public class MainActivity extends AppCompatActivity
             Toast.makeText(getApplicationContext(), "Opps you can't navigate this page now...",Toast.LENGTH_SHORT).show();
         }
     }
+    /**
+     *<h2>A method that when it triggers display the share page.</h2>
+     *<p>A public method  it navigates to the share page.</p>
+     *
+     *
+     * @param item  MenuItem object
+     * @throws Exception If something went wrong it printstack of the error and display a toast to the user.
+     * @see MenuItem
+     * @see Toast
+     */
     public void displaySharePage(MenuItem item)
     {
         Intent intentShare=new Intent(this,ShareActivity.class);
@@ -221,7 +257,13 @@ public class MainActivity extends AppCompatActivity
 
     }
 
-    //Change checkbox on transport menu items
+    /**
+    *<h2>Change checkbox on transport menu items.</h2>
+    * <p>A public void method that  checks the trigger transport object if is checked
+    * and uncheck all other and the opposite.</p>
+    * @MenuItem item
+    * @see MenuItem
+     */
     public void changeTransportCheckValue(MenuItem item)
     {   NavigationView navView=(NavigationView)findViewById(R.id.navView);
         MenuItem   transport=navView.getMenu().getItem(3);
@@ -249,8 +291,10 @@ public class MainActivity extends AppCompatActivity
     }
 
     /**
-     * @return the selected transportation way user`s prefer to travel in town
-     */
+    *<h2>A method that return the value name of the checked transport item.</h2>
+    *<p>A public String method that retrieves a string  'walking' is transport is selected onFoot and 'driving' if is selected car.</p>
+    *
+    */
     public String getCheckedTransportItem()
     {
         String returnValue = null;
@@ -266,7 +310,14 @@ public class MainActivity extends AppCompatActivity
         return returnValue;
     }
 
-    //Change status of sight checkbox and display pins on map with sights
+    /**
+    *<h2>Change status of sight checkbox and display pins on map with sights.</h2>
+    * <p>A public void method  that change the status of the menu item to
+    * displayed pins on map or not,
+    * when it pressed.</p>
+    * @param item MenuItem
+    * @see MenuItem
+    */
     public void changeSightPinStatus(MenuItem item)
     {   //get menu
         NavigationView navView=(NavigationView)findViewById(R.id.navView);
@@ -274,7 +325,6 @@ public class MainActivity extends AppCompatActivity
         MenuItem   sight=navView.getMenu().getItem(2);
         //get checkbox sights
         MenuItem   sightPins=sight.getSubMenu().getItem(0);
-
 
         if(sightPins.isChecked())
         {
@@ -293,12 +343,15 @@ public class MainActivity extends AppCompatActivity
 
             TabMapFragment.showSightsWithPins();
             checkedSightsItem="false";
-
-
         }
 
     }
 
+    /**
+    *<h2>A method that return is the status pin item.</h2>
+    *<p>It check the status of the pin menu item and return
+    *if it is checked or not.</p>
+     */
     public String getChangedPinStatus()
     {
         String status=null;
@@ -313,7 +366,6 @@ public class MainActivity extends AppCompatActivity
         }
                 return status;
     }
-
     public static void refreshSightButton(String result)
     {
         if (result == "false")
@@ -324,13 +376,20 @@ public class MainActivity extends AppCompatActivity
             sightPins.setIcon(R.drawable.ic_check_box_outline_blank_black_24dp);
         }
     }
-
+    /**
+    *<h2>A get method that return the checkedSightsItem variable.</h2>
+    * @return checkedSightsItem
+    */
     public static String getCheckedSightsItem()
     {
         return checkedSightsItem;
     }
-
-    //set and  reset  nav_header txtView location with users current location
+    /**
+    *<h2>A method that checks if the variable location formated as string is ready and display it on menu bar.</h2>
+    *<p>A public void method that check if the variable cityCountry is ready and display it otherwise
+    * is display a proper message.</p>
+    *
+    */
     public void renewTxtViewLocation()
     {
         TabListViewFragment tabListViewFragment = new TabListViewFragment();
@@ -355,7 +414,7 @@ public class MainActivity extends AppCompatActivity
         //display location
         txtViewLocation.setText(location);
     }
-
+    //wraio onoma
     public void setVisible()
     {
         //get nav view then  header and then  textview
