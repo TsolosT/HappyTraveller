@@ -18,13 +18,12 @@ import ctrlcctrlv.happytraveller.R;
 import ctrlcctrlv.happytraveller.alterDialogs.HomeActivityAlterDialog;
 import ctrlcctrlv.happytraveller.connectivity.CheckConnection;
 
-/*
- *This is the 'main' class,it's used to
- *launch the app. and display the activity_home.xml
- *The main activity that launch the application and initialize the location
- * and basic permissions.
+/**
+ *<h2>This is the 'main' class,it's used to
+ *launch the app. and display the activity_home.xml </h2>
+ *<p>The main activity that launch the application and initialize the location
+ * and basic permissions.Also extends AppCompatActivity.</p>
  *
- *@extends AppCompatActivity
  *
  *@see AppCompatActivity
  *
@@ -126,7 +125,7 @@ public class HomeActivity extends AppCompatActivity
         locationManager.requestLocationUpdates("gps", gpsRefreshTime, 0, locationListener);
     }
 
-    /*
+    /**
     *A method that when it triggers display the main page if everything is ready.
     *A public method that checks is all permissions is granted and
     * user location is granted too then it navigates to the main page.
@@ -152,9 +151,9 @@ public class HomeActivity extends AppCompatActivity
         }
 
     }
-    /*
-     *A method that when it triggers display the log in page.
-     *A public method  it navigates to the log in page.
+    /**
+     *<h2>A method that when it triggers display the log in page.</h2>
+     *<p>A public method  it navigates to the log in page.</p>
      *
      * @param v  View object
      * @throws e If something went wrong it printstack of the error and display a toast to the user.
@@ -173,9 +172,10 @@ public class HomeActivity extends AppCompatActivity
             Toast.makeText(getApplicationContext(), "Opps you can't navigate this page now...",Toast.LENGTH_SHORT).show();
         }
     }
-    /*
-     *A method that when it triggers display the sign up page.
-     *A public method  it navigates to the sign up page.
+    /**
+     *<h2>A method that when it triggers display the sign up page.</h2>
+     *<p>A public method  it navigates to the sign up page.</p>
+     *
      *
      * @param v  View object
      * @throws e If something went wrong it printstack of the error and display a toast to the user.
@@ -194,7 +194,7 @@ public class HomeActivity extends AppCompatActivity
             Toast.makeText(getApplicationContext(), "Opps you can't navigate this page now...",Toast.LENGTH_SHORT).show();
         }
     }
-    /*
+    /**
      *A method that when it triggers display the info page.
      *A public method  it navigates to the info page.
      *

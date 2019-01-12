@@ -29,27 +29,12 @@ import ctrlcctrlv.happytraveller.fragments.TabMapFragment;
 import ctrlcctrlv.happytraveller.model.PlaceData;
 import ctrlcctrlv.happytraveller.suggestionsToUser.SuggestSightsToVisit;
 
-/*
- *This class,it's used to display the map and the list UI.
- *The main activity that display the map and the list view UI,
- * and triggers the most functions.
+/**
+ *<h2>This class,it's used to display the map and the list UI.</h2>
+ *<p>The main activity that display the map and the list view UI,
+ * and triggers the most functions.Also extends AppCompatActivity.</p>
  *
- *@param intent An Intent object.
- *@param tabLayout An TabLayout object.
- *@param viewPager An ViewPager object,that used to display the fragment on UI.
- *@param adapter A pageFragAdapter object that used to adapt the fragments layouts.
- *@param drawerLayout An DrawerLayout object.
- *@param mToggle An ActionBarDrawerToggle object,that used to toggle the navigation bar.
- *@param checkedTransportItem A String variable that will hold the transport item name that is checked.
- *@param checkedSightsItem A String variable that will hold if the sight item is checked or not.
- *@param navView A NavigationView object.
- *@param placeData
- *@param tabListViewFragment
- *@param email
- *@param password
- *@param loginActivity
  *
- *@extends AppCompatActivity
  *
  *@see AppCompatActivity
  *@see TabLayout
@@ -116,9 +101,9 @@ public class MainActivity extends AppCompatActivity
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
-    /*
-    * Initialize the variables that need to be used.
-    * A public void method that initialize all the components that need to be used in this class.
+    /**
+    * <h2>Initialize the variables that need to be used.</h2>
+    * <p>A public void method that initialize all the components that need to be used in this class.</p>
     */
     public void init()
     {
@@ -165,12 +150,12 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    /*
-     *A method that when it triggers display the weather page.
-     *A public method  it navigates to the weather page.
+    /**
+     *<h2>A method that when it triggers display the weather page.</h2>
+     *<p></p>A public method  it navigates to the weather page.</p>
      *
      * @param item  MenuItem object
-     * @throws e If something went wrong it printstack of the error and display a toast to the user.
+     * @throws Exception If something went wrong it printstack of the error and display a toast to the user.
      * @see MenuItem
      * @see Toast
      */
@@ -187,13 +172,13 @@ public class MainActivity extends AppCompatActivity
             Toast.makeText(getApplicationContext(), "Opps you can't navigate this page now...",Toast.LENGTH_SHORT).show();
         }
     }
-    /*
-     *A method that when it triggers display the share page.
-     *A public method  it navigates to the share page.
-     *A public method  it navigates to the share page.
+    /**
+     *<h2>A method that when it triggers display the share page.</h2>
+     *<p>A public method  it navigates to the share page.</p>
+     *
      *
      * @param item  MenuItem object
-     * @throws e If something went wrong it printstack of the error and display a toast to the user.
+     * @throws Exception If something went wrong it printstack of the error and display a toast to the user.
      * @see MenuItem
      * @see Toast
      */
@@ -262,10 +247,10 @@ public class MainActivity extends AppCompatActivity
 
     }
 
-    /*
-    *Change checkbox on transport menu items.
-    * A public void method that  checks the trigger transport object if is checked
-    * and uncheck all other and the opposite.
+    /**
+    *<h2>Change checkbox on transport menu items.</h2>
+    * <p>A public void method that  checks the trigger transport object if is checked
+    * and uncheck all other and the opposite.</p>
     * @MenuItem item
     * @see MenuItem
      */
@@ -295,9 +280,9 @@ public class MainActivity extends AppCompatActivity
 
     }
 
-    /*
-    *A method that return the value name of the checked transport item.
-    *A public String method that retrieves a string  'walking' is transport is selected onFoot and 'driving' if is selected car.
+    /**
+    *<h2>A method that return the value name of the checked transport item.</h2>
+    *<p>A public String method that retrieves a string  'walking' is transport is selected onFoot and 'driving' if is selected car.</p>
     *
     */
     public String getCheckedTransportItem()
@@ -315,11 +300,11 @@ public class MainActivity extends AppCompatActivity
         return returnValue;
     }
 
-    /*
-    *Change status of sight checkbox and display pins on map with sights.
-    * A public void method  that change the status of the menu item to
+    /**
+    *<h2>Change status of sight checkbox and display pins on map with sights.</h2>
+    * <p>A public void method  that change the status of the menu item to
     * displayed pins on map or not,
-    * when it pressed.
+    * when it pressed.</p>
     * @param item MenuItem
     * @see MenuItem
     */
@@ -330,7 +315,6 @@ public class MainActivity extends AppCompatActivity
         MenuItem   sight=navView.getMenu().getItem(2);
         //get checkbox sights
         MenuItem   sightPins=sight.getSubMenu().getItem(0);
-
 
         if(sightPins.isChecked())
         {
@@ -349,16 +333,14 @@ public class MainActivity extends AppCompatActivity
 
             TabMapFragment.showSightsWithPins();
             checkedSightsItem="false";
-
-
         }
 
     }
 
-    /*
-    *A method that return is the status pin item.
-    * It check the status of the pin menu item and return
-    * if it is checked or not.
+    /**
+    *<h2>A method that return is the status pin item.</h2>
+    *<p>It check the status of the pin menu item and return
+    *if it is checked or not.</p>
      */
     public String getChangedPinStatus()
     {
@@ -384,18 +366,18 @@ public class MainActivity extends AppCompatActivity
             sightPins.setIcon(R.drawable.ic_check_box_outline_blank_black_24dp);
         }
     }
-    /*
-    *A get method that return the checkedSightsItem variable.
+    /**
+    *<h2>A get method that return the checkedSightsItem variable.</h2>
     * @return checkedSightsItem
     */
     public static String getCheckedSightsItem()
     {
         return checkedSightsItem;
     }
-    /*
-    *A method that checks if the variable location formated as string is ready and display it on menu bar.
-    * A public void method that check if the variable cityCountry is ready and display it otherwise
-    * is display a proper message.
+    /**
+    *<h2>A method that checks if the variable location formated as string is ready and display it on menu bar.</h2>
+    *<p>A public void method that check if the variable cityCountry is ready and display it otherwise
+    * is display a proper message.</p>
     *
     */
     public void renewTxtViewLocation()

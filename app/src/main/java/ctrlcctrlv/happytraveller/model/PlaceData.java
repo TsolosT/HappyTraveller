@@ -7,23 +7,10 @@ import java.util.ArrayList;
 
 
 
-/*
+/**
  *<b>This class is a model for Place Api objects.
  *This class create,initialize the variables that
  * will be used to hold data from Place Api call.
- *
- *
- * @param name  A String variable that will hold the name of a place object.
- * @param address A String variable that will hold the address of a place object.
- * @param coordinates
- * @param latitude
- * @param longitude
- * @param cityCountry A String variable that will hold the name of the city&country of a place object.
- * @param distance
- * @param timeTillArrival
- * @param id A integer variable that will hold the order number of a place object.
- * @param placePhotos An ArrayList<PlacePhoto> array that will hold the urls of images that a place object has.
- * @param defaultImg A PlacePhoto objecet that will hold the default image of a place object.
  *
  *
  * @since 15 Nov 2018
@@ -44,7 +31,7 @@ public class PlaceData implements Comparable<PlaceData>
     ArrayList<PlacePhoto> placePhotos;
     PlacePhoto defaultImg;
 
-    /*
+    /**
      * The main constructor <b>public PlaceData(String name,String address)</b>.
      * Initialize the two basic variables that used on test
      * propose.
@@ -56,7 +43,7 @@ public class PlaceData implements Comparable<PlaceData>
         this.name = name;
         this.address = address;
     }
-    /*
+    /**
      * The main constructor of PlaceData </b>.
      * Initialize the basics variables that used
      * the PlaceParser and later on ListView  fragment to display some information to the user.
@@ -77,7 +64,7 @@ public class PlaceData implements Comparable<PlaceData>
         this.cityCountry=cityCountry;
         this.id=id;
     }
-    /*
+    /**
      * The main constructor <b>public PlacePhoto()</b>.
      * Initialize the variables that used on test
      * propose with null values.
@@ -97,7 +84,7 @@ public class PlaceData implements Comparable<PlaceData>
 
     public LatLng getCoordinates() {return coordinates;}
 
-    /*
+    /**
      *A Method that return the name variable.
      * A public String method.
      * @return name This variable is used as attribute on place object.
@@ -105,14 +92,14 @@ public class PlaceData implements Comparable<PlaceData>
     public String getName() {
         return name;
     }
-    /*
+    /**
      *A Method that pass a value to name variable.
      * A public void method that pass the proper value on name attribute.
      * @param name This variable is used pass a value to this.name variable.
      */
     public void setName(String name) {this.name = name;}
 
-    /*
+    /**
      *A Method that return the address variable.
      * A public String method.
      * @return address This variable is used as attribute on place object.
@@ -120,7 +107,7 @@ public class PlaceData implements Comparable<PlaceData>
     public String getAddress() {
         return address;
     }
-    /*
+    /**
      *A Method that pass a value to address variable.
      * A public void method that pass the proper value on address attribute.
      * @param address This variable is used pass a value to this.address variable.
@@ -129,7 +116,7 @@ public class PlaceData implements Comparable<PlaceData>
         this.address = address;
     }
 
-    /*
+    /**
      *A Method that return the defaultImg variable.
      * A public PlacePhoto method.
      * @return defaultImg This variable is used as attribute on place object image.
@@ -142,7 +129,7 @@ public class PlaceData implements Comparable<PlaceData>
 
     public Double getLongitude() { return longitude;}
 
-    /*
+    /**
      *A Method that return the cityCountry variable.
      * A public String method.
      * @return cityCountry This variable is used as attribute on place object.
@@ -150,7 +137,7 @@ public class PlaceData implements Comparable<PlaceData>
     public String getCityCountry() {
         return cityCountry;
     }
-    /*
+    /**
      *A Method that pass a value to cityCountry variable.
      * A public void method that pass the proper value on cityCountry attribute.
      * @param cityCountry This variable is used pass a value to this.cityCountry variable.
@@ -158,13 +145,13 @@ public class PlaceData implements Comparable<PlaceData>
     public void setCityCountry(String cityCountry) {
         this.cityCountry = cityCountry;
     }
-    /*
+    /**
      *A Method that return the id variable.
      * A public int method.
      * @return id This variable is used as attribute on place object.
      */
     public int getId() {return id; }
-    /*
+    /**
      *A Method that pass a value to id variable.
      * A public void method that pass the proper value on id attribute.
      * @param id This variable is int and is  used pass a value to this.id variable.

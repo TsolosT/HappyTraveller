@@ -6,15 +6,13 @@ import android.support.v4.app.FragmentPagerAdapter;
 
 import ctrlcctrlv.happytraveller.fragments.TabListViewFragment;
 import ctrlcctrlv.happytraveller.fragments.TabMapFragment;
-/*
+/**
 *A class that is used as adapter among fragments and tab.
 *This class is used define the adapter that will properly determine
 * how many pages exist and which fragment to display
 * for each page of the adapter by creating a FragmentPagerAdapter.
+ * Also extend .
 *
-* @param numberOfTabs An integer that will hold the total number of how many tabs are .
-*
-* @extend FragmentPagerAdapter
 *
 * @see FragmentPagerAdapter
 *
@@ -23,11 +21,11 @@ import ctrlcctrlv.happytraveller.fragments.TabMapFragment;
 public class PageFragAdapter extends FragmentPagerAdapter
 {
     private  int numberOfTabs;
-    /*
+    /**
     *The constructor that initialize the numberOfTabs.
     *
     *@param fm FragmentManager object
-    *@param numOfTab An integer that has the number of tabs.
+    *@param numOfTabs An integer that has the number of tabs.
     *
     *@see FragmentManager
     */
@@ -36,8 +34,9 @@ public class PageFragAdapter extends FragmentPagerAdapter
         super(fm);
         this.numberOfTabs=numOfTabs;
      }
-    /*
+    /**
     *Returns the fragment to display for that page
+     *@param position
     */
     @Override
     public Fragment getItem(int position)

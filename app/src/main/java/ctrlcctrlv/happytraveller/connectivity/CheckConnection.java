@@ -6,12 +6,8 @@ import android.net.NetworkInfo;
 import android.telephony.TelephonyManager;
 
 import java.lang.reflect.Method;
-/*
+/**
 *
-*
-* @param context
-* @param netInfo
-* @param connManager
 *
 * @since 27 Nov 2018
  */
@@ -59,12 +55,11 @@ public class CheckConnection
     }
 
 
-    /*
+    /**
     *  A method that checks the speed connection and return the type .
     *  An public int method that is checking via netInfo object the type of the
     *  connection speed and return it as type variable.
-    * @param type A integer that will be used to check the connection speed type.
-    * @return type
+    * @return type A integer that will be used to check the connection speed type.
      */
     public int checkSpeedConnection()
     {
