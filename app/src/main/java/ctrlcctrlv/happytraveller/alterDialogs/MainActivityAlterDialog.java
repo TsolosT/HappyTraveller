@@ -10,13 +10,23 @@ import java.util.ArrayList;
 import ctrlcctrlv.happytraveller.R;
 import ctrlcctrlv.happytraveller.model.PlaceData;
 
+/**
+ * One function to serve MainActivity classes alter dialog
+ */
 public class MainActivityAlterDialog
 {
     ArrayList<PlaceData> suggestedSights;
 
+    /**
+     * Initialize the suggested Sights in order to display them to user
+     * @param suggestedSights
+     */
     public void setSuggestedSights(ArrayList<PlaceData> suggestedSights) {this.suggestedSights = suggestedSights;}
 
-
+    /**
+     * An alter dialog in order for user to know the suggested by this application sights and witch he has to follow
+     * @param context
+     */
     public void showSuggestedSights(final Context context)
     {
         if (suggestedSights == null)
@@ -67,9 +77,5 @@ public class MainActivityAlterDialog
 
             alert.show();
         }
-
-
     }
-
-
 }

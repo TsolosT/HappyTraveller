@@ -1,10 +1,18 @@
 package ctrlcctrlv.happytraveller.checkIfIsValid;
 
+
+
 public class CheckIfNumberIsValidForTimePurpose
 {
     int integerPart;
     int decimalPart=0;
 
+    /**
+     * Checks if the number that user gave is valid in order for application to give a valid suggestion about witch sights user can visit
+     *
+     * @param usersNumber
+     * @return if the number is valid returns how many seconds users has to spend else returns 0
+     */
     public int theNumberUserGaveIs(String usersNumber)
     {
         boolean theValidityOfNumberIs = true;
@@ -45,7 +53,6 @@ public class CheckIfNumberIsValidForTimePurpose
                 theValidityOfNumberIs = false;
         }
 
-       // System.out.println(theValidityOfNumberIs);
         if (theValidityOfNumberIs)
             return integerPart*60+decimalPart;
         else

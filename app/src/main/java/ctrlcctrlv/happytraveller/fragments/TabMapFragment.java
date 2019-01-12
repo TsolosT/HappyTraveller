@@ -183,6 +183,7 @@ public class TabMapFragment extends Fragment implements OnMapReadyCallback
 
         });
 
+
         mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener()
         {
             @Override
@@ -220,6 +221,12 @@ public class TabMapFragment extends Fragment implements OnMapReadyCallback
 
     public static class TaskRequestDirections extends AsyncTask<String,Void,String>
     {
+        /**
+         * Extracts an JSONObject
+         * @see RequestDirections
+         * @param strings
+         * @return
+         */
         @Override
         protected String doInBackground(String... strings)
         {
@@ -242,9 +249,15 @@ public class TabMapFragment extends Fragment implements OnMapReadyCallback
         }
     }
 
+
     public static class  TaskParser extends AsyncTask<String , Void , List<List<HashMap<String, String>>>>
     {
 
+        /**
+         * @see DirectionsParser
+         * @param strings
+         * @return a list of containing latitude and longitude
+         */
         @Override
         protected List<List<HashMap<String, String>>> doInBackground(String... strings)
         {
@@ -262,6 +275,10 @@ public class TabMapFragment extends Fragment implements OnMapReadyCallback
             return routes;
         }
 
+        /**
+         * Draws the polylines on map
+         * @param lists
+         */
         @Override
         protected void onPostExecute(List<List<HashMap<String, String>>> lists)
         {
@@ -319,7 +336,11 @@ public class TabMapFragment extends Fragment implements OnMapReadyCallback
         }
     }
 
-
+    /**
+     * Draws a route in map between two points
+     * @param origin
+     * @param destination
+     */
     public void drawRouteOnMap(LatLng origin, LatLng destination)
     {
         MainActivity mainActivity = new MainActivity();
@@ -329,6 +350,14 @@ public class TabMapFragment extends Fragment implements OnMapReadyCallback
         taskRequestDirections.execute(routesUrl.getUrl(origin,destination, context, Locale.getDefault()));
     }
 
+    /**
+     * A function called by SuggestSightsToVisit class in order to display the suggested places with pins and names
+     *
+     * @see ctrlcctrlv.happytraveller.suggestionsToUser.SuggestSightsToVisit
+     * @param origin
+     * @param destination
+     * @param sight
+     */
     public void drawRouteOnMap(LatLng origin, LatLng destination,PlaceData sight)
     {
         MainActivity mainActivity = new MainActivity();
@@ -343,7 +372,9 @@ public class TabMapFragment extends Fragment implements OnMapReadyCallback
     }
 
 
-
+    /**
+     * Clears everything map has (pins , routes etc.)
+     */
     public void clearMap()
     {
         mMap.clear();

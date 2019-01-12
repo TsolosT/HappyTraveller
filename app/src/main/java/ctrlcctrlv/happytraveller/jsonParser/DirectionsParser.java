@@ -17,7 +17,7 @@ import java.util.List;
 public class DirectionsParser
 {
     /**
-     * Returns a list of lists containing latitude and longitude from a JSONObject
+     * @return  a list of lists containing latitude and longitude from a JSONObject
      */
     public List<List<HashMap<String, String>>> parse(JSONObject jObject)
     {

@@ -46,8 +46,13 @@ public class HomeActivity extends AppCompatActivity
     //After 1st boot and location permission granted the application will need to restart
     private boolean needToRestart = false ;
 
-    //Every 5sec you can get the user`s location
-    // TODO: 11/22/2018  !---USERS LOCATION---!
+
+
+    /**
+     * Every 5sec
+     *
+     * @return users location
+     */
     public LatLng getUsersLocation()
     {
         return usersLocation;
@@ -76,8 +81,14 @@ public class HomeActivity extends AppCompatActivity
 
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
+
         locationListener = new LocationListener()
         {
+
+            /**
+             * On first boot pops up a message when user is ready to pass into map fragment
+             * @param location
+             */
             @Override
             public void onLocationChanged(Location location)
             {
@@ -124,6 +135,7 @@ public class HomeActivity extends AppCompatActivity
         }
         locationManager.requestLocationUpdates("gps", gpsRefreshTime, 0, locationListener);
     }
+
 
     /**
     *A method that when it triggers display the main page if everything is ready.
@@ -231,6 +243,9 @@ public class HomeActivity extends AppCompatActivity
         }
     }
 
+    /**
+     * Asks users to grant Location Permission
+     */
     private void getLocationPermission()
     {
         String[] permissions = {Manifest.permission.ACCESS_FINE_LOCATION,

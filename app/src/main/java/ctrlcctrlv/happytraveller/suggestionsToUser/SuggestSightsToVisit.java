@@ -14,10 +14,21 @@ import ctrlcctrlv.happytraveller.model.PlaceData;
 public class SuggestSightsToVisit
 {
 
+    /**
+     * @return a list with places id`s
+     */
     public int[] getListOfPlacesIdsToSendOnList() {return listOfPlacesIdsToSendOnList;}
 
     private int [] listOfPlacesIdsToSendOnList = null;
 
+    /**
+     * This class gets users free time in order to suggest to him the best root in order to see more sights
+     * as possible that time.
+     *
+     * @see MultipleParseUrl
+     * @param usersFreeTime
+     * @return an array list with places that are gonna be seen by user as suggested places.
+     */
     public ArrayList<PlaceData> suggestRouteBasedOn(int usersFreeTime)
     {
         TabMapFragment.changePolylineColor = 0;

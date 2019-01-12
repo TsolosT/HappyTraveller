@@ -196,7 +196,17 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-
+    /**
+     * When user place his available time and press the icon :
+     * <ul>
+     *     <li>First is running an algorithm to check if the number is valid and if it isn`t user gets a error message</li>
+     *     <li>And if the number is valid it is sending user`s free time to SuggestSightsToVisit class in order to display the sights</li>
+     * </ul>
+     *
+     * @see SuggestSightsToVisit
+     * @see CheckIfNumberIsValidForTimePurpose
+     * @param view
+     */
     public void suggestPathButton(View view)
     {
         TextView textSearch = (TextView) findViewById(R.id.editText);
