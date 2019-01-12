@@ -23,18 +23,10 @@ import ctrlcctrlv.happytraveller.model.PlaceData;
 import static ctrlcctrlv.happytraveller.fragments.TabMapFragment.getPolylineState;
 import static ctrlcctrlv.happytraveller.fragments.TabMapFragment.mMap;
 
-/*
+/**
 *An List Item adapter that adapt the data from each place object to the UI.
 *An adapter class that display alla place data object in proper format on
-*ListView tab on UI.
-*
-*@param dataSet ArrayList<PlaceData> array that hold the place object data that will be displayed.
-*@param mContext See Context.
-*@param TabMapFragment
-*@param homeActivity
-*
-*@extend ArrayAdapter<PlaceData>
-*@implement View.OnClickListener
+*ListView tab on UI.Also extend ArrayAdapter<PlaceData> & implements View.OnClickListener.
 *
 *@see ArrayAdapter<PlaceData>
 *@see View.OnClickListener
@@ -50,14 +42,8 @@ public class ListItemAdapter extends ArrayAdapter<PlaceData> implements View.OnC
     Context mContext;
     protected HomeActivity homeActivity = new HomeActivity();
 
-    /*
+    /**
      *View lookup cache class
-     *
-     *@param txtName The object that will get the value of the place name to display.
-     *@param txtAddress The object that will get the value of the place address to display.
-     *@param imgView The object that will get the value of the place image to display.
-     *@param btn
-     *@param btnShowRoute
      *
      */
     private static class ViewHolder
@@ -70,7 +56,7 @@ public class ListItemAdapter extends ArrayAdapter<PlaceData> implements View.OnC
         //add more data var-components px : img info etc..
     }
 
-    /*
+    /**
     *The constructor that initialize the basic variables
     *And display the list_view.xml .
     *@param data An ArrayList<PlaceData> that will pass value to the dataSet.
@@ -107,9 +93,13 @@ public class ListItemAdapter extends ArrayAdapter<PlaceData> implements View.OnC
         TabMapFragment.getTabMap_instance().drawRouteOnMap(user_coordinates,selected_place_coordinates);
     }
 
-    /*
+    /**
     *The main method that will adapt the data to the list xml.
-    *@see View.getView
+     * It overrrides the View.getView() method , to adapt the data to the list and display it.
+     * @param position The position of each data item.
+     * @param convertView
+     * @param parent
+    *@see View
      */
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
