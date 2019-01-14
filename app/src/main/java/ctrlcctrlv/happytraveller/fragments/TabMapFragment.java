@@ -381,6 +381,7 @@ public class TabMapFragment extends Fragment implements OnMapReadyCallback
     }
 
 
+    /** This function displays pins on Map(nearest sights based on users location) when the sights button is pressed. */
     public static void showSightsWithPins()
     {
         TabListViewFragment tabListViewFragment = new TabListViewFragment();
@@ -405,6 +406,7 @@ public class TabMapFragment extends Fragment implements OnMapReadyCallback
         }
     }
 
+    /** function that creates a hashMap and stores all place's locations */
     public static void passCoordinatesFromPlaces()
     {
         TabListViewFragment tabListViewFragment = new TabListViewFragment();
@@ -426,9 +428,21 @@ public class TabMapFragment extends Fragment implements OnMapReadyCallback
         }
     }
 
+    /** getter function for tabMapInstance
+     *
+     * @return instance of tabMapFragment in order to use it in other fragments.
+     */
     public static TabMapFragment getTabMap_instance() { return tabMap_instance;}
 
+    /** getter function for mapCoordinates.
+     *
+     * @return a hashMap that contains each place location and we can access it by its key.
+     */
     public static HashMap<Integer,LatLng> getMapCoordinates() { return mapCoordinates;}
 
+    /** getter function for line's state(if it exists on map or not).
+     *
+     * @return the lines state
+     */
     public static Polyline getPolylineState() { return line;}
 }
