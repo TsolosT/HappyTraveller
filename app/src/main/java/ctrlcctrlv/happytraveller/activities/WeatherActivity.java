@@ -33,21 +33,33 @@ public class WeatherActivity extends AppCompatActivity
 {
 
     private Intent intent;
-    // j1=JSON for location of weather
+     /**
+      *j1 is JSON data for location of weather
+     */
     String j1 = null;
-    //j2=JSON for weather of that location
+     /**
+      *j2 is JSON data for weather of that location.
+     */
     String j2 = null;
 
-    //Key from the json of the location
-
+    /**
+      *key is JSON data for location key.
+     */
     String key;
+    /**
+      *weatherReport is the results for weather.
+     */
     TextView weatherReport;
+    /**
+      *checkWeather is the function that gets executed when you click the Refresh button that calls the JSON.
+     */
 
     public void checkWeather (View view)
     {
 
-        //parse for the JSON
-
+        /**
+        *parse for the JSON
+*/
 
         DownloadTask task = new DownloadTask();
         HomeActivity homeActivity = new HomeActivity();
@@ -69,6 +81,10 @@ public class WeatherActivity extends AppCompatActivity
         setContentView(R.layout.activity_weather);
         init();
     }
+    /**
+    *Class for parsing the JSON data and accessing
+    *@return JSON data
+    */
 
     public class DownloadTask extends AsyncTask<String, Void, String>
     {
@@ -101,6 +117,10 @@ public class WeatherActivity extends AppCompatActivity
                 return "FAILED";
             }
         }
+        /**
+        *Function parsing the JSON taking the key and making arrays for JSON for weather and objects for parts of weather JSON
+        *also puts the result on an editText
+        */
         @Override
         protected void onPostExecute(String j1)
         {
