@@ -23,7 +23,7 @@ import ctrlcctrlv.happytraveller.R;
 /**
  *<h2>This class,it's used for user log in </h2>
  *<p>This is the activity that control the log in task,also it's used to
- * display the activity_log_in.xml</p>
+ * display the activity_log_in.xml . Also extends AppCompatActivity.</p>
  *
  *
  *
@@ -98,7 +98,7 @@ public class LogInActivity  extends AppCompatActivity
      *
      * @see TextUtils
      * @see Toast
-     *
+     * @see
      */
     private void userLogIn() {
           final  String email = emailLogIn.getText().toString().trim();

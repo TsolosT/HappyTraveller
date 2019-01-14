@@ -42,6 +42,7 @@ import ctrlcctrlv.happytraveller.suggestionsToUser.SuggestSightsToVisit;
  *@see DrawerLayout
  *@see ActionBarDrawerToggle
  *@see NavigationView
+ *@see LogInActivity
  *
  *@since 5 Nov 2018
  *
@@ -138,7 +139,7 @@ public class MainActivity extends AppCompatActivity
     /**
      *<h2>A method that when the user logs in  , its shows his email .</h2>
      *
-     *
+     * @see TextView
      */
     public void setUserName(){
          TextView userView=(TextView) findViewById(R.id.userTextView);
@@ -158,7 +159,7 @@ public class MainActivity extends AppCompatActivity
 
     /**
      *<h2>A method that when it triggers display the weather page.</h2>
-     *<p></p>A public method  it navigates to the weather page.</p>
+     *<p>A public method  it navigates to the weather page.</p>
      *
      * @param item  MenuItem object
      * @throws Exception If something went wrong it printstack of the error and display a toast to the user.
@@ -267,7 +268,7 @@ public class MainActivity extends AppCompatActivity
     *<h2>Change checkbox on transport menu items.</h2>
     * <p>A public void method that  checks the trigger transport object if is checked
     * and uncheck all other and the opposite.</p>
-    * @MenuItem item
+    * @see MenuItem item
     * @see MenuItem
      */
     public void changeTransportCheckValue(MenuItem item)
@@ -424,7 +425,10 @@ public class MainActivity extends AppCompatActivity
      *<h2>A method that sets visible the logOut button.</h2>
      *<p>It changes the visibility of the button logOut </p>
      *
-     *
+     *@see NavigationView navView
+     *@see Toast
+     *@see View header
+     *@see Button btnlogOut
      */
     public void setVisible()
     {
@@ -440,9 +444,12 @@ public class MainActivity extends AppCompatActivity
      *<p>It check if the button logOut its pressed,
      *if it is pressed user logs out of the program and shows a message.</p>
      *
-     *
-     *
+     * @see TextView userView
+     * @see NavigationView navView
      * @see Toast
+     * @see View view
+     * @see Button btnlogOut
+     * @see FirebaseAuth
      */
     public void onClickLogOut(View view)
     {
