@@ -49,7 +49,7 @@ public class HomeActivity extends AppCompatActivity
 
 
     /**
-     * Every 5sec
+     * Every 5sec return user location
      *
      * @return users location
      */

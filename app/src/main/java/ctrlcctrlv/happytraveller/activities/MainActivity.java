@@ -44,6 +44,7 @@ import ctrlcctrlv.happytraveller.suggestionsToUser.SuggestSightsToVisit;
  *@see NavigationView
  *
  *@since 5 Nov 2018
+ *
  */
 public class MainActivity extends AppCompatActivity
 {
@@ -134,6 +135,11 @@ public class MainActivity extends AppCompatActivity
          return  super.onOptionsItemSelected(item);
     }
 
+    /**
+     *<h2>A method that when the user logs in  , its shows his email .</h2>
+     *
+     *
+     */
     public void setUserName(){
          TextView userView=(TextView) findViewById(R.id.userTextView);
 
@@ -414,7 +420,12 @@ public class MainActivity extends AppCompatActivity
         //display location
         txtViewLocation.setText(location);
     }
-    //wraio onoma
+    /**
+     *<h2>A method that sets visible the logOut button.</h2>
+     *<p>It changes the visibility of the button logOut </p>
+     *
+     *
+     */
     public void setVisible()
     {
         //get nav view then  header and then  textview
@@ -424,6 +435,15 @@ public class MainActivity extends AppCompatActivity
         btnLogOut.setVisibility(View.VISIBLE);
     }
 
+    /**
+     *<h2>This method is used to logOut the user .</h2>
+     *<p>It check if the button logOut its pressed,
+     *if it is pressed user logs out of the program and shows a message.</p>
+     *
+     *
+     *
+     * @see Toast
+     */
     public void onClickLogOut(View view)
     {
         TextView userView=(TextView) findViewById(R.id.userTextView);

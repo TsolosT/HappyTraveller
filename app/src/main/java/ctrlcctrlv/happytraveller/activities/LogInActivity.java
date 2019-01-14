@@ -20,11 +20,16 @@ import com.google.firebase.auth.FirebaseAuth;
 
 import ctrlcctrlv.happytraveller.R;
 
-/*
- * This is the activity that control the log in/out task,also it's used to
- * display the activity_log_in.xml
+/**
+ *<h2>This class,it's used for user log in </h2>
+ *<p>This is the activity that control the log in task,also it's used to
+ * display the activity_log_in.xml</p>
  *
- * */
+ *
+ *
+ *@see AppCompatActivity
+ *@see Intent
+ */
 public class LogInActivity  extends AppCompatActivity
 {
     //declare variables
@@ -47,6 +52,13 @@ public class LogInActivity  extends AppCompatActivity
 
     }
 
+    /**
+     * <h2>Initialize the variables that need to be used.</h2>
+     * <p>A public void method that initialize all the components that need to be used in this class.</p>
+     *
+     * @see FirebaseAuth firebaseAuth
+     * @see ProgressDialog
+     */
     public void init()
     {
         intent=getIntent();
@@ -58,6 +70,13 @@ public class LogInActivity  extends AppCompatActivity
 
     }
 
+    /**
+     *<h2>A method that when it triggers display the Log in page.</h2>
+     *<p>A public method  it navigates to the Log in  page.</p>
+     *
+     *@throws Exception If something went wrong it printstack of the error and display a toast to the user.
+     * @see Toast
+     */
     public void displaySignUp(View v)
     {
         Intent intent=new Intent(this,SignUpActivity.class);
@@ -72,21 +91,30 @@ public class LogInActivity  extends AppCompatActivity
         }
     }
 
-private void userLogIn() {
-      final  String email = emailLogIn.getText().toString().trim();
-  final String password = passwordLogIn.getText().toString().trim();
-    if (TextUtils.isEmpty(email)) {
+    /**
+     * <h2>A method that is used for the user LogIn <h2/>
+     * <p>This methods get user email and user password and checks at the base if the user is registered
+     * If user is successfully logged in it shows a message "You signed in successfully" , if not it shows a proper message<p/>
+     *
+     * @see TextUtils
+     * @see Toast
+     *
+     */
+    private void userLogIn() {
+          final  String email = emailLogIn.getText().toString().trim();
+    final String password = passwordLogIn.getText().toString().trim();
+         if (TextUtils.isEmpty(email)) {
         //email is empty
-        Toast.makeText(this, "Please enter email", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Please enter email", Toast.LENGTH_SHORT).show();
         //stopping the function executing further
         return;
-    }
-    if (TextUtils.isEmpty(password)) {
+         }
+        if (TextUtils.isEmpty(password)) {
         //password is empty
-        Toast.makeText(this, "Please enter password", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Please enter password", Toast.LENGTH_SHORT).show();
         //stopping the function executing further
         return;
-    }
+        }
 
     // function for sign in by email and password
     firebaseAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -110,16 +138,36 @@ private void userLogIn() {
 
     });
 }
+
+    /**
+     *<h2>This method is used to get the user password.</h2>
+     *
+     *
+     * @return userPassword
+     */
 public static String getUserPassword()
 {
     return userPassword;
 }
 
+    /**
+     *<h2>This method is used to get the user email.</h2>
+     *
+     *
+     * @return userUserEmail
+     *
+     */
 public static String getUserEmail()
 {
 
         return userEmail;
 }
+    /**
+     *<h2>A method used for user LogIn .</h2>
+     *<p>If the button LogIn is pressed user completes the LogIn</p>
+     *
+     * @see View
+     */
  public void onClickLogIn(View view)
  {
      if (view==btnLogIn)
