@@ -76,6 +76,7 @@ public class LogInActivity  extends AppCompatActivity
      *
      *@throws Exception If something went wrong it printstack of the error and display a toast to the user.
      * @see Toast
+     * @param v
      */
     public void displaySignUp(View v)
     {
@@ -167,6 +168,7 @@ public static String getUserEmail()
      *<p>If the button LogIn is pressed user completes the LogIn</p>
      *
      * @see View
+     * @param view
      */
  public void onClickLogIn(View view)
  {

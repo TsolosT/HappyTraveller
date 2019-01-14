@@ -73,8 +73,9 @@ public class SignUpActivity extends AppCompatActivity
      *<h2>A method that when it triggers display the SignUp page.</h2>
      *<p>A public method  it navigates to the SignUp page.</p>
      *
-     *
+     * @param v
      * @see Toast
+     * @throws Exception If something went wrong it printstack of the error and display a toast to the user.
      */
     public void displayLogInPage(View v){
         Intent intent=new Intent(this,LogInActivity.class);
@@ -147,6 +148,7 @@ public class SignUpActivity extends AppCompatActivity
      *<h2>A method used for user registration .</h2>
      *<p>If the button sign up is pressed user completes user registration</p>
      *
+     * @param view
      * @see View
      */
     public void onClickSignUp(View view)

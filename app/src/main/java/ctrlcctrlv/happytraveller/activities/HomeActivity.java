@@ -168,7 +168,7 @@ public class HomeActivity extends AppCompatActivity
      *<p>A public method  it navigates to the log in page.</p>
      *
      * @param v  View object
-     * @throws e If something went wrong it printstack of the error and display a toast to the user.
+     * @throws Exception If something went wrong it printstack of the error and display a toast to the user.
      * @see View
      * @see Toast
      */
@@ -190,7 +190,7 @@ public class HomeActivity extends AppCompatActivity
      *
      *
      * @param v  View object
-     * @throws e If something went wrong it printstack of the error and display a toast to the user.
+     * @throws Exception If something went wrong it printstack of the error and display a toast to the user.
      * @see View
      * @see Toast
      */
@@ -211,7 +211,7 @@ public class HomeActivity extends AppCompatActivity
      *A public method  it navigates to the info page.
      *
      * @param v  View object
-     * @throws e If something went wrong it printstack of the error and display a toast to the user.
+     * @throws Exception If something went wrong it printstack of the error and display a toast to the user.
      * @see View
      * @see Toast
      */
