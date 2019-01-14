@@ -450,6 +450,7 @@ public class MainActivity extends AppCompatActivity
      * @see View view
      * @see Button btnlogOut
      * @see FirebaseAuth
+     * @param view
      */
     public void onClickLogOut(View view)
     {
