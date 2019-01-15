@@ -249,8 +249,10 @@ public class TabListViewFragment extends Fragment
     }
 
 
-
-    //function to fetch the placeData into tabMapFragment
+    /** getter function to fetch the placeData which contains all information for all places
+     *
+     * @return placeData Object.
+     */
     public  ArrayList<PlaceData> getPlaceData() { return placeData;}
 
     /**
@@ -285,7 +287,7 @@ public class TabListViewFragment extends Fragment
 
     }
     /**
-    *A method thatexecutes the timer for refresh time.
+    *A method that executes the timer for refresh time.
      */
     public void runRefreshTimer()
     {
