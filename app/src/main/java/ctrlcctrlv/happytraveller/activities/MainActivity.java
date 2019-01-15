@@ -238,7 +238,10 @@ public class MainActivity extends AppCompatActivity
 
         textSearch.setText(null);
     }
-
+    /**
+     *<h2>A method that when it triggers display the weather page.</h2>
+     *<p>A public method  it navigates to the infos page.</p>
+     */
     public void  onClickInfos(View view)
     {
         //fetch placeDataArraylist

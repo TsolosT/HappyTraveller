@@ -11,7 +11,15 @@ import android.widget.TextView;
 import com.google.android.gms.maps.model.LatLng;
 import ctrlcctrlv.happytraveller.R;
 
-
+/**
+ *<h2>This class used for share activity Location / Link for download / Application Rate to media  </h2>
+ *<p> it's used to  display the activity_share.xml . Also extends AppCompatActivity.</p>
+ *
+ *
+ *
+ *@see AppCompatActivity
+ *@see Intent
+ */
 public class ShareActivity  extends AppCompatActivity
 {
     //UI variables
@@ -24,7 +32,11 @@ public class ShareActivity  extends AppCompatActivity
     private Intent intent2;
     //obj
     protected HomeActivity homeActivity;
-
+    /**
+     * <h2>Initialize the variables that need to be used.</h2>
+     * <p>A protected void method that initialize all the components that need to be used in this class.</p>
+     *
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -98,10 +110,15 @@ public class ShareActivity  extends AppCompatActivity
 
     }
 
-
+    /**
+     * <h2>Return the intent that started this activity for sharing App </h2>
+     */
     public void init() {
         intent = getIntent();
     }
+    /**
+     * <h2>Return the intent that started this activity for sharing location </h2>
+     */
     public void init2() {
         intent2 = getIntent();
     }
