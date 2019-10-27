@@ -7,8 +7,7 @@
 Subject : <br>
               <pre> For this work we had to make an application that we would propose to one
                tourist routes and attractions for a city to visit. </pre>
-# Demo
- * Coming soon...
+
 # Build with
 * Techologies had to use for this mobile application: JAVA,HTML,JS REST APIS  <br>
 * Also Testing with JUnit & Mockito
